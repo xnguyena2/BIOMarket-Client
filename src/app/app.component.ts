@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faShoppingCart, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'BIOMarket-client';
+  title = 'BIOMarket | Chuyên Bia Nhập Khẩu';
+  fashoppingcart = faShoppingCart;
+  faSearch = faSearch;
 }

@@ -1,0 +1,201 @@
+$breakpoint-tablet: 850px;
+
+@mixin allProductHover() {
+  visibility: visible;
+  transform: translateY(-0.5rem);
+  opacity: 1;
+}
+
+header {
+  height: 5.8rem;
+  box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+  background-color: yellow;
+  .navbar {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem 1rem 2rem;
+    background-color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    height: 5.8rem;
+    min-width: 32rem;
+
+    .logo {
+      img {
+        height: 4rem;
+      }
+    }
+    .search {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .search-anchor {
+        position: relative;
+        width: 50rem;
+        .wrap-search {
+          top: 0;
+          left: 0;
+          width: 100%;
+          text-align: center;
+          position: absolute;
+          border-radius: 1rem;
+          border: 0.05rem solid rgba(0, 0, 0, 0.233);
+          padding: 0.5rem 0.5rem 0.5rem 0;
+          background-color: white;
+          transform: translateY(-50%);
+          &:hover {
+            box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.233);
+          }
+          &:active {
+            height: 50rem;
+            transform: translateY(-1.75rem);
+            box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.233);
+          }
+          .search-icon-size {
+            font-size: 2rem;
+            font-weight: 100;
+            position: absolute;
+            right: 1.5rem;
+            top: 0;
+          }
+          .search-input {
+            position: relative;
+            margin-left: -4rem;
+            font-size: 1.4rem;
+            border: none;
+            outline: none;
+            padding: 0.1rem;
+            width: 85%;
+          }
+        }
+        .search-icon-reponsive {
+          visibility: hidden;
+          font-size: 2rem;
+          font-weight: 100;
+          position: absolute;
+          right: 1.5rem;
+          top: 0;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    nav {
+      text-align: right;
+      margin-right: 5rem;
+
+      ul {
+        display: inline-block;
+        list-style-type: none;
+        margin-bottom: 0;
+
+        li {
+          display: inline-block;
+          a {
+            text-decoration: none;
+            color: #555555;
+            font-weight: 500;
+          }
+          .hover-menu-container {
+            display: block;
+            position: absolute;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s linear, transform 0.3s linear;
+            &:hover {
+              @include allProductHover();
+            }
+            .hover-menu {
+              margin: 1.5rem 0 0 -1rem;
+              text-align: left;
+              background-color: white;
+              transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+              border: 0;
+              border-radius: 0.3rem;
+              box-shadow: 0 0 5px rgba(238, 238, 238, 0.418);
+              li {
+                display: block;
+                width: 20rem;
+                margin: 0;
+                padding: 1rem 1rem 1rem 1.5em;
+              }
+              li:hover {
+                background-color: rgb(238, 238, 238);
+                border-radius: 0.3rem;
+                a {
+                  color: #288ad6;
+                }
+              }
+            }
+          }
+        }
+        .li-products {
+          position: relative;
+          font-size: 1.4rem;
+          &:hover {
+            .hover-menu-container {
+              @include allProductHover();
+            }
+          }
+        }
+      }
+    }
+
+    .shop-package {
+      margin-right: 5rem;
+      position: relative;
+
+      .shop-cart-size {
+        font-size: 2rem;
+      }
+      span {
+        border-radius: 50%;
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 1rem;
+        text-align: center;
+        line-height: 1.5rem;
+        background-color: red;
+        position: absolute;
+        color: white;
+        left: 1.2rem;
+        top: -0.5rem;
+      }
+    }
+
+    @media only screen and (max-width: $breakpoint-tablet) {
+      .search {
+        .search-anchor {
+          width: 100%;
+          .wrap-search {
+            visibility: hidden;
+          }
+          .search-icon-reponsive {
+            visibility: visible;
+          }
+        }
+      }
+      nav {
+        ul {
+          li {
+            .hover-menu-container {
+              .hover-menu {
+                margin: 1.5rem 0 0 -10rem;
+              }
+            }
+          }
+        }
+      }
+      .shop-package {
+        margin-right: 1rem;
+      }
+    }
+  }
+}
+
+main{
+  margin: auto;
+  max-width: 192rem;
+}

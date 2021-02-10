@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,500,600,700&display=swap&subset=vietnamese');
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+ height: 100vn;
+ width: 100%;
+ min-width: 32rem;
+ font-size: 62.5%;
+}
+body { margin: 0; font-family: Roboto Slab, "Helvetica Neue", sans-serif; }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AppConfig } from '../config/AppConfig';
+
+import { APIService } from '../services/api.service'
 
 @Component({
   selector: 'app-home',
@@ -7,13 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  hostUrl = AppConfig.HostUrl;
 
-  constructor() { }
+  images: string[] = [];
+
+  constructor(private API: APIService) { }
 
   ngOnInit(): void {
-    console.log("hello");
-
+    this.API.LoadBootStrap(result => {
+      this.images = result.carousel;
+    });
   }
 
 }

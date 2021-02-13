@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppConfig } from '../config/AppConfig';
 
-import { APIService } from '../services/api.service'
+import { APIService } from '../services/api.service';
+import {AppService} from '../services/app.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ export class HomeComponent implements OnInit {
 
   images: string[] = [];
 
-  constructor(private API: APIService) { }
+  constructor(private API: APIService,
+    public AppService: AppService) { }
 
   ngOnInit(): void {
     this.API.LoadBootStrap(result => {

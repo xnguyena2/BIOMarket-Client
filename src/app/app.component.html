@@ -8,6 +8,11 @@
         <form class="wrap-search">
           <input type="text" class="search-input">
           <fa-icon class="search-icon-size" [icon]="faSearch"></fa-icon>
+          <div class="search-result">
+            <a class="quck-search" href="/nhapngoai" routerLink="/nhapngoai" (click)="click()">Oranjeboom</a>
+            <a class="quck-search" href="#">Tiger</a>
+            <a class="quck-search" href="#">Coca-cola</a>
+          </div>
         </form>
         <fa-icon class="search-icon-reponsive" [icon]="faSearch"></fa-icon>
       </div>
@@ -15,10 +20,10 @@
     <nav>
       <ul>
         <li class="li-products">
-          <a href="#">Sản Phẩm</a>
-          <div class="hover-menu-container">
+          <a href="#" class="product-hover">Sản Phẩm</a>
+          <div [ngClass]="hoverMenuClass" class="hover-menu-container">
             <ul class="hover-menu">
-              <li><a href="#"><span>Đồ Uống Nhập Ngoại</span></a></li>
+              <li><a (click)="click()"><span>Đồ Uống Nhập Ngoại</span></a></li>
               <li><a href="#"><span>Nước Lọc</span></a></li>
               <li><a href="#"><span>Đồ Uống Có Cồn</span></a></li>
               <li><a href="#"><span>Trending</span></a></li>
@@ -36,3 +41,6 @@
 <main>
   <router-outlet></router-outlet>
 </main>
+<footer>
+
+</footer>

@@ -6,6 +6,10 @@ $breakpoint-tablet: 850px;
   opacity: 1;
 }
 
+.hide-element{
+  display: none !important;
+}
+
 header {
   height: 5.8rem;
   box-shadow: 0 0 10px rgb(0 0 0 / 10%);
@@ -34,6 +38,7 @@ header {
       .search-anchor {
         position: relative;
         width: 50rem;
+        transform: translateY(-1.75rem);
         .wrap-search {
           top: 0;
           left: 0;
@@ -44,13 +49,7 @@ header {
           border: 0.05rem solid rgba(0, 0, 0, 0.233);
           padding: 0.5rem 0.5rem 0.5rem 0;
           background-color: white;
-          transform: translateY(-50%);
           &:hover {
-            box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.233);
-          }
-          &:active {
-            height: 50rem;
-            transform: translateY(-1.75rem);
             box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.233);
           }
           .search-icon-size {
@@ -68,6 +67,25 @@ header {
             outline: none;
             padding: 0.1rem;
             width: 85%;
+            &:focus ~ .search-result{
+              display: block;
+            }
+          }
+          .search-result{
+            padding: 1rem;
+            display: none;
+            &:active{
+              display: block;
+            }
+            a{
+              font-size: 1.3rem;
+              text-decoration: none;
+              padding: 0.5rem;
+              background-color: rgb(109, 55, 55);
+              color: white;
+              border-radius: 1rem;
+              cursor: pointer;
+            }
           }
         }
         .search-icon-reponsive {
@@ -97,6 +115,19 @@ header {
             text-decoration: none;
             color: #555555;
             font-weight: 500;
+          }
+          .product-hover{
+            &::after{
+              content: '';
+              border-top: 0.5rem solid #555555;
+              border-left: 0.3rem solid transparent;
+              border-right: 0.3rem solid transparent;
+              position: absolute;
+              width: 0;
+              height: 0;
+              top: 45%;
+              right: -1rem;
+            }
           }
           .hover-menu-container {
             display: block;
@@ -134,7 +165,8 @@ header {
         .li-products {
           position: relative;
           font-size: 1.4rem;
-          &:hover {
+          &:hover,
+          &:focus-within {
             .hover-menu-container {
               @include allProductHover();
             }

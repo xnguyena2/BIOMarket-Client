@@ -1,7 +1,7 @@
 <ngb-carousel *ngIf="images" [pauseOnFocus]="true" [pauseOnHover]="true">
   <ng-template ngbSlide  *ngFor="let img of images;">
     <div class="picsum-img-wrapper img-aspect-ratio">
-      <img [src]="hostUrl+'image/'+img" class="carousel-full-width">
+      <img [src]="hostUrl+'image/'+img" class="carousel-full-width" (click)="AppService.hideMenu()">
     </div>
   </ng-template>
 </ngb-carousel>

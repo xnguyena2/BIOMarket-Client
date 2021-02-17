@@ -30,6 +30,7 @@ export interface BeerDetail {
   name: string;
   detail: string;
   category: string;
+  images: string[];
 
   listUnit: BeerUnit[];
 }

@@ -1,6 +1,8 @@
 import { Component,ViewChild,ElementRef } from '@angular/core';
 
-import { faShoppingCart, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { SearchQuery } from './object/SearchQuery';
+import { APIService } from './services/api.service';
 
 import {AppService} from './services/app.service';
 @Component({
@@ -12,15 +14,29 @@ export class AppComponent {
   title = 'BIOMarket | Chuyên Bia Nhập Khẩu';
   fashoppingcart = faShoppingCart;
   faSearch = faSearch;
+  faClose = faTimes;
 
-  hoverMenuClass:string[]=["hover-menu-container"];
+  hoverMenuClass:string[]=[""];
 
-  constructor(private AppService: AppService){
-    this.AppService.registerHideProductMenu(this.click);
+  listResult:string[] = ['1', '2', '3'];
+
+  constructor(private AppService: AppService,
+    private APIService:APIService){
+    this.AppService.registerHideProductMenu(this.hideProductMenu);
   }
 
-  click(){
-    console.log("hello");
+  onSearchEnter(value: string) {
+    console.log(value);
+    this.APIService.SearchBeer(new SearchQuery(value, 0, 10), result =>{
+
+    });
+  }
+
+  onSearch(value: string) {
+    //console.log(value);
+  }
+
+  hideProductMenu(){
     this.hoverMenuClass.push('hide-element')
     setTimeout(() => {
       const index = this.hoverMenuClass.indexOf('hide-element', 0);

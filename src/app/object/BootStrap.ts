@@ -13,6 +13,7 @@ export class BootStrap {
         "name": "beer tiger",
         "detail": "?ây là beer tiger có n?n ?? c?n cao nên chú ý khi s? d?ng:\n- bia th?m ngon\n- bia nh?p ngo?i\n- bia s?n xu?t t? hà lan",
         "category": "alcohol_drinks",
+        "images": [],
         "listUnit": [
           {
             "beer": "456",
@@ -49,6 +50,7 @@ export class BootStrap {
         "name": "beer tiger",
         "detail": '',
         "category": "alcohol_drinks",
+        "images": [],
         "listUnit": [
           {
             "beer": "123",

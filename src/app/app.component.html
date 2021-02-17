@@ -5,15 +5,22 @@
     </div>
     <div class="search">
       <div class="search-anchor">
-        <form class="wrap-search">
-          <input type="text" class="search-input">
+        <div class="wrap-search">
+          <input type="text" #searchText (keyup.enter)="onSearchEnter(searchText.value)" (keyup)="onSearch(searchText.value)" class="search-input">
+          <fa-icon *ngIf="searchText.value!=''" class="search-icon-size close-icon" [icon]="faClose" (click)="searchText.value=''" ></fa-icon>
           <fa-icon class="search-icon-size" [icon]="faSearch"></fa-icon>
           <div class="search-result">
-            <a class="quck-search" href="/nhapngoai" routerLink="/nhapngoai" (click)="click()">Oranjeboom</a>
-            <a class="quck-search" href="#">Tiger</a>
-            <a class="quck-search" href="#">Coca-cola</a>
+            <div class="divier"></div>
+            <div class="quicksearch-container">
+              <a class="quick-search" href="/nhapngoai" routerLink="/nhapngoai">Oranjeboom</a>
+              <a class="quick-search" href="#">Tiger</a>
+              <a class="quick-search" href="#">Coca-cola</a>
+            </div>
+            <ul class="list-result">
+              <li *ngFor="let item of listResult;" class="result" [routerLink]="['/testtttttt']" routerLinkActive="router-link-active" >test result</li>
+            </ul>
           </div>
-        </form>
+        </div>
         <fa-icon class="search-icon-reponsive" [icon]="faSearch"></fa-icon>
       </div>
     </div>
@@ -23,7 +30,7 @@
           <a href="#" class="product-hover">Sản Phẩm</a>
           <div [ngClass]="hoverMenuClass" class="hover-menu-container">
             <ul class="hover-menu">
-              <li><a (click)="click()"><span>Đồ Uống Nhập Ngoại</span></a></li>
+              <li><a [routerLink]="['/']" routerLinkActive="router-link-active"  (click)="hideProductMenu()"><span>Đồ Uống Nhập Ngoại</span></a></li>
               <li><a href="#"><span>Nước Lọc</span></a></li>
               <li><a href="#"><span>Đồ Uống Có Cồn</span></a></li>
               <li><a href="#"><span>Trending</span></a></li>

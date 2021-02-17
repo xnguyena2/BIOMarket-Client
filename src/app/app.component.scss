@@ -38,7 +38,7 @@ header {
       .search-anchor {
         position: relative;
         width: 50rem;
-        transform: translateY(-1.75rem);
+        transform: translateY(-1.8rem);
         .wrap-search {
           top: 0;
           left: 0;
@@ -47,44 +47,87 @@ header {
           position: absolute;
           border-radius: 1rem;
           border: 0.05rem solid rgba(0, 0, 0, 0.233);
-          padding: 0.5rem 0.5rem 0.5rem 0;
+          padding: 0.2rem 0.5rem 0.2rem 0;
           background-color: white;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+
           &:hover {
             box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.233);
           }
           .search-icon-size {
             font-size: 2rem;
             font-weight: 100;
-            position: absolute;
-            right: 1.5rem;
-            top: 0;
+            cursor: pointer;
+          }
+          .close-icon{
+            font-size: 1.5rem;
+            margin-right: 2rem;
+            position: relative;
+            &::after{
+              content: '';
+              position: absolute;
+              border-right: 0.1rem solid #d3d3d3;
+              height: 2.6rem;
+              right: -1rem;
+              transform: translateY(-50%);
+              top: 50%;
+            }
           }
           .search-input {
             position: relative;
-            margin-left: -4rem;
+            margin-left: 2rem;
             font-size: 1.4rem;
             border: none;
             outline: none;
             padding: 0.1rem;
             width: 85%;
+            flex-grow: 2;
+            &:focus{
+              width: 80%;
+            }
             &:focus ~ .search-result{
               display: block;
             }
           }
+
           .search-result{
             padding: 1rem;
+            flex-basis: 100%;
             display: none;
             &:active{
               display: block;
             }
-            a{
-              font-size: 1.3rem;
-              text-decoration: none;
-              padding: 0.5rem;
-              background-color: rgb(109, 55, 55);
-              color: white;
-              border-radius: 1rem;
-              cursor: pointer;
+            .divier{
+              width: 95%;
+              margin: auto;
+              border-top: 1px solid rgb(209, 209, 209);
+            }
+            .quicksearch-container{
+              margin-top: 0.5rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              a{
+                margin: 0px 0.5rem 0px;
+                flex-basis: 20%;
+                font-size: 1.3rem;
+                text-decoration: none;
+                padding: 0.5rem;
+                background-color: rgb(235, 235, 235);
+                color: rgb(54, 54, 54);
+                border-radius: .3rem;
+                display: inline-block;
+                cursor: pointer;
+              }
+            }
+            .list-result{
+              li{
+                list-style-type: none;
+                font-size: 2rem;
+              }
             }
           }
         }

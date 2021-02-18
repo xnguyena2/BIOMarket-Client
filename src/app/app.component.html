@@ -7,7 +7,7 @@
       <div class="search-anchor">
         <div class="wrap-search" [style.visibility]="visibilitySearchBar">
           <input type="text" #searchText (keyup.enter)="onSearchEnter(searchText.value)" (keyup)="onSearch(searchText.value)" class="search-input">
-          <fa-icon *ngIf="isMobileMode||searchText.value!=''" class="search-icon-size close-icon" [icon]="faClose" (click)="searchText.value=''; listResult=[];visibilitySearchBar='hidden';" ></fa-icon>
+          <fa-icon *ngIf="isMobileMode||searchText.value!=''" class="search-icon-size close-icon" [icon]="faClose" (click)="searchText.value=''; clearSearchText();" ></fa-icon>
           <fa-icon class="search-icon-size" [icon]="faSearch"></fa-icon>
           <div class="search-result">
             <div *ngIf="!listResult||listResult.length==0" class="divier"></div>

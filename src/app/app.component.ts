@@ -66,4 +66,11 @@ export class AppComponent {
     this.isMobileMode = true;
     this.visibilitySearchBar = 'visible';
   }
+
+  clearSearchText(){
+    this.listResult=[];
+    if(this.isMobileMode){
+      this.visibilitySearchBar='hidden';
+    }
+  }
 }

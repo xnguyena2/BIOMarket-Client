@@ -8,6 +8,7 @@ import { SearchResult } from '../object/SearchResult'
 
 import { RequestService } from './request.service';
 import { SearchQuery } from '../object/SearchQuery';
+import { removeVietnameseTones } from '../config/Utils';
 
 @Injectable({
   providedIn: 'root'
@@ -39,13 +40,13 @@ export class APIService {
   }
 
   public SearchBeer(searchQuery: SearchQuery, cb: (result: SearchResult) => void) {
+    searchQuery.query = removeVietnameseTones(searchQuery.query);
     if(!isDevMode()){
-      cb(new SearchResult());
+      cb(SearchResult.TestData);
     }else {
       this.requestServices.post(`${this.HostURL}beer/search`, searchQuery).subscribe(
         event => {
           if (event instanceof HttpResponse) {
-            console.log(searchQuery.query);
             console.log(event.body);
             cb(event.body);
           }

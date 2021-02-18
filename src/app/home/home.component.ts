@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppConfig } from '../config/AppConfig';
 
 import { APIService } from '../services/api.service';
-import {AppService} from '../services/app.service';
+import { AppService } from '../services/app.service';
 
 @Component({
   selector: 'app-home',
@@ -20,8 +20,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.API.LoadBootStrap(result => {
-      this.images = result.carousel;
+      if (result) {
+        this.images = result.carousel;
+      }
     });
   }
-
 }

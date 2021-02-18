@@ -5,25 +5,33 @@
     </div>
     <div class="search">
       <div class="search-anchor">
-        <div class="wrap-search">
+        <div class="wrap-search" [style.visibility]="visibilitySearchBar">
           <input type="text" #searchText (keyup.enter)="onSearchEnter(searchText.value)" (keyup)="onSearch(searchText.value)" class="search-input">
-          <fa-icon *ngIf="searchText.value!=''" class="search-icon-size close-icon" [icon]="faClose" (click)="searchText.value=''" ></fa-icon>
+          <fa-icon *ngIf="isMobileMode||searchText.value!=''" class="search-icon-size close-icon" [icon]="faClose" (click)="searchText.value=''; listResult=[];visibilitySearchBar='hidden';" ></fa-icon>
           <fa-icon class="search-icon-size" [icon]="faSearch"></fa-icon>
           <div class="search-result">
-            <div class="divier"></div>
-            <div class="quicksearch-container">
+            <div *ngIf="!listResult||listResult.length==0" class="divier"></div>
+            <div *ngIf="!listResult||listResult.length==0" class="quicksearch-container">
               <a class="quick-search" href="/nhapngoai" routerLink="/nhapngoai">Oranjeboom</a>
               <a class="quick-search" href="#">Tiger</a>
               <a class="quick-search" href="#">Coca-cola</a>
             </div>
             <ul class="list-result">
-              <li *ngFor="let item of listResult;" class="result" [routerLink]="['/testtttttt']" routerLinkActive="router-link-active" >test result</li>
+              <li *ngFor="let item of listResult;" class="result" [routerLink]="['/detail']" routerLinkActive="router-link-active" >
+                <a href="">
+                  <img [src]="item.images&&item.images.length>0?hostUrl+'image/thumbnail/'+item.images[3]:''" alt="" class="thumbnail">
+                  <div class="result-detail">
+                    <h4>{{item.name}}</h4>
+                    <span>{{item.detail}}</span>
+                  </div>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
-        <fa-icon class="search-icon-reponsive" [icon]="faSearch"></fa-icon>
       </div>
     </div>
+    <fa-icon class="search-icon-reponsive" [icon]="faSearch" (click)="mobileShowSearch()"></fa-icon>
     <nav>
       <ul>
         <li class="li-products">

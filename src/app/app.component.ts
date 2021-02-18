@@ -1,10 +1,13 @@
-import { Component,ViewChild,ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { faShoppingCart, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { AppConfig } from './config/AppConfig';
+import { BeerDetail } from './object/BeerDetail';
 import { SearchQuery } from './object/SearchQuery';
 import { APIService } from './services/api.service';
 
 import {AppService} from './services/app.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,10 +18,15 @@ export class AppComponent {
   fashoppingcart = faShoppingCart;
   faSearch = faSearch;
   faClose = faTimes;
+  hostUrl = AppConfig.HostUrl;
+
+  visibilitySearchBar:string='';
+
+  isMobileMode = false;
 
   hoverMenuClass:string[]=[""];
 
-  listResult:string[] = ['1', '2', '3'];
+  listResult:BeerDetail[] = [];
 
   constructor(private AppService: AppService,
     private APIService:APIService){
@@ -26,14 +34,20 @@ export class AppComponent {
   }
 
   onSearchEnter(value: string) {
-    console.log(value);
-    this.APIService.SearchBeer(new SearchQuery(value, 0, 10), result =>{
-
-    });
   }
 
   onSearch(value: string) {
-    //console.log(value);
+    if(value == ''){
+      if(this.listResult!=[]){
+        this.listResult = [];
+      }
+    }else{
+      this.APIService.SearchBeer(new SearchQuery(value, 0, 10), result =>{
+        if(result){
+          this.listResult = result.result;
+        }
+      });
+    }
   }
 
   hideProductMenu(){
@@ -44,5 +58,12 @@ export class AppComponent {
         this.hoverMenuClass.splice(index, 1);
      }
     }, 300);
+  }
+
+  mobileShowSearch(){
+    console.log("show click");
+
+    this.isMobileMode = true;
+    this.visibilitySearchBar = 'visible';
   }
 }

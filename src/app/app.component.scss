@@ -23,7 +23,6 @@ header {
     width: 100%;
     z-index: 9999;
     height: 5.8rem;
-    min-width: 32rem;
 
     .logo {
       img {
@@ -83,7 +82,6 @@ header {
             border: none;
             outline: none;
             padding: 0.1rem;
-            width: 80%;
             flex-grow: 2;
             &:focus ~ .search-result {
               display: block;

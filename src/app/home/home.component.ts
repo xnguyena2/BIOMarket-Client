@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppConfig } from '../config/AppConfig';
+import { BeerDetail } from '../object/BeerDetail';
 
 import { APIService } from '../services/api.service';
 import { AppService } from '../services/app.service';
@@ -11,6 +12,7 @@ import { AppService } from '../services/app.service';
 })
 export class HomeComponent implements OnInit {
 
+  listProduct: BeerDetail[] = [];
   hostUrl = AppConfig.HostUrl;
 
   images: string[] = [];
@@ -22,6 +24,7 @@ export class HomeComponent implements OnInit {
     this.API.LoadBootStrap(result => {
       if (result) {
         this.images = result.carousel;
+        this.listProduct = result.products;
       }
     });
   }

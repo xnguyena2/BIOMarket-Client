@@ -19,7 +19,7 @@
             <ul class="list-result">
               <li *ngFor="let item of listResult;" class="result" [routerLink]="['/detail']" routerLinkActive="router-link-active" >
                 <a href="">
-                  <img [src]="item.images&&item.images.length>0?hostUrl+'image/thumbnail/'+item.images[3]:''" alt="" class="thumbnail">
+                  <img [src]="item.images&&item.images.length>0?hostUrl+'image/thumbnail/'+item.images[0]:''" alt="" class="thumbnail">
                   <div class="result-detail">
                     <h4>{{item.name}}</h4>
                     <span>{{item.detail}}</span>

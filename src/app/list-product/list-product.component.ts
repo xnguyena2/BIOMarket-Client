@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AppConfig } from '../config/AppConfig';
+import { BeerDetail } from '../object/BeerDetail';
 
 @Component({
   selector: 'app-list-product',
@@ -6,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-product.component.scss']
 })
 export class ListProductComponent implements OnInit {
+
+hostUrl:string = AppConfig.HostUrl;
+
+  @Input() listProduct:BeerDetail[] = [];
 
   constructor() { }
 

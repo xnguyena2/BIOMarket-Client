@@ -1,29 +1,18 @@
 $breakpoint-tablet: 850px;
 
-@mixin allProductHover() {
-  visibility: visible;
-  transform: translateY(-0.5rem);
-  opacity: 1;
-}
-
-.hide-element {
-  display: none !important;
-}
-
 header {
   height: 5.8rem;
-  box-shadow: 0 0 10px rgb(0 0 0 / 10%);
   background-color: yellow;
   .navbar {
     display: flex;
     align-items: center;
     padding: 1rem 2rem 1rem 2rem;
     background-color: white;
-    position: fixed;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
     width: 100%;
-    z-index: 9999;
     height: 5.8rem;
-
+    position: fixed;
+    z-index: 9999;
     .logo {
       img {
         height: 4rem;
@@ -204,9 +193,7 @@ header {
             visibility: hidden;
             opacity: 0;
             transition: opacity 0.3s linear, transform 0.3s linear;
-            &:hover {
-              @include allProductHover();
-            }
+
             .hover-menu {
               margin: 1.5rem 0 0 -1rem;
               text-align: left;
@@ -214,7 +201,7 @@ header {
               transition: cubic-bezier(0.075, 0.82, 0.165, 1);
               border: 0;
               border-radius: 0.3rem;
-              box-shadow: 0 0 5px rgba(238, 238, 238, 0.418);
+              box-shadow: 0 0 5px rgba(214, 214, 214, 0.418);
               li {
                 display: block;
                 width: 20rem;
@@ -237,7 +224,9 @@ header {
           &:hover,
           &:focus-within {
             .hover-menu-container {
-              @include allProductHover();
+              visibility: visible;
+              transform: translateY(-0.5rem);
+              opacity: 1;
             }
           }
         }

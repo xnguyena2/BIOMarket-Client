@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
 
 import { faShoppingCart, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AppConfig } from './config/AppConfig';
@@ -19,6 +20,8 @@ export class AppComponent {
   faSearch = faSearch;
   faClose = faTimes;
   hostUrl = AppConfig.HostUrl;
+  faFacebook = faFacebookSquare;
+  faInstagram = faInstagramSquare;
 
   visibilitySearchBar: string = '';
 

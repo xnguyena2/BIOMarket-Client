@@ -6,7 +6,7 @@
         <div class="wrap-aspectratio">
           <img [src]="item.images&&item.images.length>0?hostUrl+'image/preview/'+item.images[0]:''" alt="" class="product-preview">
         </div>
-        <h3 class="product-title">{{item.name+"dddddddddddddddddddddddddddddddddddddd ddddddddddddddd"}}</h3>
+        <h3 class="product-title">{{item.name}}</h3>
         <ins class="product-price">{{item.listUnit[0].price*(100-item.listUnit[0].discount)/100}}</ins>
         <span *ngIf="item.listUnit[0].discount" class="product-discount">{{item.listUnit[0].discount}}</span>
       </a>

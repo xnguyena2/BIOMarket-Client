@@ -6,10 +6,12 @@
     <div class="search">
       <div class="search-anchor">
         <div class="wrap-search" [style.visibility]="visibilitySearchBar">
-          <input type="text" #searchText (keyup.enter)="onSearchEnter(searchText.value)" (keyup)="onSearch(searchText.value)" class="search-input">
-          <fa-icon *ngIf="isMobileMode||searchText.value!=''" class="search-icon-size close-icon" [icon]="faClose" (click)="searchText.value=''; clearSearchText();" ></fa-icon>
-          <fa-icon class="search-icon-size" [icon]="faSearch"></fa-icon>
-          <div class="search-result">
+          <input type="text" #searchText (keyup.enter)="onSearchEnter(searchText.value)"
+            (keyup)="onSearch(searchText.value)" class="search-input">
+          <fa-icon *ngIf="isMobileMode||searchText.value!=''" class="search-icon-size close-icon" [icon]="faClose"
+            (click)="clearSearchText();"></fa-icon>
+          <fa-icon class="search-icon-size" [icon]="faSearch" (click)="onSearchEnter(searchText.value)"></fa-icon>
+          <div class="search-result search-result-active">
             <div *ngIf="!listResult||listResult.length==0" class="divier"></div>
             <div *ngIf="!listResult||listResult.length==0" class="quicksearch-container">
               <a class="quick-search" href="/nhapngoai" routerLink="/nhapngoai">Oranjeboom</a>
@@ -17,9 +19,11 @@
               <a class="quick-search" href="#">Coca-cola</a>
             </div>
             <ul class="list-result">
-              <li *ngFor="let item of listResult;" class="result" [routerLink]="['/detail']" routerLinkActive="router-link-active" >
+              <li *ngFor="let item of listResult;" class="result" [routerLink]="['/detail']"
+                routerLinkActive="router-link-active">
                 <a href="">
-                  <img [src]="item.images&&item.images.length>0?hostUrl+'image/thumbnail/'+item.images[0]:''" alt="" class="thumbnail">
+                  <img [src]="item.images&&item.images.length>0?hostUrl+'image/thumbnail/'+item.images[0]:''" alt=""
+                    class="thumbnail">
                   <div class="result-detail">
                     <h4>{{item.name}}</h4>
                     <span>{{item.detail}}</span>
@@ -31,14 +35,15 @@
         </div>
       </div>
     </div>
-    <fa-icon class="search-icon-reponsive" [icon]="faSearch" (click)="mobileShowSearch()"></fa-icon>
+    <fa-icon class="search-icon-reponsive" [icon]="faSearch" (click)="mobileShowSearch();"></fa-icon>
     <nav>
       <ul>
-        <li class="li-products">
+        <li class="li-products li-products-hover">
           <a href="#" class="product-hover">Sản Phẩm</a>
           <div class="hover-menu-container">
             <ul class="hover-menu">
-              <li><a href="/hello" routerLinkActive="router-link-active"><span>Đồ Uống Nhập Ngoại</span></a></li>
+              <li><a routerLinkActive="router-link-active" (click)="focusSearchInput()"><span>Đồ Uống Nhập
+                    Ngoại</span></a></li>
               <li><a href="#"><span>Nước Lọc</span></a></li>
               <li><a href="#"><span>Đồ Uống Có Cồn</span></a></li>
               <li><a href="#"><span>Trending</span></a></li>
@@ -59,9 +64,10 @@
 <footer>
   <div class="footer-container">
     <div class="footer-col2">
+      <input id="lienceCB" type="checkbox" class="hold-state" checked>
       <section class="footer-section-container">
-        <h2 class="footer-section-title">CHÍNH SÁCH</h2>
-        <ul class="footer-list-contaienr">
+        <h2 class="footer-section-title">CHÍNH SÁCH<label for="lienceCB"></label></h2>
+        <ul class="footer-list-container">
           <li>Mua Hàng</li>
           <li>Đổi Trả</li>
           <li>Bảo Mật</li>
@@ -70,18 +76,25 @@
       </section>
     </div>
     <div class="footer-col2">
+      <input id="lienceCT" type="checkbox" class="hold-state" checked>
       <section class="footer-section-container">
-        <h2 class="footer-section-title">THÔNG TIN LIÊN HỆ</h2>
-        <ul class="footer-list-contaienr">
+        <h2 class="footer-section-title">THÔNG TIN LIÊN HỆ<label for="lienceCT"></label></h2>
+        <ul class="footer-list-container">
           <li>SĐT: 0123456789</li>
           <li>Địa Chỉ: 123 Lý Thường Kiệt, Quận 10, Thành Phố Hồ Chí Minh</li>
-          <li><a href=""><fa-icon class="icon-size" [icon]="faFacebook"></fa-icon></a><a href=""><fa-icon class="icon-size" [icon]="faInstagram"></fa-icon></a></li>
+          <li><a href="">
+              <fa-icon class="icon-size" [icon]="faFacebook"></fa-icon>
+            </a><a href="">
+              <fa-icon class="icon-size" [icon]="faInstagram"></fa-icon>
+            </a></li>
           <li></li>
         </ul>
       </section>
     </div>
   </div>
 </footer>
+<input type="text" #resetFocus style="position: fixed; top: -1000rem;left: -1000rem;">
+<div class="over" (click)="clearSearchText();" #over></div>
 <div class="add-shop-package-popup">
 
 </div>

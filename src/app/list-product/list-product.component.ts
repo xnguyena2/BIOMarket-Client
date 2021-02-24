@@ -13,6 +13,8 @@ hostUrl:string = AppConfig.HostUrl;
 
   @Input() listProduct:BeerDetail[] = [];
 
+  @Input() searchMode:boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {

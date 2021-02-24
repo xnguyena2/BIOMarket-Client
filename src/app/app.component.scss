@@ -72,7 +72,12 @@ header {
             outline: none;
             padding: 0.1rem;
             flex-grow: 2;
-            &:focus ~ .search-result {
+            &:focus ~ .search-result-active {
+              display: block;
+            }
+          }
+          .search-result-active {
+            &:active {
               display: block;
             }
           }
@@ -82,9 +87,6 @@ header {
             flex-basis: 100%;
             max-width: 100%;
             display: none;
-            &:active {
-              display: block;
-            }
             .divier {
               width: 95%;
               margin: auto;
@@ -221,6 +223,8 @@ header {
         .li-products {
           position: relative;
           font-size: 1.4rem;
+        }
+        .li-products-hover {
           &:hover,
           &:focus-within {
             .hover-menu-container {
@@ -310,14 +314,17 @@ footer {
       display: flex;
       align-items: center;
       justify-content: center;
-      .footer-section-container{
+      .hold-state {
+        display: none;
+      }
+      .footer-section-container {
         align-self: flex-start;
         display: inline-block;
-        .footer-section-title{
+        .footer-section-title {
           margin-bottom: 2rem;
           position: relative;
-          &::before{
-            content: '';
+          &::before {
+            content: "";
             height: 0.1rem;
             background-color: rgb(236, 236, 236);
             position: absolute;
@@ -325,12 +332,36 @@ footer {
             bottom: -1rem;
             left: 0;
           }
+          label {
+            visibility: hidden;
+            position: relative;
+            border-top: 0.6rem solid black;
+            border-bottom: 0.6rem solid black;
+            width: 1.7rem;
+            padding-top: 0.1rem;
+            padding-bottom: 0.1rem;
+            display: block;
+            background-color: white;
+            float: right;
+            &::before {
+              content: "";
+              position: absolute;
+              border-top: 0.2rem solid transparent;
+              width: 1.7rem;
+              display: none;
+              background-color: white;
+              transform: rotateZ(90deg);
+            }
+          }
         }
-        .footer-list-contaienr{
+        .footer-list-container {
+          overflow: hidden;
           font-size: 1.4rem;
-          a{
+          transition: all 0.3s ease-in;
+          max-height: 12rem;
+          a {
             color: white;
-            &:nth-child(2){
+            &:nth-child(2) {
               margin-left: 3rem;
             }
           }
@@ -347,18 +378,53 @@ footer {
       .footer-col2 {
         flex: 0 0 90%;
         justify-content: start;
-        &:nth-child(2){
+        &:nth-child(2) {
           margin-top: 4rem;
         }
-        .footer-section-container{
-          .footer-section-title{
+        .footer-section-container {
+          width: 100%;
+          .footer-section-title {
             font-size: 1.6rem;
+            label {
+              visibility: visible;
+            }
           }
-          .footer-list-contaienr{
+          .footer-list-container {
             font-size: 1.2rem;
+          }
+        }
+        .hold-state {
+          &:checked + .footer-section-container {
+            .footer-list-container {
+              max-height: 0;
+              opacity: 0;
+            }
+            .footer-section-title {
+              label {
+                &::before{
+                  display: block;
+                }
+              }
+            }
           }
         }
       }
     }
   }
+}
+.over {
+  overflow: hidden;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0;
+  transition: all 0.2s;
+}
+.over-show {
+  height: auto;
 }

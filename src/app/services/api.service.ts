@@ -27,7 +27,6 @@ export class APIService {
       this.requestServices.get(`${this.HostURL}clientdevice/bootstrap`).subscribe(
         event => {
           if (event instanceof HttpResponse) {
-            console.log(event.body);
             cb(event.body);
           }
         },
@@ -47,7 +46,7 @@ export class APIService {
       this.requestServices.post(`${this.HostURL}beer/search`, searchQuery).subscribe(
         event => {
           if (event instanceof HttpResponse) {
-            console.log(event.body);
+            //console.log(event.body);
             cb(event.body);
           }
         },

@@ -13,7 +13,11 @@ hostUrl:string = AppConfig.HostUrl;
 
   @Input() listProduct:BeerDetail[] = [];
 
-  @Input() searchMode:boolean = false;
+  @Input() title:string = 'Kết Quả Tìm Kiếm:';
+
+  @Input() searchMode:boolean = true;
+
+  sortBy:any = 'default';
 
   constructor() { }
 

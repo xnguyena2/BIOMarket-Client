@@ -1,5 +1,20 @@
 <section>
-  <h2 class="title-dot">Sản Phẩm</h2>
+  <h2 *ngIf="!searchMode" class="title-dot">Sản Phẩm</h2>
+  <div class="sort-wrap list-product-content">
+    <h1 *ngIf="searchMode" class="search-title">{{title}}</h1>
+    <div class="sort-select">
+      <select [(ngModel)]='sortBy' class="select">
+        <option value="default" selected="selected">Nổi Bật</option>
+        <option value="price_asc">Giá: Tăng Dần</option>
+        <option value="price_desc">Giá: Giảm Dần</option>
+        <option value="name_asc">Tên: A-Z</option>
+        <option value="name_desc">Tên: Z-A</option>
+        <option value="create_desc">Cũ Nhất</option>
+        <option value="create_asc">Mới Nhất</option>
+        <option value="sold_num">Bán Chạy Nhất</option>
+      </select>
+    </div>
+  </div>
   <div class="list-product-content">
     <div *ngFor="let item of listProduct;" class="product-detail">
       <a href="" class="product-container">
@@ -12,7 +27,7 @@
       </a>
     </div>
   </div>
-  <div class="see-more">
+  <div class="see-more" *ngIf="!searchMode">
     <a href="">Xem Thêm</a>
   </div>
 </section>

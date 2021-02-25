@@ -7,7 +7,7 @@ import { SearchResult } from '../object/SearchResult';
 })
 export class AppService {
 
-  private searchResultSource = new BehaviorSubject(new SearchResult());
+  private searchResultSource = new BehaviorSubject<SearchResult>(new SearchResult());
   searchResult = this.searchResultSource.asObservable();
 
   constructor() { }
@@ -17,7 +17,7 @@ export class AppService {
   }
 
   public unRegisterSearchReciverResult() {
-    this.searchResultSource = new BehaviorSubject(new SearchResult());
+    this.searchResultSource = new BehaviorSubject<SearchResult>(new SearchResult());
     this.searchResult = this.searchResultSource.asObservable();
   }
 

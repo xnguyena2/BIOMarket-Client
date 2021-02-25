@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
 import { ListProductComponent } from './list-product/list-product.component';
 import { SearchComponent } from './search/search.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SearchComponent } from './search/search.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
     FontAwesomeModule,
     NgbModule
   ],

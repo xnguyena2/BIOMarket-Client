@@ -3,9 +3,17 @@ import { BeerDetail } from "./BeerDetail";
 export class SearchResult {
   public count: number = 0;
   public result: BeerDetail[] = [];
+  public searchTxt: string = '';
+
+  public static readonly IGNORE: SearchResult = {
+    "count": 5.0,
+    "searchTxt": 'IGNORE',
+    "result": []
+  }
 
   public static readonly TestData: SearchResult = {
     "count": 5.0,
+    "searchTxt": '',
     "result": [
       {
         "beerSecondID": "beer_order1",

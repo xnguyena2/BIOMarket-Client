@@ -32,9 +32,9 @@ export class AppComponent implements OnInit, OnDestroy {
   faInstagram = faInstagramSquare;
 
 
-  @ViewChild('over', {static: false}) over!: ElementRef;
-  @ViewChild('searchText', {static: false}) searchInput!: ElementRef;
-  @ViewChild('resetFocus', {static: false}) resetFocus!: ElementRef;
+  @ViewChild('over', { static: false }) over!: ElementRef;
+  @ViewChild('searchText', { static: false }) searchInput!: ElementRef;
+  @ViewChild('resetFocus', { static: false }) resetFocus!: ElementRef;
 
   subscription: Subscription = new Subscription();
   subject = new Subject<string>();
@@ -43,7 +43,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   isMobileMode = false;
 
+  currentSearchQuery: SearchQuery = new SearchQuery('', 0, 0, '');
   listResult: BeerDetail[] = [];
+
+  searchWithFilter: (filter: string) => void = defaultArg => {
+    console.log("Just Init!");
+  };
 
   constructor(private AppService: AppService,
     private APIService: APIService,
@@ -57,8 +62,20 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription = this.subject.pipe(
       debounceTime(500),
       distinctUntilChanged(),
-      map(searchText => this.search(searchText, 10, false))
+      map(searchText => this.search(searchText, 10, false, ''))
     ).subscribe();
+
+    this.AppService.registerFilter(filter => {
+      console.log(filter);
+      this.searchWithFilter(filter);
+    });
+
+    //search
+    this.AppService.registerSearch(query => {
+      console.log("search from api: "+query);
+
+      this.search(query, 24, true, '');
+    });
   }
 
   isInSearchMode(): boolean {
@@ -67,18 +84,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onSearchEnter(searchText: string) {
     if (this.isInSearchMode()) {
-      this.search(searchText, 24, true);
+      this.search(searchText, 24, true, '');
     } else {
       this.router.navigate(['search', searchText]);
     }
-    if(this.isMobileMode){
+    if (this.isMobileMode) {
       this.clearSearchText();
     }
     this.hideOver();
     this.focusOver();
   }
 
-  search(value: string, maxSearch: number, onEnter: boolean) {
+  search(value: string, maxSearch: number, onEnter: boolean, filter: string) {
     if (value == '') {
       if (this.listResult != []) {
         this.listResult = [];
@@ -87,12 +104,16 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }
     } else {
-      this.APIService.SearchBeer(new SearchQuery(value, 0, maxSearch), result => {
+      this.currentSearchQuery = new SearchQuery(value, 0, maxSearch, filter);
+
+      this.APIService.SearchBeer(this.currentSearchQuery, result => {
         if (result) {
-          if(!onEnter){
+          if (!onEnter) {
             this.listResult = result.result;
-          }
-          if (this.isInSearchMode() && onEnter) {
+          } else if (this.isInSearchMode()) {
+            this.searchWithFilter = function (newFilter: string): void {
+              this.search(value, maxSearch, onEnter, newFilter);
+            }
             this.APP.sendSearchResult(result);
           }
         }
@@ -105,7 +126,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   mobileShowSearch() {
-    console.log("show click");
+    console.log("mobile search click");
     this.isMobileMode = true;
     this.visibilitySearchBar = 'visible';
     this.showOver();
@@ -121,20 +142,20 @@ export class AppComponent implements OnInit, OnDestroy {
     this.hideOver();
   }
 
-  hideOver(){
+  hideOver() {
     this.over.nativeElement
     this.over.nativeElement.classList.remove('over-show');
   }
 
-  showOver(){
+  showOver() {
     this.over.nativeElement.classList.add('over-show');
   }
 
-  focusSearchInput(){
+  focusSearchInput() {
     setTimeout(() => this.searchInput.nativeElement.focus(), 0);
   }
 
-  focusOver(){
+  focusOver() {
     setTimeout(() => this.resetFocus.nativeElement.focus(), 0);
   }
 }

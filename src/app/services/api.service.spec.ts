@@ -31,7 +31,7 @@ describe('APIService', () => {
   });
 
   it('search test', (done) => {
-    service.SearchBeer(new SearchQuery('tiger', 0, 1000), result => {
+    service.SearchBeer(new SearchQuery('tiger', 0, 1000, ''), result => {
       expect(result.count).toEqual(4);
       done();
     });

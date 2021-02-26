@@ -1,9 +1,9 @@
 <section>
   <h2 *ngIf="!searchMode" class="title-dot">Sản Phẩm</h2>
-  <div class="sort-wrap list-product-content">
-    <h1 *ngIf="searchMode" class="search-title">{{title}}</h1>
+  <div *ngIf="searchMode" class="sort-wrap list-product-content">
+    <h1 class="search-title">{{title}}</h1>
     <div class="sort-select">
-      <select [(ngModel)]='sortBy' class="select">
+      <select (change)='changeFilter(filter.value)' #filter class="select">
         <option value="default" selected="selected">Nổi Bật</option>
         <option value="price_asc">Giá: Tăng Dần</option>
         <option value="price_desc">Giá: Giảm Dần</option>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppConfig } from '../config/AppConfig';
 import { BeerDetail } from '../object/BeerDetail';
 
@@ -9,19 +9,23 @@ import { BeerDetail } from '../object/BeerDetail';
 })
 export class ListProductComponent implements OnInit {
 
-hostUrl:string = AppConfig.HostUrl;
+  hostUrl: string = AppConfig.HostUrl;
 
-  @Input() listProduct:BeerDetail[] = [];
+  @Input() listProduct: BeerDetail[] = [];
 
-  @Input() title:string = 'Kết Quả Tìm Kiếm:';
+  @Input() title: string = 'Kết Quả Tìm Kiếm:';
 
-  @Input() searchMode:boolean = true;
+  @Input() searchMode: boolean = true;
 
-  sortBy:any = 'default';
+  @Output() filterChange = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  changeFilter(filter: string) {
+    this.filterChange.emit(filter);
   }
 
 }

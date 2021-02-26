@@ -29,18 +29,20 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.APP.searchResult.subscribe(result=>{
+    this.APP.registerSearchReciverResult(result => {
       this.onSearchResult(result);
     });
     const query = this.route.snapshot.paramMap.get('query');
-    if(query!=null){
-      this.APIService.SearchBeer(new SearchQuery(query, 0, 24), result => {
-        this.listProduct = result.result;
-      });
+    if (query != null) {
+      this.APP.sendSearch(query);
     }
   }
 
   onSearchResult(result: SearchResult) {
     this.listProduct = result.result;
+  }
+
+  filterChange(filter: string) {
+    this.APP.changeFilter(filter);
   }
 }

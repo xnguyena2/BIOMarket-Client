@@ -27,12 +27,12 @@ export class APIService {
       this.requestServices.get(`${this.HostURL}clientdevice/bootstrap`).subscribe(
         event => {
           if (event instanceof HttpResponse) {
+            console.log('bootstrap data: ');
             console.log(event.body);
             cb(event.body);
           }
         },
         err => {
-          console.log('Could not load data!');
           console.log(err);
           cb(new BootStrap());
         });
@@ -47,12 +47,12 @@ export class APIService {
       this.requestServices.post(`${this.HostURL}beer/search`, searchQuery).subscribe(
         event => {
           if (event instanceof HttpResponse) {
+            console.log('search result: ');
             console.log(event.body);
             cb(event.body);
           }
         },
         err => {
-          console.log('Could not load data!');
           console.log(err);
           cb(new SearchResult());
         });

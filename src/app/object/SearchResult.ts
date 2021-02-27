@@ -4,16 +4,22 @@ export class SearchResult {
   public count: number = 0;
   public result: BeerDetail[] = [];
   public searchTxt: string = '';
+  public isResetFilter: boolean = false;
+  public isResetPage: boolean = false;
 
   public static readonly IGNORE: SearchResult = {
     "count": 5.0,
     "searchTxt": 'IGNORE',
-    "result": []
+    "result": [],
+    "isResetFilter": false,
+    "isResetPage": false
   }
 
   public static readonly TestData: SearchResult = {
     "count": 5.0,
     "searchTxt": '',
+    "isResetFilter": false,
+    "isResetPage": false,
     "result": [
       {
         "beerSecondID": "beer_order1",

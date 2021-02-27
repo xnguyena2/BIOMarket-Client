@@ -4,14 +4,7 @@
     <h1 class="search-title">{{title}}</h1>
     <div class="sort-select">
       <select (change)='changeFilter(filter.value)' #filter class="select">
-        <option value="default" selected="selected">Nổi Bật</option>
-        <option value="price_asc">Giá: Tăng Dần</option>
-        <option value="price_desc">Giá: Giảm Dần</option>
-        <option value="name_asc">Tên: A-Z</option>
-        <option value="name_desc">Tên: Z-A</option>
-        <option value="create_desc">Cũ Nhất</option>
-        <option value="create_asc">Mới Nhất</option>
-        <option value="sold_num">Bán Chạy Nhất</option>
+        <option *ngFor="let item of filterOption;" [value]="item.value">{{item.title}}</option>
       </select>
     </div>
   </div>
@@ -28,6 +21,11 @@
     </div>
   </div>
   <div class="see-more" *ngIf="!searchMode">
-    <a href="">Xem Thêm</a>
+    <a [routerLink]="['/search','all']">Xem Thêm</a>
+  </div>
+  <div class="pagination list-product-content" *ngIf="activePage!==0">
+    <fa-icon class="icon-size" [icon]="faLeft" (click)="goPre()"></fa-icon>
+    <span *ngFor="let item of listPage;" class='{{item===activePage?"active-page":""}}' (click)="goPage(item)">{{item===-1 || item===-2?'...':item}}</span>
+    <fa-icon class="icon-size" [icon]="faRight" (click)="goNext()"></fa-icon>
   </div>
 </section>

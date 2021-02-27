@@ -294,7 +294,9 @@ header {
     }
   }
 }
-
+.router-link-active{
+  cursor: pointer;
+}
 main {
   margin: auto;
   min-height: calc(100vh - 27.5rem);

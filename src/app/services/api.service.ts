@@ -1,6 +1,6 @@
 import { Injectable, isDevMode } from '@angular/core';
 
-import { HttpResponse } from '@angular/common/http';
+import { HttpEvent, HttpResponse } from '@angular/common/http';
 
 import { AppConfig } from '../config/AppConfig'
 import { BootStrap } from '../object/BootStrap';
@@ -9,6 +9,7 @@ import { SearchResult } from '../object/SearchResult'
 import { RequestService } from './request.service';
 import { SearchQuery } from '../object/SearchQuery';
 import { removeVietnameseTones } from '../config/Utils';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,12 +40,23 @@ export class APIService {
     }
   }
 
+  private search(searchQuery: SearchQuery): Observable<HttpEvent<any>> {
+    if (searchQuery.query === 'all') {
+      return this.requestServices.post(`${this.HostURL}beer/getall`, searchQuery)
+    } else if (AppConfig.CatetoryDrop.filter(c => c.value === searchQuery.query).length > 0) {
+      return this.requestServices.post(`${this.HostURL}beer/category`, searchQuery)
+    }
+    else {
+      searchQuery.query = removeVietnameseTones(searchQuery.query);
+      return this.requestServices.post(`${this.HostURL}beer/search`, searchQuery);
+    }
+  }
+
   public SearchBeer(searchQuery: SearchQuery, cb: (result: SearchResult) => void) {
-    searchQuery.query = removeVietnameseTones(searchQuery.query);
-    if(!isDevMode()){
+    if (!isDevMode()) {
       cb(SearchResult.TestData);
-    }else {
-      this.requestServices.post(`${this.HostURL}beer/search`, searchQuery).subscribe(
+    } else {
+      this.search(searchQuery).subscribe(
         event => {
           if (event instanceof HttpResponse) {
             console.log('search result: ');

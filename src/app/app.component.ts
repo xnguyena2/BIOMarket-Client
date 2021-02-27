@@ -31,6 +31,11 @@ export class AppComponent implements OnInit, OnDestroy {
   faFacebook = faFacebookSquare;
   faInstagram = faInstagramSquare;
 
+  CatetoryDrop = AppConfig.CatetoryDrop;
+
+  readonly noFilter: string = '';
+  readonly noPage: number = -1;
+
 
   @ViewChild('over', { static: false }) over!: ElementRef;
   @ViewChild('searchText', { static: false }) searchInput!: ElementRef;
@@ -39,14 +44,19 @@ export class AppComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   subject = new Subject<string>();
 
+  showHoverMenu: boolean = true;
+
   visibilitySearchBar: string = '';
 
   isMobileMode = false;
 
-  currentSearchQuery: SearchQuery = new SearchQuery('', 0, 0, '');
   listResult: BeerDetail[] = [];
 
   searchWithFilter: (filter: string) => void = defaultArg => {
+    console.log("Just Init!");
+  };
+
+  searchWithPaging: (page: number) => void = defaultArg => {
     console.log("Just Init!");
   };
 
@@ -62,19 +72,23 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription = this.subject.pipe(
       debounceTime(500),
       distinctUntilChanged(),
-      map(searchText => this.search(searchText, 10, false, ''))
+      map(searchText => this.search(searchText, 10, false, this.noFilter, this.noPage))
     ).subscribe();
 
     this.AppService.registerFilter(filter => {
-      console.log(filter);
       this.searchWithFilter(filter);
     });
 
     //search
     this.AppService.registerSearch(query => {
-      console.log("search from api: "+query);
+      console.log("search from api: " + query);
 
-      this.search(query, 24, true, '');
+      this.search(query, 24, true, this.noFilter, this.noPage);
+    });
+
+    //paging
+    this.AppService.registerPage(page => {
+      this.searchWithPaging(page);
     });
   }
 
@@ -83,11 +97,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onSearchEnter(searchText: string) {
-    if (this.isInSearchMode()) {
-      this.search(searchText, 24, true, '');
-    } else {
-      this.router.navigate(['search', searchText]);
-    }
+    this.searchNavigation(searchText);
     if (this.isMobileMode) {
       this.clearSearchText();
     }
@@ -95,30 +105,51 @@ export class AppComponent implements OnInit, OnDestroy {
     this.focusOver();
   }
 
-  search(value: string, maxSearch: number, onEnter: boolean, filter: string) {
-    if (value == '') {
-      if (this.listResult != []) {
+  searchNavigation(searchText: string) {
+    if (this.isInSearchMode()) {
+      this.search(searchText, 24, true, this.noFilter, this.noPage);
+    } else {
+      this.router.navigate(['search', searchText]);
+    }
+  }
+
+  search(value: string, maxSearch: number, onEnter: boolean, filter: string, page: number) {
+    if (value === '') {
+      if (this.listResult !== []) {
         this.listResult = [];
         if (this.isInSearchMode() && onEnter) {
-          this.APP.sendSearchResult(new SearchResult());
+          const emptyResult = new SearchResult();
+          emptyResult.isResetFilter = this.isNoFilter(filter);
+          this.APP.sendSearchResult(emptyResult);
         }
       }
     } else {
-      this.currentSearchQuery = new SearchQuery(value, 0, maxSearch, filter);
-
-      this.APIService.SearchBeer(this.currentSearchQuery, result => {
+      this.APIService.SearchBeer(new SearchQuery(value, this.isNoPage(page) ? 0 : page, maxSearch, filter), result => {
         if (result) {
           if (!onEnter) {
             this.listResult = result.result;
           } else if (this.isInSearchMode()) {
             this.searchWithFilter = function (newFilter: string): void {
-              this.search(value, maxSearch, onEnter, newFilter);
+              this.search(value, maxSearch, onEnter, newFilter, this.noPage);
             }
+            this.searchWithPaging = function (nextPage: number) {
+              this.search(value, maxSearch, onEnter, filter, nextPage);
+            }
+            result.isResetFilter = this.isNoFilter(filter);
+            result.isResetPage = this.isNoPage(page);
             this.APP.sendSearchResult(result);
           }
         }
       });
     }
+  }
+
+  isNoFilter(filter: string) {
+    return filter === this.noFilter
+  }
+
+  isNoPage(page: number) {
+    return page === this.noPage;
   }
 
   onSearch(searchText: string) {
@@ -153,6 +184,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   focusSearchInput() {
     setTimeout(() => this.searchInput.nativeElement.focus(), 0);
+  }
+
+  categorySearch(searchText: string) {
+    this.searchNavigation(searchText);
+    this.hideHoverMenu();
+  }
+
+  hideHoverMenu() {
+    this.showHoverMenu = false;
+    setTimeout(() => {
+      this.showHoverMenu = true;
+    }, 300);
   }
 
   focusOver() {

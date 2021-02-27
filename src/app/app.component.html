@@ -8,12 +8,12 @@
         <div class="wrap-search" [style.visibility]="visibilitySearchBar">
           <input type="text" #searchText (keyup.enter)="onSearchEnter(searchText.value)"
             (keyup)="onSearch(searchText.value)" class="search-input">
-          <fa-icon *ngIf="isMobileMode||searchText.value!=''" class="search-icon-size close-icon" [icon]="faClose"
+          <fa-icon *ngIf="isMobileMode||searchText.value!==''" class="search-icon-size close-icon" [icon]="faClose"
             (click)="clearSearchText();"></fa-icon>
           <fa-icon class="search-icon-size" [icon]="faSearch" (click)="onSearchEnter(searchText.value)"></fa-icon>
           <div class="search-result search-result-active">
-            <div *ngIf="!listResult||listResult.length==0" class="divier"></div>
-            <div *ngIf="!listResult||listResult.length==0" class="quicksearch-container">
+            <div *ngIf="!listResult||listResult.length===0" class="divier"></div>
+            <div *ngIf="!listResult||listResult.length===0" class="quicksearch-container">
               <a class="quick-search" href="/nhapngoai" routerLink="/nhapngoai">Oranjeboom</a>
               <a class="quick-search" href="#">Tiger</a>
               <a class="quick-search" href="#">Coca-cola</a>
@@ -40,13 +40,9 @@
       <ul>
         <li class="li-products li-products-hover">
           <a href="#" class="product-hover">Sản Phẩm</a>
-          <div class="hover-menu-container">
+          <div class="hover-menu-container" *ngIf="showHoverMenu">
             <ul class="hover-menu">
-              <li><a routerLinkActive="router-link-active" (click)="focusSearchInput()"><span>Đồ Uống Có Cồn</span></a></li>
-              <li><a href="#"><span>Nước Giải Khát</span></a></li>
-              <li><a href="#"><span>Nước Lọc</span></a></li>
-              <li><a href="#"><span>Đồ Uống Nhập Ngoại</span></a></li>
-              <li><a href="#"><span>Nước Ép Trái Cây</span></a></li>
+              <li *ngFor="let item of CatetoryDrop;"><a class="router-link-active" (click)="categorySearch(item.value)"><span>{{item.title}}</span></a></li>
             </ul>
           </div>
         </li>

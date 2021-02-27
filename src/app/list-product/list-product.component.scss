@@ -58,6 +58,11 @@ section {
         font-size: 1.5rem;
       }
     }
+    @media only screen and (max-width: 768px) {
+      .search-title {
+        font-size: 1.7rem;
+      }
+    }
     @media only screen and (max-width: 576px) {
       .search-title {
         display: none;
@@ -80,6 +85,39 @@ section {
       &:hover {
         color: white;
         background-color: rgb(70, 70, 70);
+      }
+    }
+  }
+  .pagination{
+    font-size: 2.3rem;
+    justify-content: flex-end;
+    padding-right: 2rem;
+    *{
+      width: 5rem;
+    }
+    span, fa-icon{
+      padding: 0 1rem;
+      margin: 0 0.5rem;
+      color: #8b8b8b;
+      cursor: pointer;
+      &:hover{
+        color: black;
+      }
+    }
+    .active-page{
+      cursor: default;
+      color: black;
+    }
+    @media only screen and (max-width: 768px) {
+      font-size: 1.8rem;
+      *{
+        width: 2.4rem;
+      }
+    }
+    @media only screen and (max-width: 576px) {
+      font-size: 1.5rem;
+      *{
+        width: 2rem;
       }
     }
   }

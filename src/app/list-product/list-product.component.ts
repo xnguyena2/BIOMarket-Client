@@ -108,6 +108,8 @@ export class ListProductComponent implements OnInit {
   }
 
   setUpPagi(total: number) {
+    if (total === 0)
+      return;
     this.totalResult = Math.ceil(total / 24);
     this.activePage = 1;
     if (this.totalResult < this.maxShow) {

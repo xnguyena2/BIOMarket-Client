@@ -1,7 +1,4 @@
-import { from } from "rxjs";
 import { BeerDetail } from './BeerDetail';
-
-import { AppConfig } from '../config/AppConfig'
 
 export class BootStrap {
 

@@ -1,0 +1,5 @@
+<div #container class="carousel-container" (mousemove)="mouseMove($event, container)" (mousedown)="mouseDown($event, container)" (mouseup)="mouseUp($event, container)" (mouseleave)="mouseUp($event, container)" (touchstart)="touchStart($event, container)" (touchmove)="touchMove($event, container)" (touchend)="touchEnd($event, container)" (touchcancel)="touchEnd($event, container)">
+  <div *ngFor="let item of listItem;index as i" class="carousel-item" [class.carousel-item-active]="currentIndex === i" [class.carousel-item-transform]="enableTransform && (currentIndex === i || transformIndex === i)" [style.left]="item.transform | carouselPositionTransform: item">
+    {{item.content}}
+  </div>
+</div>

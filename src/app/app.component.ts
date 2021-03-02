@@ -137,6 +137,7 @@ export class AppComponent implements OnInit, OnDestroy {
             }
             result.isResetFilter = this.isNoFilter(filter);
             result.isResetPage = this.isNoPage(page);
+            result.searchTxt = value;
             this.APP.sendSearchResult(result);
           }
         }

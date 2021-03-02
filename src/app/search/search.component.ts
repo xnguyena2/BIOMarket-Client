@@ -22,6 +22,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   hostUrl = AppConfig.HostUrl;
 
+  searchTitle: string = '';
+
 
   constructor(private route: ActivatedRoute,
     private APP: AppService,
@@ -43,22 +45,32 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   onSearchResult(result: SearchResult) {
-    this.scroll.scrollToPosition([0,0]);
+    this.scroll.scrollToPosition([0, 0]);
     this.listProduct = result.result;
-    if(result.isResetFilter){
+    if (result.isResetFilter) {
       this.listProductComponent.resetSelection();
     }
-    if(result.isResetPage){
+    if (result.isResetPage) {
       console.log("reset page");
       this.listProductComponent.setUpPagi(result.count);
     }
+    let searchT = '';
+    if (result.searchTxt === 'all') {
+      searchT = 'Tất Cả Sản Phẩm:'
+    } else {
+      AppConfig.CatetoryDrop.filter(category => category.value === result.searchTxt).map(ct => searchT = ct.title + ':');
+    }
+    if (searchT === '') {
+      searchT = `Kết Quả Tìm Kiếm: ${result.searchTxt}`;
+    }
+    this.searchTitle = searchT;
   }
 
   filterChange(filter: string) {
     this.APP.changeFilter(filter);
   }
 
-  pageChange(page: number){
+  pageChange(page: number) {
     this.APP.changePage(page);
   }
 }

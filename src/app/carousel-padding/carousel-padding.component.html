@@ -1,0 +1,14 @@
+<div class="carousel">
+  <div #container class="carousel-container" (mousemove)="mouseMove($event, container)" (mousedown)="mouseDown($event, container)" (mouseup)="mouseUp($event, container)" (mouseleave)="mouseUp($event, container)" (touchstart)="touchStart($event, container)" (touchmove)="touchMove($event, container)" (touchend)="touchEnd($event, container)" (touchcancel)="touchEnd($event, container)">
+    <div class="carousel-content" [style.width]="'100%'" [class.carousel-content-transform]="enableTransform" [style.left]="transform | carouselContentLeft: currentIndex:listItem.length">
+      <div *ngFor="let item of listItem;index as i" class="carousel-item" [style.left]="i+'00%'">
+        {{item.content}}
+      </div>
+    </div>
+    <div class="index-container">
+      <span *ngFor="let item of listItem;index as i" class="carousel-index" [class.index-active]="currentIndex === i || i === 1 && currentIndex === listItem.length-1 || i === listItem.length - 2 && currentIndex === 0 || listItem.length === 1" [class.index-hide]="listItem.length <= 1?false:(i === 0 || i === listItem.length - 1?true:false)"></span>
+    </div>
+  </div>
+  <fa-icon class="control-nav icon-size pre-icon" [icon]="faLeft" (click)="goPre()"></fa-icon>
+  <fa-icon class="control-nav icon-size next-icon" [icon]="faRight" (click)="goNext()"></fa-icon>
+</div>

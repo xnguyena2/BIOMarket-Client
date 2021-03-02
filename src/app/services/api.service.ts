@@ -10,11 +10,14 @@ import { RequestService } from './request.service';
 import { SearchQuery } from '../object/SearchQuery';
 import { removeVietnameseTones } from '../config/Utils';
 import { Observable } from 'rxjs';
+import { BeerDetail } from '../object/BeerDetail';
 
 @Injectable({
   providedIn: 'root'
 })
 export class APIService {
+
+  private currentResult: SearchResult = new SearchResult();
 
   HostURL = AppConfig.HostUrl;
 
@@ -28,6 +31,8 @@ export class APIService {
       this.requestServices.get(`${this.HostURL}clientdevice/bootstrap`).subscribe(
         event => {
           if (event instanceof HttpResponse) {
+            this.currentResult = new SearchResult();
+            this.currentResult.result = event.body.products;
             console.log('bootstrap data: ');
             console.log(event.body);
             cb(event.body);
@@ -59,14 +64,35 @@ export class APIService {
       this.search(searchQuery).subscribe(
         event => {
           if (event instanceof HttpResponse) {
+            this.currentResult = event.body;
             console.log('search result: ');
+            console.log(this.currentResult);
+            cb(this.currentResult);
+          }
+        },
+        err => {
+          console.log(err);
+          cb(new SearchResult());
+        });
+    }
+  }
+
+  public GetProductDetail(productID: string, cb: (p?: BeerDetail) => void) {
+    let listP = this.currentResult.result.filter(p => p.beerSecondID === productID);
+    if (listP.length > 0) {
+      cb(listP[0]);
+    } else {
+      this.requestServices.get(`${this.HostURL}beer/detail/${productID}`).subscribe(
+        event => {
+          if (event instanceof HttpResponse) {
+            console.log('load beer detail: ');
             console.log(event.body);
             cb(event.body);
           }
         },
         err => {
           console.log(err);
-          cb(new SearchResult());
+          cb(undefined);
         });
     }
   }

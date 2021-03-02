@@ -11,13 +11,25 @@ import { HomeComponent } from './home/home.component';
 import { ListProductComponent } from './list-product/list-product.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { CarouselComponent } from './carousel/carousel.component';
+import { CarouselPositionTransformPipe } from './pipe/carousel-position-transform.pipe';
+import { CarouselPaddingComponent } from './carousel-padding/carousel-padding.component';
+import { CarouselContentWidthPipe } from './pipe/carousel-content-width.pipe';
+import { CarouselContentLeftPipe } from './pipe/carousel-content-left.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ListProductComponent,
-    SearchComponent
+    SearchComponent,
+    ProductDetailComponent,
+    CarouselComponent,
+    CarouselPositionTransformPipe,
+    CarouselPaddingComponent,
+    CarouselContentWidthPipe,
+    CarouselContentLeftPipe
   ],
   imports: [
     BrowserModule,

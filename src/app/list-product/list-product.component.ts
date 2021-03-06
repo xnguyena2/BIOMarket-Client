@@ -19,7 +19,6 @@ export class ListProductComponent implements OnInit {
 
   filterOption = AppConfig.FilterDrop;
 
-  hostUrl: string = AppConfig.HostUrl;
 
   listPage: number[] = [];
   totalResult: number = 0;

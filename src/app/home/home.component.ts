@@ -13,7 +13,6 @@ import { AppService } from '../services/app.service';
 export class HomeComponent implements OnInit {
 
   listProduct: BeerDetail[] = [];
-  hostUrl = AppConfig.HostUrl;
 
   images: string[] = [];
 

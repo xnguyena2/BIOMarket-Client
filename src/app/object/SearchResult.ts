@@ -137,12 +137,7 @@ export class SearchResult {
         "name": "beer tiger",
         "detail": "Đây là beer tiger có nồn độ cồn cao nên chú ý khi sử dụng:\n- bia thơm ngon\n- bia nhập ngoại\n- bia sản xuất từ hà lan",
         "category": "alcohol_drinks",
-        "images": [
-          "c786e9d423ba4ab19b744db14a982ce0",
-          "8749a9c8460348b787641051ce10abd2",
-          "b4ff979ca3a749bfa96d6596f7bb2a80",
-          "0a5d7fec5dd949819433c5e2df205130"
-        ],
+        "images": [],
         "listUnit": [
           {
             "beer": "456",

@@ -21,8 +21,16 @@ interface BeerUnit {
   discount: number;
   dateExpir: NgbDateStruct;
   weight: number;
-  volumetric:number;
-  beer_unit_second_id:string;
+  volumetric: number;
+  beer_unit_second_id: string;
+}
+
+interface Image {
+  imgid: string;
+  thumbnail: string;
+  medium: string;
+  large: string;
+
 }
 
 export interface BeerDetail {
@@ -30,7 +38,7 @@ export interface BeerDetail {
   name: string;
   detail: string;
   category: string;
-  images: string[];
+  images: Image[];
 
   listUnit: BeerUnit[];
 }

@@ -2,7 +2,7 @@
   <div #container class="carousel-container" (mousemove)="mouseMove($event, container)" (mousedown)="mouseDown($event, container)" (mouseup)="mouseUp($event, container)" (mouseleave)="mouseUp($event, container)" (touchstart)="touchStart($event, container)" (touchmove)="touchMove($event, container)" (touchend)="touchEnd($event, container)" (touchcancel)="touchEnd($event, container)">
     <div class="carousel-content" [style.width]="'100%'" [class.carousel-content-transform]="enableTransform" [style.left]="transform | carouselContentLeft: currentIndex:listItem.length">
       <div *ngFor="let item of listItem;index as i" class="carousel-item" [style.left]="i+'00%'">
-        {{item.content}}
+        <img [src]="item.content" alt="" draggable="false">
       </div>
     </div>
     <div class="index-container">

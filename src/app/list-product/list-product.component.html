@@ -12,7 +12,8 @@
     <div *ngFor="let item of listProduct;" class="product-detail">
       <a [routerLink]="['/detail', item.beerSecondID]" class="product-container">
         <div class="wrap-aspectratio">
-          <img [src]="item.images&&item.images.length>0?hostUrl+'image/preview/'+item.images[0]:''" alt="" class="product-preview">
+          <img [src]="item.images&&item.images.length>0?item.images[0].medium:''" alt=""
+            class="product-preview">
         </div>
         <h3 class="product-title">{{item.name}}</h3>
         <ins class="product-price">{{item.listUnit[0].price*(100-item.listUnit[0].discount)/100}}</ins>
@@ -25,7 +26,8 @@
   </div>
   <div class="pagination list-product-content" *ngIf="totalResult>1">
     <fa-icon class="icon-size" [icon]="faLeft" (click)="goPre()"></fa-icon>
-    <span *ngFor="let item of listPage;" class='{{item===activePage?"active-page":""}}' (click)="goPage(item)">{{item===-1 || item===-2?'...':item}}</span>
+    <span *ngFor="let item of listPage;" class='{{item===activePage?"active-page":""}}'
+      (click)="goPage(item)">{{item===-1 || item===-2?'...':item}}</span>
     <fa-icon class="icon-size" [icon]="faRight" (click)="goNext()"></fa-icon>
   </div>
 </section>

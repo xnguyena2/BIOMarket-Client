@@ -1,85 +1,106 @@
-.carousel{
+.carousel {
   position: relative;
-  .carousel-container{
+  .carousel-container {
     width: 100%;
     height: 50rem;
     background-color: black;
     position: relative;
     overflow: hidden;
-    .carousel-content{
+    .carousel-content {
       position: relative;
       height: 100%;
-      .carousel-item{
+      .carousel-item {
         position: absolute;
         height: 0;
         left: 0;
         display: inline-block;
         position: relative;
-        width: 100%;
-        height: 100%;
         background-color: blanchedalmond;
         color: black;
         font-size: 4rem;
         transition: none;
 
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-touch-callout: none;
-        -khtml-user-select: none;
-        -ms-touch-action: pan-y;
-        touch-action: pan-y;
-        -webkit-tap-highlight-color: transparent;
+        overflow: hidden;
+        padding-top: 42.5%;
+        width: 100%;
+        height: auto;
+
+        img {
+          object-fit: cover;
+          position: absolute;
+          display: block;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          -webkit-touch-callout: none;
+          -khtml-user-select: none;
+          -ms-touch-action: pan-y;
+          touch-action: pan-y;
+          -webkit-tap-highlight-color: transparent;
+          -o-user-select: none;
+          -webkit-user-drag: none;
+          -khtml-user-drag: none;
+          -moz-user-drag: none;
+          -o-user-drag: none;
+
+          pointer-events: none;
+        }
       }
     }
-    .carousel-content-transform{
-      transition: left .2s ease-in;
+    .carousel-content-transform {
+      transition: left 0.2s ease;
     }
-    .index-container{
+    .index-container {
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
       position: absolute;
       margin: 0 auto 1rem;
-      .carousel-index{
+      .carousel-index {
         display: inline-block;
         width: 1.2rem;
         height: 1.2rem;
-        background-color: rgba(0,0,0,0);
+        background-color: rgba(0, 0, 0, 0);
         border-radius: 50%;
         border: 0.1rem solid #fff;
       }
-      .index-active{
+      .index-active {
         background-color: #fff;
       }
-      .index-hide{
+      .index-hide {
         display: none;
       }
     }
   }
 
-  .control-nav{
+  .control-nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     margin: 0 3rem;
-    opacity: 0.6;
-    &:hover{
-      opacity: 0.8;
+    opacity: 0.9;
+    &:hover {
+      opacity: 1;
     }
   }
-  .pre-icon{
+  .pre-icon {
     left: 0;
   }
-  .next-icon{
+  .next-icon {
     right: 0;
   }
   .icon-size {
     font-size: 4rem;
     font-weight: 100;
     cursor: pointer;
-    color: rgb(202, 200, 200);
+    color: rgba(255, 255, 255);
+    opacity: 0.5;
     @media only screen and (max-width: 576px) {
       font-size: 3rem;
     }

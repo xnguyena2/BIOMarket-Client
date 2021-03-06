@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { CRItemInfo } from '../pipe/CRItemInfo';
 
@@ -13,11 +13,11 @@ export class CarouselPaddingComponent implements OnInit {
   readonly NotIndex: number = -1;
 
   readonly testData: CRItemInfo[] = [
-    new CRItemInfo(0, "333333333333333333333333333333333333333333333333"),
-    new CRItemInfo(0, "11111111111111111111111111111111111111111111111"),
-    new CRItemInfo(0, "222222222222222222222222222222222222222222222222"),
-    new CRItemInfo(0, "333333333333333333333333333333333333333333333333"),
-    new CRItemInfo(0, "11111111111111111111111111111111111111111111111")
+    new CRItemInfo(0, "https://i.imgur.com/smfXfKm.jpg"),
+    new CRItemInfo(0, "https://i.imgur.com/lpmKmHQ.jpg"),
+    new CRItemInfo(0, "https://i.imgur.com/rXLVrDF.jpg"),
+    new CRItemInfo(0, "https://i.imgur.com/smfXfKm.jpg"),
+    new CRItemInfo(0, "https://i.imgur.com/lpmKmHQ.jpg")
   ]
 
 
@@ -34,13 +34,11 @@ export class CarouselPaddingComponent implements OnInit {
   transformTouch: number = 0;
 
 
-
   listItem: CRItemInfo[] = this.testData;
 
   constructor() { }
 
   ngOnInit(): void {
-    //this.setupListItem(this.testData);
   }
 
   setupListItem(list: CRItemInfo[]) {

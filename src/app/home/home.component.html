@@ -1,10 +1,4 @@
 <div class="carousel-anchor">
-  <ngb-carousel *ngIf="images" [pauseOnFocus]="true" [pauseOnHover]="true">
-    <ng-template ngbSlide  *ngFor="let img of images;">
-      <div class="picsum-img-wrapper img-aspect-ratio">
-        <img [src]="img" class="carousel-full-width">
-      </div>
-    </ng-template>
-  </ngb-carousel>
+  <app-carousel-padding></app-carousel-padding>
 </div>
 <app-list-product [listProduct]="listProduct" [searchMode]="false"></app-list-product>

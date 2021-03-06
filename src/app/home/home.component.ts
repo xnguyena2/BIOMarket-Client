@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AppConfig } from '../config/AppConfig';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CarouselPaddingComponent } from '../carousel-padding/carousel-padding.component';
 import { BeerDetail } from '../object/BeerDetail';
 
 import { APIService } from '../services/api.service';
@@ -12,9 +12,9 @@ import { AppService } from '../services/app.service';
 })
 export class HomeComponent implements OnInit {
 
-  listProduct: BeerDetail[] = [];
+  @ViewChild(CarouselPaddingComponent) private carousel!: CarouselPaddingComponent;
 
-  images: string[] = [];
+  listProduct: BeerDetail[] = [];
 
   constructor(private API: APIService,
     public AppService: AppService) { }
@@ -22,7 +22,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.API.LoadBootStrap(result => {
       if (result) {
-        this.images = result.carousel;
+        if( result.carousel && result.carousel.length>0){
+          this.carousel.setupListItem(result.carousel);
+        };
         this.listProduct = result.products;
       }
     });

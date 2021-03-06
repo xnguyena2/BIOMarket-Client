@@ -13,11 +13,11 @@ export class CarouselPaddingComponent implements OnInit {
   readonly NotIndex: number = -1;
 
   readonly testData: CRItemInfo[] = [
-    new CRItemInfo(0, "https://i.imgur.com/smfXfKm.jpg"),
-    new CRItemInfo(0, "https://i.imgur.com/lpmKmHQ.jpg"),
-    new CRItemInfo(0, "https://i.imgur.com/rXLVrDF.jpg"),
-    new CRItemInfo(0, "https://i.imgur.com/smfXfKm.jpg"),
-    new CRItemInfo(0, "https://i.imgur.com/lpmKmHQ.jpg")
+    new CRItemInfo("https://i.imgur.com/smfXfKm.jpg"),
+    new CRItemInfo("https://i.imgur.com/lpmKmHQ.jpg"),
+    new CRItemInfo("https://i.imgur.com/rXLVrDF.jpg"),
+    new CRItemInfo("https://i.imgur.com/smfXfKm.jpg"),
+    new CRItemInfo("https://i.imgur.com/lpmKmHQ.jpg")
   ]
 
 
@@ -34,18 +34,19 @@ export class CarouselPaddingComponent implements OnInit {
   transformTouch: number = 0;
 
 
-  listItem: CRItemInfo[] = this.testData;
+  listItem: CRItemInfo[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  setupListItem(list: CRItemInfo[]) {
+  setupListItem(list: string[]) {
+    let listCarouselItem: CRItemInfo[] = list.map(x=> new CRItemInfo(x));
     this.listItem = [
-      list[0],
-      ...list,
-      list[list.length]
+      listCarouselItem[list.length-1],
+      ...listCarouselItem,
+      listCarouselItem[0]
     ];
   }
 
@@ -95,8 +96,6 @@ export class CarouselPaddingComponent implements OnInit {
 
   //mouse
   mouseDown(mouse: MouseEvent, outerDiv: HTMLElement) {
-    console.log("down");
-
     if (this.listItem.length <= 1 || this.enableTransform) {
       return;
     }

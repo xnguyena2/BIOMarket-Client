@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { interval } from 'rxjs';
 import { CRItemInfo } from '../pipe/CRItemInfo';
 
 @Component({
@@ -11,6 +12,7 @@ export class CarouselPaddingComponent implements OnInit {
 
   readonly MAX_OFFSET = 100;
   readonly NotIndex: number = -1;
+  readonly TimeInterVal: number = 5000;
 
   readonly testData: CRItemInfo[] = [
     new CRItemInfo("https://i.imgur.com/smfXfKm.jpg"),
@@ -36,15 +38,28 @@ export class CarouselPaddingComponent implements OnInit {
 
   listItem: CRItemInfo[] = [];
 
+  @Input() GalleryMode: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+    if (!this.GalleryMode) {
+      interval(this.TimeInterVal)
+        .subscribe(x => {
+          this.goNext();
+        });
+    }
   }
 
   setupListItem(list: string[]) {
-    let listCarouselItem: CRItemInfo[] = list.map(x=> new CRItemInfo(x));
+    let listCarouselItem: CRItemInfo[] = list.map(x => new CRItemInfo(x));
     this.listItem = [
-      listCarouselItem[list.length-1],
+      listCarouselItem[list.length - 1],
+      ...listCarouselItem,
+      ...listCarouselItem,
+      ...listCarouselItem,
+      ...listCarouselItem,
+      ...listCarouselItem,
       ...listCarouselItem,
       listCarouselItem[0]
     ];
@@ -90,6 +105,9 @@ export class CarouselPaddingComponent implements OnInit {
         this.currentIndex = this.listItem.length - 2;
       } else if (this.currentIndex === this.listItem.length - 1) {
         this.currentIndex = 1;
+      }
+      if (this.GalleryMode){
+        this.scrollToElement(this.currentIndex);
       }
     }, 200);
   }
@@ -188,5 +206,24 @@ export class CarouselPaddingComponent implements OnInit {
     }
     this.currentIndex = this.preIndex();
     this.enableTranform();
+  }
+  goTo(index: number) {
+    if (this.listItem.length <= 1 || this.enableTransform) {
+      return;
+    }
+    this.currentIndex = index;
+    this.enableTranform();
+  }
+
+  isActive(index: number) {
+    return this.currentIndex === index || index === 1 && this.currentIndex === this.listItem.length - 1 || index === this.listItem.length - 2 && this.currentIndex === 0 || this.listItem.length === 1;
+  }
+
+  getItemName(index: number) {
+    return "preview-image-" + index;
+  }
+
+  scrollToElement(index: number) {
+    document.getElementById(this.getItemName(index))?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }

@@ -19,11 +19,10 @@
               <a class="quick-search" href="#">Coca-cola</a>
             </div>
             <ul class="list-result">
-              <li *ngFor="let item of listResult;" class="result" [routerLink]="['/detail']"
+              <li *ngFor="let item of listResult;" class="result" [routerLink]="['/detail', item.beerSecondID]"
                 routerLinkActive="router-link-active">
-                <a href="">
-                  <img [src]="item.images&&item.images.length>0?item.images[0].thumbnail:''" alt=""
-                    class="thumbnail">
+                <a [routerLink]="['/detail', item.beerSecondID]">
+                  <img [src]="item.images&&item.images.length>0?item.images[0].thumbnail:''" alt="" class="thumbnail">
                   <div class="result-detail">
                     <h4>{{item.name}}</h4>
                     <span>{{item.detail}}</span>
@@ -42,15 +41,18 @@
           <a href="#" class="product-hover">Sản Phẩm</a>
           <div class="hover-menu-container" *ngIf="showHoverMenu">
             <ul class="hover-menu">
-              <li *ngFor="let item of CatetoryDrop;"><a class="router-link-active" (click)="categorySearch(item.value)"><span>{{item.title}}</span></a></li>
+              <li *ngFor="let item of CatetoryDrop;"><a class="router-link-active"
+                  (click)="categorySearch(item.value)"><span>{{item.title}}</span></a></li>
             </ul>
           </div>
         </li>
       </ul>
     </nav>
     <div class="shop-package">
-      <fa-icon class="shop-cart-size" [icon]="fashoppingcart"></fa-icon>
-      <span>0</span>
+      <a routerLink="/cart">
+        <fa-icon class="shop-cart-size" [icon]="fashoppingcart"></fa-icon>
+        <span>0</span>
+      </a>
     </div>
   </div>
 </header>
@@ -78,12 +80,14 @@
         <ul class="footer-list-container">
           <li>SĐT: 0123456789</li>
           <li>Địa Chỉ: 123 Lý Thường Kiệt, Quận 10, Thành Phố Hồ Chí Minh</li>
-          <li><a href="">
+          <li>
+            <a href="">
               <fa-icon class="icon-size" [icon]="faFacebook"></fa-icon>
-            </a><a href="">
+            </a>
+            <a href="">
               <fa-icon class="icon-size" [icon]="faInstagram"></fa-icon>
-            </a></li>
-          <li></li>
+            </a>
+          </li>
         </ul>
       </section>
     </div>

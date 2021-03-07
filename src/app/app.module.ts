@@ -14,6 +14,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { CarouselPaddingComponent } from './carousel-padding/carousel-padding.component';
 import { CarouselContentWidthPipe } from './pipe/carousel-content-width.pipe';
 import { CarouselContentLeftPipe } from './pipe/carousel-content-left.pipe';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CarouselContentLeftPipe } from './pipe/carousel-content-left.pipe';
     ProductDetailComponent,
     CarouselPaddingComponent,
     CarouselContentWidthPipe,
-    CarouselContentLeftPipe
+    CarouselContentLeftPipe,
+    CartComponent
   ],
   imports: [
     BrowserModule,

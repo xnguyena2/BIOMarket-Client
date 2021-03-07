@@ -241,21 +241,26 @@ header {
       margin-right: 5rem;
       position: relative;
 
-      .shop-cart-size {
-        font-size: 2rem;
-      }
-      span {
-        border-radius: 50%;
-        width: 1.5rem;
-        height: 1.5rem;
-        font-size: 1rem;
-        text-align: center;
-        line-height: 1.5rem;
-        background-color: red;
-        position: absolute;
-        color: white;
-        left: 1.2rem;
-        top: -0.5rem;
+      a{
+        text-decoration: none;
+        color: black;
+        .shop-cart-size {
+          font-size: 2rem;
+          cursor: pointer;
+        }
+        span {
+          border-radius: 50%;
+          width: 1.5rem;
+          height: 1.5rem;
+          font-size: 1rem;
+          text-align: center;
+          line-height: 1.5rem;
+          background-color: red;
+          position: absolute;
+          color: white;
+          left: 1.2rem;
+          top: -0.5rem;
+        }
       }
     }
 
@@ -323,7 +328,10 @@ footer {
         align-self: flex-start;
         display: inline-block;
         .footer-section-title {
+          font-size: 1.8rem;
+          font-weight: 600;
           margin-bottom: 2rem;
+          padding-bottom: 1rem;
           position: relative;
           &::before {
             content: "";
@@ -360,17 +368,20 @@ footer {
           overflow: hidden;
           font-size: 1.4rem;
           transition: all 0.3s ease-in;
-          max-height: 12rem;
-          a {
-            color: white;
-            &:nth-child(2) {
-              margin-left: 3rem;
+          max-height: 15rem;
+          li{
+            margin-bottom: 1.4rem;
+            a {
+              color: white;
+              &:nth-child(2) {
+                margin-left: 3rem;
+              }
             }
-          }
-          .icon-size {
-            font-size: 4rem;
-            font-weight: 100;
-            cursor: pointer;
+            .icon-size {
+              font-size: 4rem;
+              font-weight: 100;
+              cursor: pointer;
+            }
           }
         }
       }

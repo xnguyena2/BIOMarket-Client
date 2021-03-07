@@ -16,9 +16,8 @@ export class ProductDetailComponent implements OnInit {
     const productID = this.route.snapshot.paramMap.get('productID');
     if (productID !== null) {
       console.log(productID);
-      this.Api.GetProductDetail(productID, product =>{
-        if(product){
-          console.log(product);
+      this.Api.GetProductDetail(productID, product => {
+        if (product) {
         }
       });
     }

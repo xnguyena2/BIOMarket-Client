@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { interval } from 'rxjs';
 import { CRItemInfo } from '../pipe/CRItemInfo';
@@ -11,8 +11,11 @@ import { CRItemInfo } from '../pipe/CRItemInfo';
 export class CarouselPaddingComponent implements OnInit {
 
   readonly MAX_OFFSET = 100;
+  readonly CLICK_RANGE = 4;
   readonly NotIndex: number = -1;
   readonly TimeInterVal: number = 5000;
+
+  @Output() clickAtItem = new EventEmitter<number>();
 
   readonly testData: CRItemInfo[] = [
     new CRItemInfo("https://i.imgur.com/smfXfKm.jpg"),
@@ -33,7 +36,6 @@ export class CarouselPaddingComponent implements OnInit {
   enableTransform: boolean = false;
 
   transform: number = 0;
-  transformTouch: number = 0;
 
 
   listItem: CRItemInfo[] = [];
@@ -41,9 +43,9 @@ export class CarouselPaddingComponent implements OnInit {
   @Input() GalleryMode: boolean = false;
 
 
-  dragPost:number = 0;
-  currentScroll:number = 0;
-  dragging:boolean = false;
+  dragPost: number = 0;
+  currentScroll: number = 0;
+  dragging: boolean = false;
 
   constructor() { }
 
@@ -57,7 +59,7 @@ export class CarouselPaddingComponent implements OnInit {
   }
 
   setupListItem(list: string[] | null) {
-    if(list == null){
+    if (list == null) {
       this.listItem = [];
       return;
     }
@@ -97,6 +99,9 @@ export class CarouselPaddingComponent implements OnInit {
     } else if (transform < -this.MAX_OFFSET) {
       this.goNext();
     } else {
+      if (Math.abs(transform) < this.CLICK_RANGE) {
+        this.clickAt(this.currentIndex);
+      }
       this.enableTranform();
     }
   }
@@ -110,19 +115,19 @@ export class CarouselPaddingComponent implements OnInit {
       } else if (this.currentIndex === this.listItem.length - 1) {
         this.currentIndex = 1;
       }
-      if (this.GalleryMode){
+      if (this.GalleryMode) {
         this.scrollToElement(this.currentIndex);
       }
     }, 200);
   }
 
-  validItem(): boolean{
-   return this.listItem.length > 1;
+  validItem(): boolean {
+    return this.listItem.length > 1;
   }
 
   //mouse
   mouseDown(mouse: MouseEvent, outerDiv: HTMLElement) {
-    if (!this.validItem() || this.enableTransform) {
+    if (!this.validItem() || this.enableTransform || mouse.button != 0) {
       return;
     }
     this.isMouseDown = true;
@@ -164,8 +169,7 @@ export class CarouselPaddingComponent implements OnInit {
       return;
     }
     if (this.isMouseDown) {
-      this.transformTouch = this.calcTouchPositionX(touch, outerDiv) - this.currentPosX;
-      this.moveItem(this.transformTouch);
+      this.moveItem(this.calcTouchPositionX(touch, outerDiv) - this.currentPosX);
     }
   }
   touchEnd(touch: TouchEvent, outerDiv: HTMLElement) {
@@ -173,7 +177,7 @@ export class CarouselPaddingComponent implements OnInit {
       return;
     }
     this.isMouseDown = false;
-    this.releaseItem(this.transformTouch);
+    this.releaseItem(this.transform);
   }
 
   //manage index
@@ -237,37 +241,42 @@ export class CarouselPaddingComponent implements OnInit {
   }
 
   //drag preview
-  beginDrag(touch: MouseEvent, container: HTMLElement){
-    this.dragging=true;
+  beginDrag(touch: MouseEvent, container: HTMLElement) {
+    this.dragging = true;
     this.currentScroll = container.scrollLeft;
     this.dragPost = this.calcMousePositionX(touch, container);
   }
 
-  drag(touch: MouseEvent, container: HTMLElement){
-    if(!this.dragging)
-    return;
+  drag(touch: MouseEvent, container: HTMLElement) {
+    if (!this.dragging)
+      return;
     const dx = this.calcMousePositionX(touch, container) - this.dragPost;
     container.scrollLeft = this.currentScroll - dx;
   }
 
-  endDrag(){
+  endDrag() {
     this.dragging = false;
   }
 
-  beginTouchDrag(touch: TouchEvent, container: HTMLElement){
-    this.dragging=true;
+  beginTouchDrag(touch: TouchEvent, container: HTMLElement) {
+    this.dragging = true;
     this.currentScroll = container.scrollLeft;
     this.dragPost = this.calcTouchPositionX(touch, container);
   }
 
-  dragTouch(touch: TouchEvent, container: HTMLElement){
-    if(!this.dragging)
-    return;
+  dragTouch(touch: TouchEvent, container: HTMLElement) {
+    if (!this.dragging)
+      return;
     const dx = this.calcTouchPositionX(touch, container) - this.dragPost;
     container.scrollLeft = this.currentScroll - dx;
   }
 
-  disableDrag(event: DragEvent){
+  disableDrag(event: DragEvent) {
     event.preventDefault();
+  }
+
+  //click in item
+  clickAt(index: number) {
+    this.clickAtItem?.emit(index);
   }
 }

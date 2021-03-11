@@ -26,7 +26,6 @@
 
         //pointer-events: none;
 
-
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
@@ -55,7 +54,7 @@
     }
   }
 
-  .container-with-galery{
+  .container-with-galery {
     height: calc(100% - 8.2rem);
   }
 
@@ -66,9 +65,9 @@
     position: absolute;
     margin: 0 auto 1rem;
     list-style: none;
-    li{
+    li {
       display: inline-block;
-      margin: 0 0.5rem;
+      margin-right: 0.5rem;
       .carousel-index {
         cursor: pointer;
         width: 1.2rem;
@@ -82,7 +81,7 @@
         background-color: #fff;
       }
 
-      .img-preview{
+      .img-preview {
         object-fit: contain;
         cursor: pointer;
 
@@ -106,8 +105,8 @@
         display: inline-block;
         border: 0.1rem solid rgb(255, 255, 255, 0);
       }
-      .img-active{
-        border-color:  rgb(44, 58, 250);
+      .img-active {
+        border-color: rgba(0, 17, 255, 0.671);
       }
     }
     .index-hide {
@@ -115,7 +114,7 @@
     }
   }
 
-  .index-gallery-position{
+  .index-gallery-position {
     position: relative;
     margin: 0.3rem 0;
     display: flex;
@@ -124,7 +123,7 @@
     transform: none;
     -ms-overflow-style: none; /* IE 11 */
     scrollbar-width: none; /* Firefox 64 */
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       display: none;
     }
   }

@@ -14,7 +14,10 @@ import { AppService } from '../services/app.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class SearchComponent implements OnInit {
+  readonly noFilter: string = '';
+  readonly noPage: number = -1;
+  readonly maxResult: number = 24;
 
   @ViewChild(ListProductComponent) private listProductComponent!: ListProductComponent;
 
@@ -25,31 +28,62 @@ export class SearchComponent implements OnInit, OnDestroy {
   searchTitle: string = '';
 
 
-  constructor(private route: ActivatedRoute,
-    private APP: AppService,
-    private scroll: ViewportScroller) { }
+  searchWithFilter: (filter: string) => void = defaultArg => {
+    console.log("Just Init!");
+  };
 
-  ngOnDestroy(): void {
-    console.log("destroy search component");
-    this.APP.unRegisterSearchReceiverResult();
-  }
+  searchWithPaging: (page: number) => void = defaultArg => {
+    console.log("Just Init!");
+  };
+
+  constructor(private route: ActivatedRoute,
+    private scroll: ViewportScroller,
+    private APIService: APIService,) { }
 
   ngOnInit(): void {
-    this.APP.registerSearchReceiverResult(result => {
-      this.onSearchResult(result);
-    });
-    const query = this.route.snapshot.paramMap.get('query');
-    if (query !== null) {
-      this.APP.sendSearch(query);
-    }
     this.route.params.subscribe(
       params => {
         const query = params.query;
         if (query !== null) {
           console.log(query);
+          this.search(query, this.noFilter, this.noPage);
         }
       }
     );
+  }
+
+  search(value: string, filter: string, page: number) {
+    if (value === '') {
+      if (this.listProduct !== []) {
+        this.listProduct = [];
+        const emptyResult = new SearchResult();
+        emptyResult.isResetFilter = this.isNoFilter(filter);
+        this.onSearchResult(emptyResult);
+      }
+    } else {
+      this.APIService.SearchBeer(new SearchQuery(value, this.isNoPage(page) ? 0 : page, this.maxResult, filter), result => {
+        if (result) {
+          this.searchWithFilter = function (newFilter: string): void {
+            this.search(value, newFilter, this.noPage);
+          }
+          this.searchWithPaging = function (nextPage: number) {
+            this.search(value, filter, nextPage);
+          }
+          result.isResetFilter = this.isNoFilter(filter);
+          result.isResetPage = this.isNoPage(page);
+          result.searchTxt = value;
+          this.onSearchResult(result);
+        }
+      });
+    }
+  }
+
+  isNoFilter(filter: string) {
+    return filter === this.noFilter
+  }
+
+  isNoPage(page: number) {
+    return page === this.noPage;
   }
 
   onSearchResult(result: SearchResult) {
@@ -69,16 +103,20 @@ export class SearchComponent implements OnInit, OnDestroy {
       AppConfig.CatetoryDrop.filter(category => category.value === result.searchTxt).map(ct => searchT = ct.title + ':');
     }
     if (searchT === '') {
-      searchT = `Kết Quả Tìm Kiếm: ${result.searchTxt}`;
+      if(result.count === 0){
+        searchT = `Không Tìm Thấy: ${result.searchTxt}`;
+      }else{
+        searchT = `Kết Quả Tìm Kiếm: ${result.searchTxt} (${result.count})`;
+      }
     }
     this.searchTitle = searchT;
   }
 
   filterChange(filter: string) {
-    this.APP.changeFilter(filter);
+    this.searchWithFilter(filter);
   }
 
   pageChange(page: number) {
-    this.APP.changePage(page);
+    this.searchWithPaging(page);
   }
 }

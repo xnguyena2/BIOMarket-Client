@@ -1,9 +1,16 @@
 <section class="product-detail-content">
   <div class="main-content">
-    <div class="sub-content">
-      <app-carousel-padding [GalleryMode]="true"></app-carousel-padding>
+    <div class="sub-content subleft">
+      <div [class.gallery-full-screen]="fullscreenMode" (click)="hidePopUp($event)">
+        <div [class.parent-container]="fullscreenMode">
+          <div class="galary-aspect-ratio">
+            <fa-icon *ngIf="fullscreenMode" class="close-icon" [icon]="faClose" (click)="fullscreenMode = false"></fa-icon>
+            <app-carousel-padding [GalleryMode]="true" (clickAtItem)="clickAt($event)"></app-carousel-padding>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="sub-content">
+    <div class="sub-content subright">
       <section *ngIf="productReady">
         <h1 class="product-name">{{title}}</h1>
         <div class="unit-selection">
@@ -19,7 +26,23 @@
           <span class="real-price" *ngIf="discount>0">{{realPrice}}</span>
           <span class="unit-discount" *ngIf="discount>0">{{discount}}</span>
         </div>
+        <form class="add-package-container">
+          <div class="product-number-container">
+            <label for="" class="product-count-title">Số Lượng:</label>
+            <span class="action-btn">-</span>
+            <input type="number" class="product-number">
+            <span class="action-btn">+</span>
+          </div>
+          <a class="add-to-package">Thêm Vào Giỏ</a>
+          <a class="buy-now full-grid">Mua Ngay</a>
+        </form>
       </section>
     </div>
+  </div>
+</section>
+<section class="product-detail-content">
+  <div class="main-content">
+    <h1 class="product-detail-title">Chi Tiết Sản Phẩm</h1>
+    <p class="product-detail">{{productDetail}}</p>
   </div>
 </section>

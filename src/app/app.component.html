@@ -14,9 +14,9 @@
           <div class="search-result search-result-active">
             <div *ngIf="!listResult||listResult.length===0" class="divier"></div>
             <div *ngIf="!listResult||listResult.length===0" class="quicksearch-container">
-              <a class="quick-search" href="/nhapngoai" routerLink="/nhapngoai">Oranjeboom</a>
-              <a class="quick-search" href="#">Tiger</a>
-              <a class="quick-search" href="#">Coca-cola</a>
+              <a class="quick-search" [routerLink]="['/search','Oranjeboom']">Oranjeboom</a>
+              <a class="quick-search" [routerLink]="['/search','Tiger']">Tiger</a>
+              <a class="quick-search" [routerLink]="['/search','Coca-Cola']">Coca-cola</a>
             </div>
             <ul class="list-result">
               <li *ngFor="let item of listResult;" class="result" [routerLink]="['/detail', item.beerSecondID]"
@@ -38,11 +38,14 @@
     <nav>
       <ul>
         <li class="li-products li-products-hover">
-          <a href="#" class="product-hover">Sản Phẩm</a>
+          <a class="product-hover">Sản Phẩm</a>
           <div class="hover-menu-container" *ngIf="showHoverMenu">
             <ul class="hover-menu">
-              <li *ngFor="let item of CatetoryDrop;"><a class="router-link-active"
-                  (click)="categorySearch(item.value)"><span>{{item.title}}</span></a></li>
+              <li *ngFor="let item of CatetoryDrop;">
+                <a class="router-link-active" (click)="categorySearch(item.value)">
+                  <span>{{item.title}}</span>
+                </a>
+              </li>
             </ul>
           </div>
         </li>

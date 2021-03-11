@@ -1,13 +1,102 @@
 .product-detail-content {
   margin-top: 2rem;
   .main-content {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "subleft subright";
+    gap: 1rem;
     margin: 3rem auto 3rem;
     width: 100%;
-    .sub-content{
-      flex-basis: 1 1 50%;
+
+    @media only screen and (max-width: 991px) {
+      grid-template-columns: 1fr;
+      grid-template-areas: "subleft"
+                          "subright";
+    }
+
+    :nth-child(1) {
+      grid-area: subleft;
+      margin: 0 1rem;
+    }
+    :nth-child(2) {
+      grid-area: subright;
+    }
+    .sub-content {
+      position: relative;
+      height: 60rem;
       padding: 1rem 1rem;
+      section {
+        .product-name {
+          font-size: 2.8rem;
+          font-weight: 420;
+          line-height: 5rem;
+          &::after {
+            display: block;
+            content: "";
+            margin-top: 1rem;
+            margin-right: 0.5rem;
+            width: 10rem;
+            border: 0.1rem solid rgb(190, 190, 190);
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+          }
+        }
+        .unit-selection {
+          margin-top: 2rem;
+          gap: 2rem;
+          .unit-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+            display: inline-block;
+          }
+          .unit-select {
+            display: inline-block;
+            width: 17rem;
+            margin-right: 1rem;
+            margin-left: 1rem;
+            .select {
+              width: 100%;
+              height: 100%;
+              min-height: 3.5rem;
+              font-size: 1.5rem;
+              outline: none;
+            }
+          }
+        }
+        .price-container {
+          margin-top: 2rem;
+          padding: 2.5rem;
+          display: inline-block;
+          background-color: rgb(238, 238, 238, 0.4);
+          border-radius: 0.8rem;
+          .discount-price {
+            font-size: 2.3rem;
+            font-weight: 450;
+            &::after {
+              content: "đ";
+              display: inline-block;
+              margin-left: 0.4rem;
+              text-decoration: underline;
+            }
+          }
+          .real-price {
+            font-size: 1.8rem;
+            text-decoration: line-through;
+            margin-left: 2rem;
+          }
+          .unit-discount {
+            font-size: 1.8rem;
+            margin-left: 2rem;
+            &::before {
+              content: "-";
+            }
+            &::after {
+              content: "%";
+            }
+          }
+        }
+      }
     }
   }
 

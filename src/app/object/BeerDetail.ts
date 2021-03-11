@@ -14,7 +14,7 @@ export interface NgbDateStruct {
   day: number;
 }
 
-interface BeerUnit {
+export interface BeerUnit {
   beer: string;
   name: string;
   price: number;

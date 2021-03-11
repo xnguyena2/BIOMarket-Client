@@ -1,10 +1,25 @@
 <section class="product-detail-content">
   <div class="main-content">
     <div class="sub-content">
-
+      <app-carousel-padding [GalleryMode]="true"></app-carousel-padding>
     </div>
     <div class="sub-content">
-
+      <section *ngIf="productReady">
+        <h1 class="product-name">{{title}}</h1>
+        <div class="unit-selection">
+          <h1 class="unit-title">Đơn Vị:</h1>
+          <div class="unit-select">
+            <select (change)='changeeUnit(filter.value)' #filter class="select">
+              <option *ngFor="let item of listUnit;" [value]="item.beer_unit_second_id">{{item.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="price-container">
+          <span class="discount-price">{{price}}</span>
+          <span class="real-price" *ngIf="discount>0">{{realPrice}}</span>
+          <span class="unit-discount" *ngIf="discount>0">{{discount}}</span>
+        </div>
+      </section>
     </div>
   </div>
 </section>

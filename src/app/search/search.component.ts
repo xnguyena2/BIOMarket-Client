@@ -42,6 +42,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (query !== null) {
       this.APP.sendSearch(query);
     }
+    this.route.params.subscribe(
+      params => {
+        const query = params.query;
+        if (query !== null) {
+          console.log(query);
+        }
+      }
+    );
   }
 
   onSearchResult(result: SearchResult) {

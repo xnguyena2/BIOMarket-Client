@@ -40,6 +40,11 @@ export class CarouselPaddingComponent implements OnInit {
 
   @Input() GalleryMode: boolean = false;
 
+
+  dragPost:number = 0;
+  currentScroll:number = 0;
+  dragging:boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -51,15 +56,14 @@ export class CarouselPaddingComponent implements OnInit {
     }
   }
 
-  setupListItem(list: string[]) {
+  setupListItem(list: string[] | null) {
+    if(list == null){
+      this.listItem = [];
+      return;
+    }
     let listCarouselItem: CRItemInfo[] = list.map(x => new CRItemInfo(x));
     this.listItem = [
       listCarouselItem[list.length - 1],
-      ...listCarouselItem,
-      ...listCarouselItem,
-      ...listCarouselItem,
-      ...listCarouselItem,
-      ...listCarouselItem,
       ...listCarouselItem,
       listCarouselItem[0]
     ];
@@ -112,9 +116,13 @@ export class CarouselPaddingComponent implements OnInit {
     }, 200);
   }
 
+  validItem(): boolean{
+   return this.listItem.length > 1;
+  }
+
   //mouse
   mouseDown(mouse: MouseEvent, outerDiv: HTMLElement) {
-    if (this.listItem.length <= 1 || this.enableTransform) {
+    if (!this.validItem() || this.enableTransform) {
       return;
     }
     this.isMouseDown = true;
@@ -122,9 +130,10 @@ export class CarouselPaddingComponent implements OnInit {
   }
 
   mouseMove(mouse: MouseEvent, outerDiv: HTMLElement) {
-    if (this.isMouseDown) {
-      this.moveItem(this.calcMousePositionX(mouse, outerDiv) - this.currentPosX);
+    if (!this.isMouseDown) {
+      return;
     }
+    this.moveItem(this.calcMousePositionX(mouse, outerDiv) - this.currentPosX);
   }
 
   mouseUp(mouse: MouseEvent, outerDiv: HTMLElement) {
@@ -136,22 +145,22 @@ export class CarouselPaddingComponent implements OnInit {
   }
 
   //touch
-  validTouch(touch: TouchEvent, outerDiv: HTMLElement): boolean {
-    if (touch.touches.length > 1 && !this.enableTransform) {
-      this.touchEnd(touch, outerDiv);
+  validTouch(touch: TouchEvent): boolean {
+    if (touch.touches.length > 1) {
       return false;
     }
     return true;
   }
   touchStart(touch: TouchEvent, outerDiv: HTMLElement) {
-    if (!this.validTouch(touch, outerDiv)) {
+    if (!this.validItem() || this.enableTransform || !this.validTouch(touch)) {
       return;
     }
     this.isMouseDown = true;
     this.currentPosX = this.calcTouchPositionX(touch, outerDiv);
   }
   touchMove(touch: TouchEvent, outerDiv: HTMLElement) {
-    if (!this.validTouch(touch, outerDiv)) {
+    if (!this.isMouseDown || !this.validTouch(touch)) {
+      this.touchEnd(touch, outerDiv);
       return;
     }
     if (this.isMouseDown) {
@@ -224,6 +233,41 @@ export class CarouselPaddingComponent implements OnInit {
   }
 
   scrollToElement(index: number) {
-    document.getElementById(this.getItemName(index))?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById(this.getItemName(index))?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+
+  //drag preview
+  beginDrag(touch: MouseEvent, container: HTMLElement){
+    this.dragging=true;
+    this.currentScroll = container.scrollLeft;
+    this.dragPost = this.calcMousePositionX(touch, container);
+  }
+
+  drag(touch: MouseEvent, container: HTMLElement){
+    if(!this.dragging)
+    return;
+    const dx = this.calcMousePositionX(touch, container) - this.dragPost;
+    container.scrollLeft = this.currentScroll - dx;
+  }
+
+  endDrag(){
+    this.dragging = false;
+  }
+
+  beginTouchDrag(touch: TouchEvent, container: HTMLElement){
+    this.dragging=true;
+    this.currentScroll = container.scrollLeft;
+    this.dragPost = this.calcTouchPositionX(touch, container);
+  }
+
+  dragTouch(touch: TouchEvent, container: HTMLElement){
+    if(!this.dragging)
+    return;
+    const dx = this.calcTouchPositionX(touch, container) - this.dragPost;
+    container.scrollLeft = this.currentScroll - dx;
+  }
+
+  disableDrag(event: DragEvent){
+    event.preventDefault();
   }
 }

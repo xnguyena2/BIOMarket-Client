@@ -6,12 +6,15 @@
     (touchend)="touchEnd($event, container)" (touchcancel)="touchEnd($event, container)">
     <div class="carousel-content" [style.width]="'100%'" [class.carousel-content-transform]="enableTransform"
       [style.left]="transform | carouselContentLeft: currentIndex:listItem.length">
-      <div *ngFor="let item of listItem;index as i" class="carousel-item" [style.left]="i+'00%'">
+      <div *ngFor="let item of listItem;index as i" class="carousel-item" [style.left]="i+'00%'" (dragstart)="disableDrag($event)">
         <img [src]="item.content" alt="" draggable="false">
       </div>
     </div>
   </div>
-  <ul class="index-container" [class.index-gallery-position]="GalleryMode">
+  <ul #galleryPreview class="index-container" [class.index-gallery-position]="GalleryMode"
+    (mousedown)="beginDrag($event, galleryPreview)" (mousemove)="drag($event, galleryPreview)" (mouseup)="endDrag()"
+    (mouseleave)="endDrag()" (touchstart)="beginTouchDrag($event, galleryPreview)" (touchmove)="dragTouch($event, galleryPreview)"
+    (touchend)="endDrag()" (touchcancel)="endDrag()">
     <li *ngFor="let item of listItem;index as i" (click)='goTo(i)' role="presentation"
       [class.index-hide]="listItem.length <= 1?false:(i === 0 || i === listItem.length - 1?true:false)"
       id="{{getItemName(i)}}">
@@ -19,8 +22,6 @@
       <img class="img-preview" *ngIf='GalleryMode' [src]="item.content" [class.img-active]="isActive(i)" alt="">
     </li>
   </ul>
-  <fa-icon *ngIf="!GalleryMode" class="control-nav icon-size pre-icon"
-    [icon]="faLeft" (click)="goPre()"></fa-icon>
-  <fa-icon *ngIf="!GalleryMode" class="control-nav icon-size next-icon"
-    [icon]="faRight" (click)="goNext()"></fa-icon>
+  <fa-icon *ngIf="!GalleryMode" class="control-nav icon-size pre-icon" [icon]="faLeft" (click)="goPre()"></fa-icon>
+  <fa-icon *ngIf="!GalleryMode" class="control-nav icon-size next-icon" [icon]="faRight" (click)="goNext()"></fa-icon>
 </div>

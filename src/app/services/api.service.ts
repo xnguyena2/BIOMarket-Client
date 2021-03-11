@@ -80,7 +80,7 @@ export class APIService {
   public GetProductDetail(productID: string, cb: (p?: BeerDetail) => void) {
     let listP = this.currentResult.result.filter(p => p.beerSecondID === productID);
     if (listP.length > 0) {
-      cb(listP[0]);
+      setTimeout(()=>cb(listP[0]), 0);
     } else {
       this.requestServices.get(`${this.HostURL}beer/detail/${productID}`).subscribe(
         event => {

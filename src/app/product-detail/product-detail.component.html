@@ -29,20 +29,23 @@
         <form class="add-package-container">
           <div class="product-number-container">
             <label for="" class="product-count-title">Số Lượng:</label>
-            <span class="action-btn">-</span>
-            <input type="number" class="product-number">
-            <span class="action-btn">+</span>
+            <span class="action-btn" (click)="changeNumberSell(false)">-</span>
+            <input type="number" class="product-number" [value]="productCount">
+            <span class="action-btn" (click)="changeNumberSell(true)">+</span>
           </div>
-          <a class="add-to-package">Thêm Vào Giỏ</a>
-          <a class="buy-now full-grid">Mua Ngay</a>
+          <a class="add-to-package" (click)="addToPackage()">Thêm Vào Giỏ</a>
+          <a class="buy-now full-grid" (click)="buyNow()">Mua Ngay</a>
         </form>
       </section>
     </div>
   </div>
 </section>
 <section class="product-detail-content">
-  <div class="main-content">
-    <h1 class="product-detail-title">Chi Tiết Sản Phẩm</h1>
-    <p class="product-detail">{{productDetail}}</p>
+  <div class="main-content small-gap">
+    <h1 class="product-detail-title full-grid">Chi Tiết Sản Phẩm</h1>
+    <p class="product-detail full-grid" [innerHTML]='productDetail'></p>
+    <div class="diver full-grid"></div>
+    <app-list-product class="full-grid" [listProduct]="listProduct" [searchMode]="false" [mainTitle]="'Sản Phẩm Liên Quan'"></app-list-product>
+    <div class="diver full-grid"></div>
   </div>
 </section>

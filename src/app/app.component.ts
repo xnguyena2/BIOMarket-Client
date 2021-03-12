@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
@@ -54,6 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private APIService: APIService,
+    private scroll: ViewportScroller,
     private router: Router) {
   }
   ngOnDestroy(): void {
@@ -138,5 +140,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   focusOver() {
     setTimeout(() => this.resetFocus.nativeElement.focus(), 0);
+  }
+
+  scrollTop(){
+    this.scroll.scrollToPosition([0, 0]);
   }
 }

@@ -21,7 +21,7 @@
             <ul class="list-result">
               <li *ngFor="let item of listResult;" class="result" [routerLink]="['/detail', item.beerSecondID]"
                 routerLinkActive="router-link-active">
-                <a [routerLink]="['/detail', item.beerSecondID]">
+                <a [routerLink]="['/detail', item.beerSecondID]" (click)="scrollTop()">
                   <img [src]="item.images&&item.images.length>0?item.images[0].thumbnail:''" alt="" class="thumbnail">
                   <div class="result-detail">
                     <h4>{{item.name}}</h4>

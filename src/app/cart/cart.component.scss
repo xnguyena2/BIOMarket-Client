@@ -1,0 +1,86 @@
+.main-container{
+  margin: 2rem auto;
+  .cart-form{
+    display: flex;
+    direction: row;
+    justify-content: space-between;
+
+    .product-container{
+      flex-grow: 1;
+    }
+
+    .payment-form{
+      width: 36rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 3rem 2rem;
+      background-color: rgba(212, 212, 212, 0.411);
+      .title{
+        grid-column: 1 / 2;
+        font-size: 1.9rem;
+        color: rgba(0, 0, 0, 0.548);
+        margin: auto 0;
+      }
+      .total-price{
+        text-align: right;
+        grid-column: 2 / 3;
+        font-size: 2.5rem;
+        color: rgba(247, 27, 27, 0.911);
+        font-weight: 450;
+        &::after{
+          padding-right: 0.4rem;
+          content: 'đ';
+          text-decoration: underline;
+          font-size: 0.9em;
+        }
+      }
+      .purchase-now{
+        background-color: black;
+        border-radius: 0.3rem;
+        color: white;
+        font-size: 2.1rem;
+        padding: 1.7rem;
+        grid-column: 1/-1;
+        text-align: center;
+      }
+    }
+  }
+
+  .col-1{
+    flex: 0 0 8.33333%;
+    max-width: 8.33333%;
+  }
+  .col-2{
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
+  }
+  .col-3{
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .col-5{
+    flex: 0 0 41.66667%;
+    max-width: 41.66667%;
+  }
+  .col-11{
+    flex: 0 0 91.66667%;
+    max-width: 91.66667%;
+  }
+
+  @media only screen and (min-width: 576px) {
+    max-width: 540px;
+  }
+  @media only screen and (min-width: 768px) {
+    max-width: 720px;
+  }
+  @media only screen and (min-width: 992px) {
+    max-width: 960px;
+  }
+  @media only screen and (min-width: 1200px) {
+    max-width: 1140px;
+  }
+  @media only screen and (min-width: 1800px) {
+    max-width: 1438px;
+  }
+}

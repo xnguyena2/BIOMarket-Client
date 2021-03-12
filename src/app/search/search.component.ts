@@ -7,7 +7,6 @@ import { BeerDetail } from '../object/BeerDetail';
 import { SearchQuery } from '../object/SearchQuery';
 import { SearchResult } from '../object/SearchResult';
 import { APIService } from '../services/api.service';
-import { AppService } from '../services/app.service';
 
 @Component({
   selector: 'app-search',

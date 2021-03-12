@@ -177,6 +177,7 @@ header {
             font-weight: 500;
           }
           .product-hover {
+            cursor: pointer;
             &::after {
               content: "";
               border-top: 0.5rem solid #555555;

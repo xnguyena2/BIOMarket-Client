@@ -28,6 +28,8 @@ export class ListProductComponent implements OnInit {
 
   @Input() title: string = 'Kết Quả Tìm Kiếm:';
 
+  @Input() mainTitle: string = 'Sản Phẩm';
+
   @Input() searchMode: boolean = true;
 
   @Output() filterChange = new EventEmitter<string>();

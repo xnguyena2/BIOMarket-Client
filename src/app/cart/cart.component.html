@@ -1,19 +1,39 @@
 <div class="main-container">
   <form class="cart-form">
     <div class="product-container">
-      <div class="title-container">
+      <div class="title-container flex-container">
         <div class="col-1"></div>
-        <div class="col-11">
+        <div class="col-11 flex-container">
           <div class="col-5">Sản Phẩm</div>
           <div class="col-2">Đơn Giá</div>
           <div class="col-3">Số Lượng</div>
           <div class="col-2">Thành Tiền</div>
         </div>
       </div>
-      <div class="list-buy-product">
-
+      <div class="list-buy-product" *ngFor="let item of listProduct">
+        <div class="col-1 close-icon-ctn">
+          <fa-icon class="close-icon" [icon]="faClose"></fa-icon>
+        </div>
+        <div class="col-11 product-price-detail">
+          <img src="https://farm66.staticflickr.com/65535/51007543378_316ab2aa41_o.jpg" alt="" class="product-preview">
+          <div class="product-info">
+            <h3 class="product-name">Beer tiger heeh </h3>
+            <span class="product-unit">Đơn Vị: Lon</span>
+          </div>
+          <span class="unit-price">30000</span>
+          <div class="product-number-container">
+            <span class="action-btn">-</span>
+            <input type="number" class="product-number" value="1">
+            <span class="action-btn">+</span>
+          </div>
+          <span class="unit-price total-price">300000</span>
+        </div>
       </div>
       <div class="back-shoping">
+        <a [routerLink]="['/search','all']">
+          <fa-icon class="control-nav icon-size pre-icon" [icon]="faLeft"></fa-icon>
+          Tiếp Tục Mua Sắm
+        </a>
 
       </div>
     </div>

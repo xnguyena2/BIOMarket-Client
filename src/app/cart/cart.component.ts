@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faChevronLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-cart',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
+  faLeft = faChevronLeft;
+  faClose = faTimes;
+
   totalPrice: number = 1000;
+
+  listProduct: string[] = ["","","",""];
 
   constructor() { }
 

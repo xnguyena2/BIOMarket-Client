@@ -89,11 +89,11 @@ export class SearchComponent implements OnInit {
     this.scroll.scrollToPosition([0, 0]);
     this.listProduct = result.result;
     if (result.isResetFilter) {
-      this.listProductComponent.resetSelection();
+      this.listProductComponent?.resetSelection();
     }
     if (result.isResetPage) {
       console.log("reset page");
-      this.listProductComponent.setUpPagi(result.count);
+      this.listProductComponent?.setUpPagi(result.count);
     }
     let searchT = '';
     if (result.searchTxt === 'all') {

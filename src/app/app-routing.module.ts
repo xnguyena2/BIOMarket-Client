@@ -17,9 +17,14 @@ const routes: Routes = [
   {
     path: 'detail/:productID',
     component: ProductDetailComponent
-  },{
+  },
+  {
     path: 'cart',
     component: CartComponent
+  },
+  {
+    path: '**',
+    component: HomeComponent
   }
 ];
 

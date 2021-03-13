@@ -25,7 +25,7 @@ export class APIService {
     private requestServices: RequestService,) { }
 
   public LoadBootStrap(cb: (result: BootStrap) => void) {
-    if (!isDevMode()) {
+    if (!isDevMode() && false) {
       cb(BootStrap.TestData);
     } else {
       this.requestServices.get(`${this.HostURL}clientdevice/bootstrap`).subscribe(
@@ -58,7 +58,7 @@ export class APIService {
   }
 
   public SearchBeer(searchQuery: SearchQuery, cb: (result: SearchResult) => void) {
-    if (!isDevMode()) {
+    if (!isDevMode() && false) {
       cb(SearchResult.TestData);
     } else {
       this.search(searchQuery).subscribe(

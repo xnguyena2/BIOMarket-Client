@@ -23,6 +23,10 @@
         line-height: 5rem;
         font-weight: 450;
         border-bottom: 0.2rem solid rgba(60, 95, 250, 0.514);
+
+        @media only screen and (max-width: 767px) {
+          display: none;
+        }
       }
 
       .list-buy-product {
@@ -31,6 +35,16 @@
         flex-direction: row;
         padding: 2rem 0;
         border-bottom: 0.1rem solid rgba(109, 108, 108, 0.479);
+
+        @media only screen and (max-width: 767px) {
+          flex-direction: row-reverse;
+          .close-icon-ctn{
+            .close-icon {
+              transform: translateX(-1rem);
+              display: block;
+            }
+          }
+        }
         .close-icon-ctn {
           align-items: center;
           .close-icon {
@@ -45,13 +59,13 @@
         }
         .product-price-detail {
           display: grid;
+          padding: 1rem;
           gap: 1rem;
           grid-template-columns: 1fr 1fr;
           grid-template-areas: "img detail"
                               "img detail"
                               "img unitprice"
-                              "img productnum"
-                              ". totalprice";
+                              "img productnum";
           img {
             grid-area: img;
             max-width: 100%;
@@ -112,13 +126,14 @@
           }
           .total-price{
             grid-area: totalprice;
-            visibility: hidden;
+            display: none;
           }
-          @media only screen and (min-width: 768px) {
+          @media only screen and (min-width: 767px) {
             grid-template-columns: 1fr 1.5fr 1fr 1.5fr 1fr;
             grid-template-areas: "img detail unitprice productnum totalprice";
+            padding: 0;
             .total-price{
-              visibility: visible;
+              display: initial;
             }
           }
         }
@@ -216,7 +231,7 @@
   @media only screen and (min-width: 576px) {
     max-width: 540px;
   }
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 767px) {
     max-width: 720px;
   }
   @media only screen and (min-width: 992px) {

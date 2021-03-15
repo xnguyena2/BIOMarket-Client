@@ -4,7 +4,7 @@
       <div [class.gallery-full-screen]="fullscreenMode" (click)="hidePopUp($event)" id="parent-full-screen">
         <div [class.parent-container]="fullscreenMode">
           <div class="galary-aspect-ratio">
-            <div class="close-icon-container" (click)="hidePopUp(true)">
+            <div class="close-icon-container" (click)="hidePopUp($event)">
               <fa-icon *ngIf="fullscreenMode" class="close-icon" [icon]="faClose"></fa-icon>
             </div>
             <app-carousel-padding [GalleryMode]="true" (clickAtItem)="clickAt($event)"></app-carousel-padding>
@@ -52,7 +52,7 @@
     <div class="diver full-grid"></div>
   </div>
 </section>
-<aside class="add-package-popup" [class.move-up]='showAddCartPopup' (click)='hideSuccessPopUP()'>
+<aside class="add-package-popup" [class.move-up]='showAddCartPopup' (click)='hideSuccessPopUP($event)'>
   <form class="add-cart-preview-container" [class.move-right]='showAddCartPopup'>
     <header class="thankfull-header">
       <h1 class="main-thank">Đã Thêm Vào Giỏ Hàng Thành Công</h1>

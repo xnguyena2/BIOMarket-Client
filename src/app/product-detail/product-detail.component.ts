@@ -102,11 +102,12 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-  hidePopUp(mouse: any) {
-    if (mouse === true || mouse?.target?.className === 'gallery-full-screen') {
+  hidePopUp(mouse: MouseEvent) {
+    if (mouse.target !== mouse.currentTarget) {
+      return;
+    }
       this.fullscreenMode = false;
       this.changeScroll(true);
-    }
   }
 
   changeScroll(isEnable: boolean){
@@ -152,11 +153,18 @@ export class ProductDetailComponent implements OnInit {
     this.showAddCartPopup = true;
     this.changeScroll(false);
     setTimeout(() => {
-      this.hideSuccessPopUP();
+      this.hideByingPopup();
     }, 3000);
   }
 
-  hideSuccessPopUP(){
+  hideSuccessPopUP(mouse: MouseEvent){
+    if (mouse.target !== mouse.currentTarget) {
+      return;
+    }
+    this.hideByingPopup();
+  }
+
+  hideByingPopup(){
     this.showAddCartPopup = false;
     this.changeScroll(true);
   }

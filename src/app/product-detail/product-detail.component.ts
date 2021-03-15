@@ -103,17 +103,19 @@ export class ProductDetailComponent implements OnInit {
   }
 
   hidePopUp(mouse: MouseEvent) {
+    console.log(mouse);
+
     if (mouse.target !== mouse.currentTarget) {
       return;
     }
-      this.fullscreenMode = false;
-      this.changeScroll(true);
+    this.fullscreenMode = false;
+    this.changeScroll(true);
   }
 
-  changeScroll(isEnable: boolean){
-    if(isEnable){
+  changeScroll(isEnable: boolean) {
+    if (isEnable) {
       document.getElementById('main-body')?.classList.remove('disable-scroll');
-    }else{
+    } else {
       document.getElementById('main-body')?.classList.add('disable-scroll');
     }
   }
@@ -149,7 +151,7 @@ export class ProductDetailComponent implements OnInit {
     //this.router.navigate(['cart']);
   }
 
-  showSuccessPopUP(){
+  showSuccessPopUP() {
     this.showAddCartPopup = true;
     this.changeScroll(false);
     setTimeout(() => {
@@ -157,14 +159,14 @@ export class ProductDetailComponent implements OnInit {
     }, 3000);
   }
 
-  hideSuccessPopUP(mouse: MouseEvent){
+  hideSuccessPopUP(mouse: MouseEvent) {
     if (mouse.target !== mouse.currentTarget) {
       return;
     }
     this.hideByingPopup();
   }
 
-  hideByingPopup(){
+  hideByingPopup() {
     this.showAddCartPopup = false;
     this.changeScroll(true);
   }

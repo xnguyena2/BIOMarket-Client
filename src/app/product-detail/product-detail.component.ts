@@ -98,14 +98,22 @@ export class ProductDetailComponent implements OnInit {
   clickAt(index: number) {
     if (!this.fullscreenMode) {
       this.fullscreenMode = true;
-      document.getElementById('main-body')?.classList.add('disable-scroll');
+      this.changeScroll(false);
     }
   }
 
   hidePopUp(mouse: any) {
     if (mouse === true || mouse?.target?.className === 'gallery-full-screen') {
       this.fullscreenMode = false;
+      this.changeScroll(true);
+    }
+  }
+
+  changeScroll(isEnable: boolean){
+    if(isEnable){
       document.getElementById('main-body')?.classList.remove('disable-scroll');
+    }else{
+      document.getElementById('main-body')?.classList.add('disable-scroll');
     }
   }
 
@@ -142,6 +150,7 @@ export class ProductDetailComponent implements OnInit {
 
   showSuccessPopUP(){
     this.showAddCartPopup = true;
+    this.changeScroll(false);
     setTimeout(() => {
       this.hideSuccessPopUP();
     }, 3000);
@@ -149,6 +158,7 @@ export class ProductDetailComponent implements OnInit {
 
   hideSuccessPopUP(){
     this.showAddCartPopup = false;
+    this.changeScroll(true);
   }
 
   buyNow() {

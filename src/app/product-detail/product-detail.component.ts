@@ -1,9 +1,10 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CarouselPaddingComponent } from '../carousel-padding/carousel-padding.component';
 import { BeerDetail, BeerUnit } from '../object/BeerDetail';
+import { ProductPackage } from '../object/ProductPackage';
 import { SearchQuery } from '../object/SearchQuery';
 import { APIService } from '../services/api.service';
 
@@ -15,6 +16,8 @@ import { APIService } from '../services/api.service';
 export class ProductDetailComponent implements OnInit {
   @ViewChild(CarouselPaddingComponent) private carousel!: CarouselPaddingComponent;
 
+  faCaretDown = faCaretDown;
+
   faClose = faTimes;
 
   productReady: boolean = false;
@@ -24,6 +27,12 @@ export class ProductDetailComponent implements OnInit {
   discount: number = 0;
   listUnit: BeerUnit[] = [];
   fullscreenMode: boolean = false;
+  productID: string = '';
+  productUnitID: string = '';
+  productUnitTitle: string = '';
+  productPreviewImg: string = '';
+
+  showAddCartPopup: boolean = false;
 
   productDetail: string = '';
 
@@ -62,8 +71,10 @@ export class ProductDetailComponent implements OnInit {
               this.title = product.name;
               this.listUnit = product.listUnit;
               this.changeeUnit(this.listUnit[0].beer_unit_second_id);
-              this.productReady = true;
               this.productDetail = product.detail;
+              this.productID = product.beerSecondID;
+              this.productPreviewImg = product.images[0].medium;
+              this.productReady = true;
             }
           });
         }
@@ -75,6 +86,8 @@ export class ProductDetailComponent implements OnInit {
   changeeUnit(unitID: string) {
     let currentUnit: BeerUnit | undefined = this.listUnit.find(x => x.beer_unit_second_id === unitID);
     if (currentUnit) {
+      this.productUnitID = currentUnit.beer_unit_second_id;
+      this.productUnitTitle = currentUnit.name;
       this.realPrice = currentUnit.price;
       this.discount = currentUnit.discount;
       this.price = this.realPrice * (100 - this.discount) / 100;
@@ -85,31 +98,59 @@ export class ProductDetailComponent implements OnInit {
   clickAt(index: number) {
     if (!this.fullscreenMode) {
       this.fullscreenMode = true;
+      document.getElementById('main-body')?.classList.add('disable-scroll');
     }
   }
 
   hidePopUp(mouse: any) {
-    if (mouse.target.className === 'gallery-full-screen') {
+    if (mouse === true || mouse?.target?.className === 'gallery-full-screen') {
       this.fullscreenMode = false;
+      document.getElementById('main-body')?.classList.remove('disable-scroll');
     }
   }
 
-  changeNumberSell(isIncrease: boolean){
-    if(isIncrease){
+  changeNumberSell(isIncrease: boolean) {
+    if (isIncrease) {
       this.productCount++;
-    }else{
-      if(this.productCount>1){
+    } else {
+      if (this.productCount > 1) {
         this.productCount--;
       }
     }
   }
 
-  addToPackage(){
-    this.router.navigate(['cart']);
+  addToPackage() {
+    let packageItem: ProductPackage = {
+      deviceID: '',
+      beerID: this.productID,
+      beerUnits: [
+        {
+          beerUnitID: this.productUnitID,
+          numberUnit: this.productCount
+        }
+      ]
+    }
+    this.Api.AddToPackage(packageItem, result => {
+      if (result) {
+        this.showSuccessPopUP();
+      } else {
 
+      }
+    });
+    //this.router.navigate(['cart']);
   }
 
-  buyNow(){
+  showSuccessPopUP(){
+    this.showAddCartPopup = true;
+    setTimeout(() => {
+      this.hideSuccessPopUP();
+    }, 3000);
+  }
 
+  hideSuccessPopUP(){
+    this.showAddCartPopup = false;
+  }
+
+  buyNow() {
   }
 }

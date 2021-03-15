@@ -1,4 +1,4 @@
-<header>
+<header (click)="1">
   <div class="navbar">
     <div class="logo">
       <a href=""><img src="assets/img/icon.png" alt=""></a>
@@ -14,14 +14,14 @@
           <div class="search-result search-result-active">
             <div *ngIf="!listResult||listResult.length===0" class="divier"></div>
             <div *ngIf="!listResult||listResult.length===0" class="quicksearch-container">
-              <a class="quick-search" [routerLink]="['/search','Oranjeboom']">Oranjeboom</a>
-              <a class="quick-search" [routerLink]="['/search','Tiger']">Tiger</a>
-              <a class="quick-search" [routerLink]="['/search','Coca-Cola']">Coca-cola</a>
+              <a class="quick-search" [routerLink]="['/search','Oranjeboom']" (click)="resetSearch()">Oranjeboom</a>
+              <a class="quick-search" [routerLink]="['/search','Tiger']" (click)="resetSearch()">Tiger</a>
+              <a class="quick-search" [routerLink]="['/search','Coca-Cola']" (click)="resetSearch()">Coca-cola</a>
             </div>
             <ul class="list-result">
               <li *ngFor="let item of listResult;" class="result" [routerLink]="['/detail', item.beerSecondID]"
                 routerLinkActive="router-link-active">
-                <a [routerLink]="['/detail', item.beerSecondID]" (click)="scrollTop()">
+                <a [routerLink]="['/detail', item.beerSecondID]" (click)="resetSearch()">
                   <img [src]="item.images&&item.images.length>0?item.images[0].thumbnail:''" alt="" class="thumbnail">
                   <div class="result-detail">
                     <h4>{{item.name}}</h4>
@@ -37,12 +37,12 @@
     <fa-icon class="search-icon-reponsive" [icon]="faSearch" (click)="mobileShowSearch();"></fa-icon>
     <nav>
       <ul>
-        <li class="li-products li-products-hover">
+        <li class="li-products li-products-hover" (click)="1">
           <a class="product-hover">Sản Phẩm</a>
           <div class="hover-menu-container" *ngIf="showHoverMenu">
             <ul class="hover-menu">
-              <li *ngFor="let item of CatetoryDrop;">
-                <a class="router-link-active" (click)="categorySearch(item.value)">
+              <li *ngFor="let item of CatetoryDrop;" (click)="categorySearch(item.value)">
+                <a class="router-link-active">
                   <span>{{item.title}}</span>
                 </a>
               </li>
@@ -59,10 +59,10 @@
     </div>
   </div>
 </header>
-<main>
+<main (click)="1">
   <router-outlet></router-outlet>
 </main>
-<footer>
+<footer (click)="1">
   <div class="footer-container">
     <div class="footer-col2">
       <input id="lienceCB" type="checkbox" class="hold-state" checked>

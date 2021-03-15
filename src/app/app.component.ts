@@ -142,7 +142,11 @@ export class AppComponent implements OnInit, OnDestroy {
     setTimeout(() => this.resetFocus.nativeElement.focus(), 0);
   }
 
-  scrollTop(){
+  resetSearch(){
     this.scroll.scrollToPosition([0, 0]);
+    if (this.isMobileMode) {
+      this.visibilitySearchBar = 'hidden';
+      this.hideOver();
+    }
   }
 }

@@ -15,6 +15,7 @@ import { CarouselPaddingComponent } from './carousel-padding/carousel-padding.co
 import { CarouselContentWidthPipe } from './pipe/carousel-content-width.pipe';
 import { CarouselContentLeftPipe } from './pipe/carousel-content-left.pipe';
 import { CartComponent } from './cart/cart.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { CartComponent } from './cart/cart.component';
     FormsModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

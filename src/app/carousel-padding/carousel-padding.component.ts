@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { interval } from 'rxjs';
 import { CRItemInfo } from '../pipe/CRItemInfo';
 
@@ -53,7 +53,9 @@ export class CarouselPaddingComponent implements OnInit {
     if (!this.GalleryMode) {
       interval(this.TimeInterVal)
         .subscribe(x => {
-          this.goNext();
+          if (!this.isMouseDown) {
+            this.goNext();
+          }
         });
     }
   }
@@ -102,11 +104,11 @@ export class CarouselPaddingComponent implements OnInit {
       if (Math.abs(transform) < this.CLICK_RANGE) {
         this.clickAt(this.currentIndex);
       }
-      this.enableTranform();
+      this.enableTranform(false);
     }
   }
 
-  enableTranform() {
+  enableTranform(scrollTo: boolean) {
     this.enableTransform = true;
     setTimeout(() => {
       this.enableTransform = false;
@@ -115,7 +117,7 @@ export class CarouselPaddingComponent implements OnInit {
       } else if (this.currentIndex === this.listItem.length - 1) {
         this.currentIndex = 1;
       }
-      if (this.GalleryMode) {
+      if (this.GalleryMode && scrollTo) {
         this.scrollToElement(this.currentIndex);
       }
     }, 200);
@@ -211,21 +213,21 @@ export class CarouselPaddingComponent implements OnInit {
       return;
     }
     this.currentIndex = this.nextIndex();
-    this.enableTranform();
+    this.enableTranform(true);
   }
   goPre() {
     if (this.listItem.length <= 1 || this.enableTransform) {
       return;
     }
     this.currentIndex = this.preIndex();
-    this.enableTranform();
+    this.enableTranform(true);
   }
   goTo(index: number) {
     if (this.listItem.length <= 1 || this.enableTransform) {
       return;
     }
     this.currentIndex = index;
-    this.enableTranform();
+    this.enableTranform(true);
   }
 
   isActive(index: number) {

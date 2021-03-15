@@ -67,13 +67,14 @@ header {
           .search-input {
             position: relative;
             margin-left: 2rem;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             border: none;
             outline: none;
             padding: 0.1rem;
             flex-grow: 2;
             &:focus ~ .search-result-active {
               display: block;
+              font-size: 1.6rem;
             }
           }
           .search-result-active {
@@ -206,6 +207,7 @@ header {
               border-radius: 0.3rem;
               box-shadow: 0 0 5px rgba(214, 214, 214, 0.418);
               li {
+                cursor: pointer;
                 display: block;
                 width: 20rem;
                 margin: 0;
@@ -226,7 +228,10 @@ header {
           font-size: 1.4rem;
         }
         .li-products-hover {
+          cursor: pointer;
           &:hover,
+          &:focus,
+          &:active,
           &:focus-within {
             .hover-menu-container {
               visibility: visible;

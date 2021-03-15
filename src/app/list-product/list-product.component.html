@@ -6,6 +6,7 @@
       <select (change)='changeFilter(filter.value)' #filter class="select">
         <option *ngFor="let item of filterOption;" [value]="item.value">{{item.title}}</option>
       </select>
+      <fa-icon class="icon-size caret-down" [icon]="faCaretDown"></fa-icon>
     </div>
   </div>
   <div class="list-product-content">

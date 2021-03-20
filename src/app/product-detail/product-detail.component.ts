@@ -1,6 +1,6 @@
 import { ViewportScroller } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { faCaretDown, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CarouselPaddingComponent } from '../carousel-padding/carousel-padding.component';
 import { BeerDetail, BeerUnit } from '../object/BeerDetail';
@@ -19,6 +19,8 @@ export class ProductDetailComponent implements OnInit {
   faCaretDown = faCaretDown;
 
   faClose = faTimes;
+
+  hideActionID:string = '';
 
   productReady: boolean = false;
   title: string = '';
@@ -41,7 +43,6 @@ export class ProductDetailComponent implements OnInit {
   productCount: number = 1;
 
   constructor(private route: ActivatedRoute,
-    private router: Router,
     private scroll: ViewportScroller,
     private Api: APIService,) { }
   ngOnInit(): void {
@@ -154,8 +155,12 @@ export class ProductDetailComponent implements OnInit {
   showSuccessPopUP() {
     this.showAddCartPopup = true;
     this.changeScroll(false);
+    const currentActionID = this.Api.GenerateID();
+    this.hideActionID = currentActionID;
     setTimeout(() => {
-      this.hideByingPopup();
+      if(this.hideActionID === currentActionID){
+        this.hideByingPopup();
+      }
     }, 3000);
   }
 
@@ -167,6 +172,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   hideByingPopup() {
+    this.hideActionID = '';
     this.showAddCartPopup = false;
     this.changeScroll(true);
   }

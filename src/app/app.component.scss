@@ -256,8 +256,8 @@ header {
         }
         span {
           border-radius: 50%;
-          width: 1.5rem;
-          height: 1.5rem;
+          min-width: 1.5rem;
+          padding: 0.2rem 0.7rem;
           font-size: 1rem;
           text-align: center;
           line-height: 1.5rem;

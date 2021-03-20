@@ -12,21 +12,25 @@
       </div>
       <div class="list-buy-product" *ngFor="let item of listProduct">
         <div class="col-1 close-icon-ctn">
-          <fa-icon class="close-icon" [icon]="faClose"></fa-icon>
+          <fa-icon class="close-icon" [icon]="faClose" (click)="deleteItem(item)"></fa-icon>
         </div>
         <div class="col-11 product-price-detail">
-          <img src="https://farm66.staticflickr.com/65535/51007543378_316ab2aa41_o.jpg" alt="" class="product-preview">
+          <a [routerLink]="['/detail', item.beer_id]">
+            <img src="https://farm66.staticflickr.com/65535/51007543378_316ab2aa41_o.jpg" alt="" class="product-preview">
+          </a>
           <div class="product-info">
-            <h3 class="product-name">Beer tiger heeh </h3>
-            <span class="product-unit">Đơn Vị: Lon</span>
+            <a [routerLink]="['/detail', item.beer_id]">
+              <h3 class="product-name title-font">{{item.beerSubmitData.name}}</h3>
+            </a>
+            <span class="product-unit">{{"Đơn Vị: "+item.beerSubmitData.listUnit[0].name}}</span>
           </div>
-          <span class="unit-price">30000</span>
+          <span class="unit-price title-font" [textContent]="item.beerSubmitData.listUnit[0].price | moneyFormat"></span>
           <div class="product-number-container">
-            <span class="action-btn">-</span>
-            <input type="number" class="product-number" value="1">
-            <span class="action-btn">+</span>
+            <span class="action-btn" (click)="changeNumber(false, item)">-</span>
+            <input type="number" class="product-number title-font" [value]="item.number_unit" #countInput (keyup.enter)="setNumber(countInput.value, item)">
+            <span class="action-btn" (click)="changeNumber(true, item)">+</span>
           </div>
-          <span class="unit-price total-price">300000</span>
+          <span class="unit-price total-price title-font" [textContent]="item.beerSubmitData.listUnit[0].price*item.number_unit | moneyFormat"></span>
         </div>
       </div>
       <div class="back-shoping">

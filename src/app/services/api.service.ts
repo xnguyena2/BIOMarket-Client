@@ -13,6 +13,9 @@ import { Observable } from 'rxjs';
 import { BeerDetail } from '../object/BeerDetail';
 import { CookieService } from 'ngx-cookie-service';
 import { ProductPackage } from '../object/ProductPackage';
+import { UserInfoQuery } from '../object/UserInfoQuery';
+import { MyPackage } from '../object/MyPackage';
+import { ObjectID } from '../object/ObjectID';
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +35,7 @@ export class APIService {
     private requestServices: RequestService,
     private cookieService: CookieService) {
     if (!this.cookieService.check(this.cookieAPP)) {
-      const current = new Date();
-      this.userID = String(current.setMilliseconds(0));
+      this.userID = this.GenerateID();
       this.cookieService.set(this.cookieAPP, this.userID);
     } else {
       this.userID = this.cookieService.get(this.cookieAPP);
@@ -41,7 +43,12 @@ export class APIService {
     }
   }
 
-  public AddToPackage(packageItem: ProductPackage, cb: (success: boolean)=>void){
+  public GenerateID(): string {
+    const current = new Date();
+    return String(current.setMilliseconds(0));
+  }
+
+  public AddToPackage(packageItem: ProductPackage, cb: (success: boolean) => void) {
     packageItem.deviceID = this.userID;
     this.requestServices.post(`${this.HostURL}package/add`, packageItem).subscribe(
       event => {
@@ -59,15 +66,40 @@ export class APIService {
       });
   }
 
-  public DeleteProductFromPackage(){
-
+  public GetMyPackage(cb: (result: MyPackage[]) => void) {
+    this.requestServices.post(`${this.HostURL}package/getall`, new UserInfoQuery(0, 10000, this.userID)).subscribe(
+      event => {
+        if (event instanceof HttpResponse) {
+          console.log('my package: ');
+          console.log(event.body);
+          cb(event.body);
+        }
+      },
+      err => {
+        console.log(err);
+        cb([]);
+      });
   }
 
-  public CleanPackage(){
-
+  public DeleteProductFromPackage(item: MyPackage, cb: (result: boolean)=>void) {
+    const packageID:ObjectID = {
+      id: item.beer_unit
+    }
+    this.requestServices.post(`${this.HostURL}package/remove`, packageID).subscribe(
+      event => {
+        if (event instanceof HttpResponse) {
+          console.log('delete package: ');
+          console.log(event.body);
+          cb(true);
+        }
+      },
+      err => {
+        console.log(err);
+        cb(false);
+      });
   }
 
-  public GetMyPackage(){
+  public CleanPackage() {
 
   }
 
@@ -125,22 +157,24 @@ export class APIService {
   }
 
   public GetProductDetail(productID: string, cb: (p?: BeerDetail) => void) {
-    let listP = this.currentResult.result.filter(p => p.beerSecondID === productID);
-    if (listP.length > 0) {
-      setTimeout(() => cb(listP[0]), 0);
-    } else {
-      this.requestServices.get(`${this.HostURL}beer/detail/${productID}`).subscribe(
-        event => {
-          if (event instanceof HttpResponse) {
-            console.log('load beer detail: ');
-            console.log(event.body);
-            cb(event.body);
-          }
-        },
-        err => {
-          console.log(err);
-          cb(undefined);
-        });
+    if (this.currentResult.result !== undefined) {
+      let listP = this.currentResult?.result?.filter(p => p.beerSecondID === productID);
+      if (listP.length > 0) {
+        setTimeout(() => cb(listP[0]), 0);
+        return;
+      }
     }
+    this.requestServices.get(`${this.HostURL}beer/detail/${productID}`).subscribe(
+      event => {
+        if (event instanceof HttpResponse) {
+          console.log('load beer detail: ');
+          console.log(event.body);
+          cb(event.body);
+        }
+      },
+      err => {
+        console.log(err);
+        cb(undefined);
+      });
   }
 }

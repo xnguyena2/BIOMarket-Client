@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { MyPackage } from '../object/MyPackage';
 
 @Injectable({
   providedIn: 'root'
@@ -8,23 +9,33 @@ import { filter } from 'rxjs/operators';
 export class AppService {
 
   readonly IGNORE: string = 'IGNORE';
+  readonly IGNORENUM: number = -1;
+  readonly IGNOREPACKAGE: MyPackage[] = [];
 
-  readonly IGNORE_PAGE: number = -1;
+  private packageSource = new BehaviorSubject<MyPackage[]>(this.IGNOREPACKAGE);
+  private package = this.packageSource.asObservable();
 
-  private filterSource = new BehaviorSubject<string>(this.IGNORE);
-  private filter = this.filterSource.asObservable();
+  private packageCountSource = new BehaviorSubject<number>(this.IGNORENUM);
+  private packageCount = this.packageCountSource.asObservable();
 
 
   constructor() {
-   }
-
-
-  //filter
-  public registerFilter(func: (filter: string) => void) {
-    this.filter.pipe(filter(x => x !== this.IGNORE)).subscribe(f => func(f));
   }
 
-  public changeFilter(filter: string) {
-    this.filterSource.next(filter);
+
+  //package
+  public registerPackage(func: (filter: MyPackage[]) => void) {
+    this.package.pipe(filter(x => x !== this.IGNOREPACKAGE)).subscribe(f => func(f));
+  }
+  public changePackage(filter: MyPackage[]) {
+    this.packageSource.next(filter);
+  }
+
+  //packageNum
+  public registerPackageNum(func: (num: number) => void) {
+    this.packageCount.pipe(filter(x => x !== this.IGNORENUM)).subscribe(f => func(f));
+  }
+  public changePackageNum(num: number) {
+    this.packageCountSource.next(num);
   }
 }

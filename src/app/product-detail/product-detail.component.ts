@@ -20,7 +20,7 @@ export class ProductDetailComponent implements OnInit {
 
   faClose = faTimes;
 
-  hideActionID:string = '';
+  hideActionID: string = '';
 
   productReady: boolean = false;
   title: string = '';
@@ -74,7 +74,11 @@ export class ProductDetailComponent implements OnInit {
               this.changeeUnit(this.listUnit[0].beer_unit_second_id);
               this.productDetail = product.detail;
               this.productID = product.beerSecondID;
-              this.productPreviewImg = product.images[0].medium;
+              if (product.images != null && product.images.length > 0) {
+                this.productPreviewImg = product.images[0].medium;
+              } else {
+                this.productPreviewImg = '';
+              }
               this.productReady = true;
             }
           });
@@ -158,7 +162,7 @@ export class ProductDetailComponent implements OnInit {
     const currentActionID = this.Api.GenerateID();
     this.hideActionID = currentActionID;
     setTimeout(() => {
-      if(this.hideActionID === currentActionID){
+      if (this.hideActionID === currentActionID) {
         this.hideByingPopup();
       }
     }, 3000);

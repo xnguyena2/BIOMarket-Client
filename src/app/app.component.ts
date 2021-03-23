@@ -14,6 +14,7 @@ import { AppConfig } from './config/AppConfig';
 import { BeerDetail } from './object/BeerDetail';
 import { SearchQuery } from './object/SearchQuery';
 import { APIService } from './services/api.service';
+import { AppService } from './services/app.service';
 
 
 @Component({
@@ -45,6 +46,8 @@ export class AppComponent implements OnInit, OnDestroy {
   subject = new Subject<string>();
 
 
+  totalProduct:number = 0;
+
   showHoverMenu: boolean = true;
 
   visibilitySearchBar: string = '';
@@ -55,6 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private APIService: APIService,
+    private appService: AppService,
     private scroll: ViewportScroller,
     private router: Router) {
   }
@@ -68,6 +72,13 @@ export class AppComponent implements OnInit, OnDestroy {
       distinctUntilChanged(),
       map(searchText => this.search(searchText))
     ).subscribe();
+    this.APIService.GetMyPackage(result => {
+      //this.listProduct = result;
+    });
+
+    this.appService.registerPackageNum(num=>{
+      this.totalProduct = num;
+    })
   }
 
   search(value: string) {

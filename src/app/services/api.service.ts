@@ -16,6 +16,7 @@ import { ProductPackage } from '../object/ProductPackage';
 import { UserInfoQuery } from '../object/UserInfoQuery';
 import { MyPackage } from '../object/MyPackage';
 import { ObjectID } from '../object/ObjectID';
+import { AppService } from './app.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,14 +30,15 @@ export class APIService {
 
   HostURL = AppConfig.HostUrl;
 
-  myPackage: ProductPackage[] = [];
+  myPackage: MyPackage[] = [];
 
   constructor(
     private requestServices: RequestService,
-    private cookieService: CookieService) {
+    private cookieService: CookieService,
+    private appServices: AppService) {
     if (!this.cookieService.check(this.cookieAPP)) {
       this.userID = this.GenerateID();
-      this.cookieService.set(this.cookieAPP, this.userID);
+      this.cookieService.set(this.cookieAPP, this.userID, {path: '/'});
     } else {
       this.userID = this.cookieService.get(this.cookieAPP);
       //console.log(this.userID);
@@ -58,6 +60,7 @@ export class APIService {
           console.log('add package: ');
           console.log(event.body);
           cb(true);
+          this.UpdatePackageNum();
         }
       },
       err => {
@@ -66,23 +69,38 @@ export class APIService {
       });
   }
 
-  public GetMyPackage(cb: (result: MyPackage[]) => void) {
-    this.requestServices.post(`${this.HostURL}package/getall`, new UserInfoQuery(0, 10000, this.userID)).subscribe(
-      event => {
-        if (event instanceof HttpResponse) {
-          console.log('my package: ');
-          console.log(event.body);
-          cb(event.body);
-        }
-      },
-      err => {
-        console.log(err);
-        cb([]);
-      });
+  public UpdatePackageNum() {
+    this.appServices.changePackageNum(this.myPackage.reduce((t, x) => t + x.number_unit, 0))
   }
 
-  public DeleteProductFromPackage(item: MyPackage, cb: (result: boolean)=>void) {
-    const packageID:ObjectID = {
+  alredyGetPackageRequest: boolean = false;
+  public GetMyPackage(cb: (result: MyPackage[]) => void) {
+    this.appServices.registerPackage(cb);
+    if (!this.alredyGetPackageRequest) {
+      this.alredyGetPackageRequest = true;
+      this.requestServices.post(`${this.HostURL}package/getall`, new UserInfoQuery(0, 10000, this.userID)).subscribe(
+        event => {
+          if (event instanceof HttpResponse) {
+            this.myPackage = event.body;
+            console.log('my package: ' + this.userID);
+            console.log(this.myPackage);
+            this.appServices.changePackage(this.myPackage);
+            this.UpdatePackageNum();
+            //cb(event.body);
+          }
+        },
+        err => {
+          console.log(err);
+          //cb([]);
+        });
+    } else {
+      console.log("alredy get package request!");
+
+    }
+  }
+
+  public DeleteProductFromPackage(item: MyPackage, cb: (result: boolean) => void) {
+    const packageID: ObjectID = {
       id: item.beer_unit
     }
     this.requestServices.post(`${this.HostURL}package/remove`, packageID).subscribe(

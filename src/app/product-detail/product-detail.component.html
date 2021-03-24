@@ -34,7 +34,7 @@
           <div class="product-number-container">
             <label for="" class="product-count-title">Số Lượng:</label>
             <span class="action-btn" (click)="changeNumberSell(false)">-</span>
-            <input type="number" class="product-number" [value]="productCount">
+            <input type="number" #productNum class="product-number" [value]="productCount" (keyup)="onChangeNumber(productNum.value)">
             <span class="action-btn" (click)="changeNumberSell(true)">+</span>
           </div>
           <a class="add-to-package" (click)="addToPackage()">Thêm Vào Giỏ</a>
@@ -71,7 +71,7 @@
         <h2 class="product-info">{{productCount}}</h2>
       </div>
       <h2 class="product-unit-price">{{price}}</h2>
-      <input routerLink="/cart" type="button" value="Xem Giỏ Hàng">
+      <input (click)='hideSuccessPopUP($event)' routerLink="/cart" type="button" value="Xem Giỏ Hàng">
     </div>
   </form>
 </aside>

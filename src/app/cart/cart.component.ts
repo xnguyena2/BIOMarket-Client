@@ -14,6 +14,9 @@ export class CartComponent implements OnInit {
   faLeft = faChevronLeft;
   faClose = faTimes;
 
+  showCart = false;
+  ready = false;
+
   totalPrice: number = 1000;
 
   listProduct: MyPackage[] = [];
@@ -23,7 +26,14 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.api.GetMyPackage(result => {
       this.listProduct = result;
+      this.getTotalPrice();
+      this.ready = true;
     });
+  }
+
+  getTotalPrice() {
+    this.totalPrice = this.listProduct.reduce((t, x) => t + x.number_unit * x.beerSubmitData.listUnit[0].price * (100 - x.beerSubmitData.listUnit[0].discount) / 100, 0);
+    this.showCart = this.listProduct.length != 0;
   }
 
   changeNumber(increase: boolean, currentBeer: MyPackage) {
@@ -36,9 +46,9 @@ export class CartComponent implements OnInit {
     }
   }
 
-  setNumber(count: string, currentBeer: MyPackage){
+  setNumber(count: string, currentBeer: MyPackage) {
     const countInt: number = Number(count);
-    if(countInt>0){
+    if (countInt > 0) {
       this.addToPackage(countInt - currentBeer.number_unit, currentBeer);
     }
   }
@@ -60,6 +70,7 @@ export class CartComponent implements OnInit {
     this.api.AddToPackage(packageItem, result => {
       if (result) {
         currentBeer.number_unit += diff;
+        this.getTotalPrice();
       } else {
       }
       currentBeer.processing = false;
@@ -67,12 +78,13 @@ export class CartComponent implements OnInit {
     //this.router.navigate(['cart']);
   }
 
-  deleteItem(myPackage: MyPackage){
-    this.api.DeleteProductFromPackage(myPackage, result =>{
-      if(result){
-        this.listProduct.forEach( (item, index) => {
-          if(item === myPackage) this.listProduct.splice(index,1);
+  deleteItem(myPackage: MyPackage) {
+    this.api.DeleteProductFromPackage(myPackage, result => {
+      if (result) {
+        this.listProduct.forEach((item, index) => {
+          if (item === myPackage) this.listProduct.splice(index, 1);
         });
+        this.getTotalPrice();
       }
     });
   }

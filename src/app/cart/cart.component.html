@@ -1,5 +1,5 @@
-<div class="main-container">
-  <form class="cart-form">
+<div class="main-container" *ngIf="ready">
+  <form class="cart-form" *ngIf="showCart; else emptyCart">
     <div class="product-container">
       <div class="title-container flex-container">
         <div class="col-1"></div>
@@ -16,7 +16,9 @@
         </div>
         <div class="col-11 product-price-detail">
           <a [routerLink]="['/detail', item.beer_id]">
-            <img src="https://farm66.staticflickr.com/65535/51007543378_316ab2aa41_o.jpg" alt="" class="product-preview">
+            <img
+              [src]="item.beerSubmitData.images != null && item.beerSubmitData.images.length > 0?item.beerSubmitData.images[0].medium:''"
+              alt="" class="product-preview">
           </a>
           <div class="product-info">
             <a [routerLink]="['/detail', item.beer_id]">
@@ -24,13 +26,16 @@
             </a>
             <span class="product-unit">{{"Đơn Vị: "+item.beerSubmitData.listUnit[0].name}}</span>
           </div>
-          <span class="unit-price title-font" [textContent]="item.beerSubmitData.listUnit[0].price | moneyFormat"></span>
+          <span class="unit-price title-font"
+            [textContent]="item.beerSubmitData.listUnit[0].price | moneyFormat"></span>
           <div class="product-number-container">
             <span class="action-btn" (click)="changeNumber(false, item)">-</span>
-            <input type="number" class="product-number title-font" [value]="item.number_unit" #countInput (keyup.enter)="setNumber(countInput.value, item)">
+            <input type="number" class="product-number title-font" [value]="item.number_unit" #countInput
+              (keyup.enter)="setNumber(countInput.value, item)">
             <span class="action-btn" (click)="changeNumber(true, item)">+</span>
           </div>
-          <span class="unit-price total-price title-font" [textContent]="item.beerSubmitData.listUnit[0].price*item.number_unit | moneyFormat"></span>
+          <span class="unit-price total-price title-font"
+            [textContent]="item.beerSubmitData.listUnit[0].price*item.number_unit*(100-item.beerSubmitData.listUnit[0].discount)/100 | moneyFormat"></span>
         </div>
       </div>
       <div class="back-shoping">
@@ -43,8 +48,17 @@
     </div>
     <div class="payment-form">
       <div class="title">Thành Tiền</div>
-      <span class="total-price">{{totalPrice}}</span>
+      <span class="total-price">{{totalPrice | moneyFormat}}</span>
       <a class="purchase-now" routerLink="/checkouts">Thanh Toán</a>
     </div>
   </form>
+  <ng-template #emptyCart>
+    <img class="empty-cart" src="assets/img/empty-cart.png" alt="">
+    <div class="back-shoping">
+      <a [routerLink]="['/search','all']" class="center-div">
+        <fa-icon class="control-nav icon-size pre-icon" [icon]="faLeft"></fa-icon>
+        Tiếp Tục Mua Sắm
+      </a>
+    </div>
+  </ng-template>
 </div>

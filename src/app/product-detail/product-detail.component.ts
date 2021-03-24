@@ -135,6 +135,15 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
+  onChangeNumber(value: string) {
+    const num = Number(value);
+    if (num > 0) {
+      this.productCount = num;
+    } else {
+      this.productCount = 1;
+    }
+  }
+
   addToPackage() {
     let packageItem: ProductPackage = {
       deviceID: '',
@@ -149,6 +158,7 @@ export class ProductDetailComponent implements OnInit {
     this.Api.AddToPackage(packageItem, result => {
       if (result) {
         this.showSuccessPopUP();
+        this.Api.GetPackage();
       } else {
 
       }

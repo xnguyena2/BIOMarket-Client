@@ -78,25 +78,27 @@ export class APIService {
     this.appServices.registerPackage(cb);
     if (!this.alredyGetPackageRequest) {
       this.alredyGetPackageRequest = true;
-      this.requestServices.post(`${this.HostURL}package/getall`, new UserInfoQuery(0, 10000, this.userID)).subscribe(
-        event => {
-          if (event instanceof HttpResponse) {
-            this.myPackage = event.body;
-            console.log('my package: ' + this.userID);
-            console.log(this.myPackage);
-            this.appServices.changePackage(this.myPackage);
-            this.UpdatePackageNum();
-            //cb(event.body);
-          }
-        },
-        err => {
-          console.log(err);
-          //cb([]);
-        });
+      this.GetPackage();
     } else {
       console.log("alredy get package request!");
 
     }
+  }
+
+  public GetPackage(){
+    this.requestServices.post(`${this.HostURL}package/getall`, new UserInfoQuery(0, 10000, this.userID)).subscribe(
+      event => {
+        if (event instanceof HttpResponse) {
+          this.myPackage = event.body;
+          console.log('my package: ' + this.userID);
+          console.log(this.myPackage);
+          this.appServices.changePackage(this.myPackage);
+          this.UpdatePackageNum();
+        }
+      },
+      err => {
+        console.log(err);
+      });
   }
 
   public DeleteProductFromPackage(item: MyPackage, cb: (result: boolean) => void) {
@@ -109,6 +111,7 @@ export class APIService {
           console.log('delete package: ');
           console.log(event.body);
           cb(true);
+          this.UpdatePackageNum();
         }
       },
       err => {

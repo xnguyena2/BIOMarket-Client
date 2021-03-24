@@ -27,7 +27,7 @@
             <span class="product-unit">{{"Đơn Vị: "+item.beerSubmitData.listUnit[0].name}}</span>
           </div>
           <span class="unit-price title-font"
-            [textContent]="item.beerSubmitData.listUnit[0].price | moneyFormat"></span>
+            [textContent]="item.beerSubmitData.listUnit[0].price*(100-item.beerSubmitData.listUnit[0].discount)/100 | moneyFormat"></span>
           <div class="product-number-container">
             <span class="action-btn" (click)="changeNumber(false, item)">-</span>
             <input type="number" class="product-number title-font" [value]="item.number_unit" #countInput

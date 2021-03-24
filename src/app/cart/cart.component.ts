@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { faChevronLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MyPackage } from '../object/MyPackage';
@@ -21,13 +22,15 @@ export class CartComponent implements OnInit {
 
   listProduct: MyPackage[] = [];
 
-  constructor(private api: APIService) { }
+  constructor(private api: APIService,
+    private scroll: ViewportScroller,) { }
 
   ngOnInit(): void {
     this.api.GetMyPackage(result => {
       this.listProduct = result;
       this.getTotalPrice();
       this.ready = true;
+      this.scroll.scrollToPosition([0, 0]);
     });
   }
 

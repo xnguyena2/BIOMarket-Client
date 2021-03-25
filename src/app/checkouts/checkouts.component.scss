@@ -1,29 +1,75 @@
 .main-container {
   margin: 2rem auto;
 
-  .payment-container{
+  .payment-container {
     flex: 1 1 55%;
-    .nav-path{
+    .nav-path {
       margin: 1rem 0;
       font-size: 1.3rem;
-      .li-active{
+      .li-active {
         cursor: pointer;
         color: rgb(0, 60, 255);
       }
-      *{
+      * {
         display: inline-block;
       }
-      * + *{
-        &::before{
-          content: '>';
+      * + * {
+        &::before {
+          content: ">";
           margin: 0 0.5rem;
           display: inline-block;
         }
       }
     }
+    .user-input-container {
+      .input-field {
+        position: relative;
+        label{
+          color: #333333b0;
+          position: absolute;
+          opacity: 1;
+          top: 0.2rem;
+          left: 1rem;
+          z-index: 1;
+          font-size: 1.2rem;
+          transition: all 0.2s ease-out;
+        }
+        input {
+          transition: all 0.2s ease-out;
+          color: #333333;
+          font-size: 1.5rem;
+          appearance: none;
+          -moz-appearance: none;
+          -webkit-appearance: none;
+          box-shadow: 0 0 0 1px #d9d9d9;
+          background-color: white;
+          border-radius: 4px;
+          display: block;
+          box-sizing: border-box;
+          width: 100%;
+          padding: 1.5em 2.8em 0.38em 0.8em;
+          word-break: normal;
+
+          -webkit-font-smoothing: inherit;
+          border: none;
+          background: transparent;
+          line-height: normal;
+          outline-color: rgba(22, 76, 255, 0.658);
+
+          &:placeholder-shown + label{
+            opacity: 0;
+            font-size: 1.5rem;
+          }
+          &:placeholder-shown{
+            padding-top: 0.94em;
+            padding-bottom: 0.94em;
+          }
+        }
+      }
+    }
   }
 
-  .sidebar{
+  .sidebar {
     flex: 1 1 45%;
   }
 
@@ -54,12 +100,12 @@
     align-items: center;
   }
 
-  .company-title{
+  .company-title {
     font-size: 2.3rem;
     font-weight: normal;
   }
 
-  .title-font{
+  .title-font {
     font-size: 1.6rem;
     font-weight: normal;
   }
@@ -67,7 +113,7 @@
   @media only screen and (min-width: 576px) {
     max-width: 540px;
 
-    .title-font{
+    .title-font {
       font-size: 1.6rem;
       font-weight: normal;
     }
@@ -75,7 +121,7 @@
   @media only screen and (min-width: 767px) {
     max-width: 720px;
 
-    .title-font{
+    .title-font {
       font-size: 1.6rem;
       font-weight: normal;
     }
@@ -83,7 +129,7 @@
   @media only screen and (min-width: 992px) {
     max-width: 960px;
 
-    .title-font{
+    .title-font {
       font-size: 1.6rem;
       font-weight: normal;
     }
@@ -91,7 +137,7 @@
   @media only screen and (min-width: 1200px) {
     max-width: 1140px;
 
-    .title-font{
+    .title-font {
       font-size: 2rem;
       font-weight: 450;
     }
@@ -99,7 +145,7 @@
   @media only screen and (min-width: 1800px) {
     max-width: 1638px;
 
-    .title-font{
+    .title-font {
       font-size: 2rem;
       font-weight: 450;
     }

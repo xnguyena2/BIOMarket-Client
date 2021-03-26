@@ -17,6 +17,7 @@ import { UserInfoQuery } from '../object/UserInfoQuery';
 import { MyPackage } from '../object/MyPackage';
 import { ObjectID } from '../object/ObjectID';
 import { AppService } from './app.service';
+import { Region } from '../object/Region';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,7 @@ export class APIService {
   HostURL = AppConfig.HostUrl;
 
   myPackage: MyPackage[] = [];
+  myRegion: Region[] = [];
 
   constructor(
     private requestServices: RequestService,
@@ -38,7 +40,7 @@ export class APIService {
     private appServices: AppService) {
     if (!this.cookieService.check(this.cookieAPP)) {
       this.userID = this.GenerateID();
-      this.cookieService.set(this.cookieAPP, this.userID, {path: '/'});
+      this.cookieService.set(this.cookieAPP, this.userID, { path: '/' });
     } else {
       this.userID = this.cookieService.get(this.cookieAPP);
       //console.log(this.userID);
@@ -85,7 +87,7 @@ export class APIService {
     }
   }
 
-  public GetPackage(){
+  public GetPackage() {
     this.requestServices.post(`${this.HostURL}package/getall`, new UserInfoQuery(0, 10000, this.userID)).subscribe(
       event => {
         if (event instanceof HttpResponse) {
@@ -122,6 +124,34 @@ export class APIService {
 
   public CleanPackage() {
 
+  }
+
+  public GetAllRegion(cb: (result: Region[]) => void) {
+    this.requestServices.get(`${this.HostURL}address/allregion/`).subscribe(
+      event => {
+        if (event instanceof HttpResponse) {
+          console.log('all region: ' + this.userID);
+          this.myRegion = event.body;
+          console.log(this.myRegion);
+          cb(this.myRegion);
+        }
+      },
+      err => {
+        console.log(err);
+      });
+  }
+
+  public GetAllDistrict(region: number) {
+    this.requestServices.post(`${this.HostURL}address/district/` + region, new UserInfoQuery(0, 10000, this.userID)).subscribe(
+      event => {
+        if (event instanceof HttpResponse) {
+          console.log('all region: ' + this.userID);
+          console.log(event.body);
+        }
+      },
+      err => {
+        console.log(err);
+      });
   }
 
   public LoadBootStrap(cb: (result: BootStrap) => void) {

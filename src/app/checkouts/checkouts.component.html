@@ -9,8 +9,55 @@
       <section class="user-input-container">
         <h2>Thông tin giao hàng</h2>
         <div class="input-field">
-          <input type="text" placeholder="Họ và Tên">
+          <input spellcheck="false" autocapitalize="off" type="text" placeholder="Họ và Tên" name="fullName">
           <label for="">Họ và Tên</label>
+        </div>
+        <div class="input-field">
+          <input spellcheck="false" autocapitalize="off" type="email" placeholder="Email" name="email">
+          <label for="">Email</label>
+        </div>
+        <div class="input-field">
+          <input spellcheck="false" autocapitalize="off" type="tel" placeholder="Số điện thoại" name="phone">
+          <label for="">Số điện thoại</label>
+        </div>
+        <div class="input-field">
+          <input spellcheck="false" autocapitalize="off" type="text" placeholder="Địa chỉ" name="address">
+          <label for="">Địa chỉ</label>
+        </div>
+      </section>
+      <section class="delivery-container">
+        <div class="checkbox-container delivery-to">
+          <label for="deliveryTo">
+            <span>Giao tận nơi</span>
+            <input type="radio" name="" id="deliveryTo" name="radio" checked>
+            <div class="show-checked address-selection-container border-top">
+              <div class="input-field">
+                <select name="" id="" class="address-selection" onchange="this.dataset.chosen = this.value;" (change)='changeRegion(region.value)' #region>
+                  <option value="" selected>Chọn tỉnh / thành</option>
+                  <option *ngFor="let item of myRegion;" [value]="item.id">{{item.name}}</option>
+                </select>
+                <label for="">Tỉnh / Thành</label>
+              </div>
+              <div class="input-field">
+                <select name="" id="" class="address-selection" onchange="this.dataset.chosen = this.value;">
+                  <option value="" selected>Chọn quận / huyện</option>
+                  <option *ngFor="let item of myDistrict;" [value]="item.id">{{item.name}}</option>
+                </select>
+                <label for="">Quận / huyện</label>
+              </div>
+            </div>
+          </label>
+        </div>
+        <div class="checkbox-container get-from-shop border-top">
+          <label for="getFromShop">
+            <span>Nhận tại cửa hàng</span>
+            <input type="radio" name="" id="getFromShop" name="radio">
+            <div class="show-checked border-top end-border">
+              <label for="">Địa chỉ lấy hàng:
+                <span class="sub-address">123 Lý Thường Kiệt, Quận 10, Hồ CHí Minh</span>
+              </label>
+            </div>
+          </label>
         </div>
       </section>
     </form>

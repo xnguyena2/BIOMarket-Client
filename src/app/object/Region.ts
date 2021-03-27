@@ -2,8 +2,10 @@ export interface AddressFormat{
   id:number;
   name:string;
 }
+export interface Ward extends AddressFormat{}
+
 export interface WardContent{
-  data: AddressFormat[];
+  data: Ward[];
 }
 export interface District extends AddressFormat{
   wards: WardContent;

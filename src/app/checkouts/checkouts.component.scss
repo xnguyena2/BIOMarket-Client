@@ -22,6 +22,28 @@
       }
     }
     .user-input-container {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-areas: "header header header"
+      "fullname fullname fullname"
+      "email email phonenum"
+      "address address address";
+      h2{
+        grid-area: header;
+      }
+      .full-name{
+        grid-area: fullname;
+      }
+      .email{
+        grid-area: email;
+      }
+      .phone-num{
+        grid-area: phonenum;
+      }
+      .address{
+        grid-area: address;
+      }
       .input-field {
         position: relative;
         label{
@@ -47,7 +69,7 @@
           display: block;
           box-sizing: border-box;
           width: 100%;
-          padding: 1.7rem 2.8rem 0.5rem 0.8rem;
+          padding: 1.7rem 1rem 0.5rem 0.8rem;
           word-break: normal;
 
           -webkit-font-smoothing: inherit;
@@ -68,9 +90,9 @@
       }
     }
     .delivery-container{
-      border: 0.1rem solid rgba(0, 0, 0, 0.404);
+      border: 0.1rem solid rgba(134, 134, 134, 0.377);
       border-radius: 0.5rem;
-      margin-top: 2rem;
+      margin-top: 3rem;
       .checkbox-container{
         label{
           display: block;
@@ -89,16 +111,39 @@
             &:checked ~ .show-checked{
               display: block;
             }
+            &:checked ~ .show-checked.address-selection-container{
+              display: grid;
+            }
           }
           .show-checked{
             display: none;
             background-color: rgb(241, 241, 241);
             padding: 2rem;
           }
+          .show-checked.show-checked.address-selection-container{
+            display: none;
+          }
+
+          .address-selection-container{
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: "region region"
+            "district ward";
+            .region{
+              grid-area: region;
+            }
+            .district{
+              grid-area: district;
+            }
+            .ward{
+              grid-area: ward;
+            }
+          }
         }
       }
       .border-top{
-        border-top: 0.1rem solid rgba(0, 0, 0, 0.404);
+        border-top: 0.1rem solid rgba(129, 129, 129, 0.404);
       }
       .end-border{
         border-bottom-left-radius: 0.5rem;
@@ -122,6 +167,7 @@
             right: 1.5rem;
             top: 50%;
             transform: translateY(-50%);
+            pointer-events: none;
           }
           &::after{
             content: '';
@@ -133,6 +179,7 @@
             top: 50%;
             transform: translateY(-50%);
             background-color: rgb(153, 153, 153);
+            pointer-events: none;
           }
           label{
             color: #33333394;
@@ -143,6 +190,11 @@
             z-index: 1;
             font-size: 1.5rem;
             transition: all 0.2s ease-out;
+            pointer-events: none;
+            width: calc(100% - 5rem);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
           select {
             transition: all 0.2s ease-out;
@@ -157,8 +209,11 @@
             display: block;
             box-sizing: border-box;
             width: 100%;
-            padding: 1.1rem 2.8rem 1.1rem 0.8rem;
+            padding: 1.1rem 4rem 1.1rem 0.8rem;
             word-break: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
 
             -webkit-font-smoothing: inherit;
             border: none;
@@ -174,6 +229,17 @@
               padding-top: 1.7rem;
               padding-bottom: 0.5rem;
             }
+          }
+        }
+      }
+      .get-from-shop{
+        .address-infomation{
+          font-size: 1.5rem;
+          font-weight: 450;
+          span{
+            font-weight: normal;
+            display: inline;
+            padding-left: 1rem;
           }
         }
       }

@@ -5,6 +5,7 @@ import { CheckoutsComponent } from './checkouts/checkouts.component';
 import { HomeComponent } from './home/home.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { SearchComponent } from './search/search.component'
+import { ThankfullComponent } from './thankfull/thankfull.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'checkouts',
     component: CheckoutsComponent
+  },
+  {
+    path: 'thankfull',
+    component: ThankfullComponent
   },
   {
     path: '**',

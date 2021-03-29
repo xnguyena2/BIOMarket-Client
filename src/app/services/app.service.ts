@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MyPackage } from '../object/MyPackage';
+import { Region } from '../object/Region';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,10 @@ export class AppService {
   readonly IGNORE: string = 'IGNORE';
   readonly IGNORENUM: number = -1;
   readonly IGNOREPACKAGE: MyPackage[] = [];
+  readonly IGNOREREGION: Region[] = [];
+
+
+  myRegion: Region[] = [];
 
   private packageSource = new BehaviorSubject<MyPackage[]>(this.IGNOREPACKAGE);
   private package = this.packageSource.asObservable();
@@ -18,6 +23,11 @@ export class AppService {
   private packageCountSource = new BehaviorSubject<number>(this.IGNORENUM);
   private packageCount = this.packageCountSource.asObservable();
 
+  private regionSource = new BehaviorSubject<Region[]>(this.IGNOREREGION);
+  private region = this.regionSource.asObservable();
+
+  private alterSource = new BehaviorSubject<string>(this.IGNORE);
+  private alter = this.alterSource.asObservable();
 
   constructor() {
   }
@@ -37,5 +47,21 @@ export class AppService {
   }
   public changePackageNum(num: number) {
     this.packageCountSource.next(num);
+  }
+
+  //region
+  public registerRegion(func: (filter: Region[]) => void) {
+    this.region.pipe(filter(x => x !== this.IGNOREREGION)).subscribe(f => func(f));
+  }
+  public changeRegion(filter: Region[]) {
+    this.regionSource.next(filter);
+  }
+
+  //alter
+  public registerAlter(func: (filter: string) => void) {
+    this.alter.pipe(filter(x => x !== this.IGNORE)).subscribe(f => func(f));
+  }
+  public changeAlter(filter: string) {
+    this.alterSource.next(filter);
   }
 }

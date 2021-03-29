@@ -24,7 +24,7 @@ import { AppService } from './services/app.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  readonly maxSearResult:number = 10;
+  readonly maxSearResult: number = 10;
 
 
   title = 'BIOMarket | Chuyên Bia Nhập Khẩu';
@@ -37,6 +37,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   CatetoryDrop = AppConfig.CatetoryDrop;
 
+  notification: string = 'Alter';
+  isShowAlter: boolean = false;
 
   @ViewChild('over', { static: false }) over!: ElementRef;
   @ViewChild('searchText', { static: false }) searchInput!: ElementRef;
@@ -46,7 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
   subject = new Subject<string>();
 
 
-  totalProduct:number = 0;
+  totalProduct: number = 0;
 
   showHoverMenu: boolean = true;
 
@@ -76,9 +78,19 @@ export class AppComponent implements OnInit, OnDestroy {
       //this.listProduct = result;
     });
 
-    this.appService.registerPackageNum(num=>{
+    this.appService.registerPackageNum(num => {
       this.totalProduct = num;
     })
+
+    this.appService.registerAlter(text =>{
+      this.notification = text;
+      this.isShowAlter = true;
+    });
+  }
+
+  closeAlter(){
+    this.isShowAlter = false;
+    this.notification = '';
   }
 
   search(value: string) {
@@ -153,7 +165,7 @@ export class AppComponent implements OnInit, OnDestroy {
     setTimeout(() => this.resetFocus.nativeElement.focus(), 0);
   }
 
-  resetSearch(){
+  resetSearch() {
     this.scroll.scrollToPosition([0, 0]);
     if (this.isMobileMode) {
       this.visibilitySearchBar = 'hidden';

@@ -18,6 +18,7 @@ import { MyPackage } from '../object/MyPackage';
 import { ObjectID } from '../object/ObjectID';
 import { AppService } from './app.service';
 import { Region } from '../object/Region';
+import { PackageOrder, PackageOrderData } from '../object/PackageOrderData';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,6 @@ export class APIService {
   HostURL = AppConfig.HostUrl;
 
   myPackage: MyPackage[] = [];
-  myRegion: Region[] = [];
 
   constructor(
     private requestServices: RequestService,
@@ -50,6 +50,22 @@ export class APIService {
   public GenerateID(): string {
     const current = new Date();
     return String(current.setMilliseconds(0));
+  }
+
+  public createOrder(packageOrderData: PackageOrderData, cb: (result: PackageOrder | null) => void) {
+    packageOrderData.packageOrder.user_device_id = this.userID;
+    this.requestServices.post(`${this.HostURL}order/create`, packageOrderData).subscribe(
+      event => {
+        if (event instanceof HttpResponse) {
+          console.log('create order: ');
+          console.log(event.body);
+          cb(event.body);
+        }
+      },
+      err => {
+        console.log(err);
+        cb(null);
+      });
   }
 
   public AddToPackage(packageItem: ProductPackage, cb: (success: boolean) => void) {
@@ -83,7 +99,6 @@ export class APIService {
       this.GetPackage();
     } else {
       console.log("alredy get package request!");
-
     }
   }
 
@@ -122,23 +137,42 @@ export class APIService {
       });
   }
 
-  public CleanPackage() {
-
-  }
-
-  public GetAllRegion(cb: (result: Region[]) => void) {
-    this.requestServices.get(`${this.HostURL}address/allregion/`).subscribe(
+  public CleanPackage(cb: (result: boolean) => void) {
+    this.requestServices.post(`${this.HostURL}package/clean`, new UserInfoQuery(0, 10000, this.userID)).subscribe(
       event => {
         if (event instanceof HttpResponse) {
-          console.log('all region: ' + this.userID);
-          this.myRegion = event.body;
-          console.log(this.myRegion);
-          cb(this.myRegion);
+          this.myPackage = [];
+          console.log('clean my package: ' + this.userID);
+          this.appServices.changePackage(this.myPackage);
+          this.UpdatePackageNum();
+          cb(true);
         }
       },
       err => {
         console.log(err);
+        cb(false);
       });
+  }
+
+  alredyGetRegion:boolean = false;
+  public GetAllRegion(cb: (result: Region[]) => void) {
+    this.appServices.registerRegion(cb);
+    if(!this.alredyGetRegion){
+      this.alredyGetRegion = true;
+      this.requestServices.get(`${this.HostURL}address/allregion/`).subscribe(
+        event => {
+          if (event instanceof HttpResponse) {
+            //console.log(this.myRegion);
+            //cb(event.body);
+            this.appServices.changeRegion(event.body);
+          }
+        },
+        err => {
+          console.log(err);
+        });
+    } else {
+      console.log("alredy get region request!");
+    }
   }
 
   public GetAllDistrict(region: number) {

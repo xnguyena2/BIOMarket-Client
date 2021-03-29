@@ -18,6 +18,7 @@ import { CartComponent } from './cart/cart.component';
 import { CookieService } from 'ngx-cookie-service';
 import { MoneyFormatPipe } from './pipe/money-format.pipe';
 import { CheckoutsComponent } from './checkouts/checkouts.component';
+import { ThankfullComponent } from './thankfull/thankfull.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CheckoutsComponent } from './checkouts/checkouts.component';
     CarouselContentLeftPipe,
     CartComponent,
     MoneyFormatPipe,
-    CheckoutsComponent
+    CheckoutsComponent,
+    ThankfullComponent
   ],
   imports: [
     BrowserModule,

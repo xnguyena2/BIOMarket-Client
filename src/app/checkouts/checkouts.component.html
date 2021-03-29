@@ -1,7 +1,57 @@
-<div class="main-container">
-  <div class="flex-container">
+<div class="main-container" *ngIf="ready">
+  <div class="flex-container" *ngIf="showCart; else emptyCart">
+    <div class="sidebar">
+      <input type="checkbox" name="" id="showproductitem" class="show-cart-state-holder">
+      <section class="show-cart-container">
+        <fa-icon class="cart-icon" [icon]="cartIcon"></fa-icon>
+        <label for="showproductitem" class="hide-cart">Hiển thị thông tin đơn hàng<svg width="11" height="6" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle" fill="#000"><path d="M.504 1.813l4.358 3.845.496.438.496-.438 4.642-4.096L9.504.438 4.862 4.534h.992L1.496.69.504 1.812z"></path></svg></label>
+        <label for="showproductitem" class="show-cart">Ẩn thông tin đơn hàng<svg width="11" height="7" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle" fill="#000"><path d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path></svg></label>
+        <span>{{allPrice | moneyFormat}}</span>
+      </section>
+      <section class="list-product">
+        <ul>
+          <li *ngFor="let item of listProduct">
+            <div class="product-preview-container">
+              <div class="product-preview">
+                <img
+                  [src]="item.beerSubmitData.images != null && item.beerSubmitData.images.length > 0?item.beerSubmitData.images[0].medium:''"
+                  alt="">
+                  <span>{{item.number_unit}}</span>
+              </div>
+              <div class="product-info">
+                <h3 class="product-name title-font">{{item.beerSubmitData.name}}</h3>
+                <span class="product-unit">{{"Đơn Vị: "+item.beerSubmitData.listUnit[0].name}}</span>
+              </div>
+              <span class="unit-price total-price title-font"
+                [textContent]="item.beerSubmitData.listUnit[0].price*item.number_unit*(100-item.beerSubmitData.listUnit[0].discount)/100 | moneyFormat"></span>
+            </div>
+          </li>
+        </ul>
+        <form action="">
+          <div class="input-field voucher-input">
+            <input spellcheck="false" autocapitalize="off" type="text" placeholder="Mã giảm giá" name="voucher" class="voucher" #voucher>
+            <label for="">Mã giảm giá</label>
+            <input type="button" value="Sử dụng" class="use-voucher" (click)="useVoucher(voucher.value)">
+          </div>
+        </form>
+        <article>
+          <div class="sum-price">
+            <span>Tạm tính</span>
+            <span>{{totalPrice | moneyFormat}}</span>
+          </div>
+          <div class="sum-price">
+            <span>Phí ship</span>
+            <span>{{shipPrice | moneyFormat}}</span>
+          </div>
+        </article>
+        <div class="total-price">
+          <span>Tổng cộng</span>
+          <span>{{allPrice | moneyFormat}}</span>
+        </div>
+      </section>
+    </div>
     <form class="payment-container">
-      <h1 class="company-title">BIOMarket</h1>
+      <h1 class="company-title">Hóa đơn</h1>
       <ul class="nav-path">
         <li class="li-active" routerLink="/cart">Giỏ hàng</li>
         <li>Thông tin giao hàng</li>
@@ -9,19 +59,19 @@
       <section class="user-input-container">
         <h2>Thông tin giao hàng</h2>
         <div class="input-field full-name">
-          <input spellcheck="false" autocapitalize="off" type="text" placeholder="Họ và Tên" name="fullName">
+          <input spellcheck="false" autocapitalize="off" type="text" placeholder="Họ và Tên" name="fullName" [(ngModel)]="fullName" required>
           <label for="">Họ và Tên</label>
         </div>
         <div class="input-field email">
-          <input spellcheck="false" autocapitalize="off" type="email" placeholder="Email" name="email">
+          <input spellcheck="false" autocapitalize="off" type="email" placeholder="Email" name="email" [(ngModel)]="email">
           <label for="">Email</label>
         </div>
         <div class="input-field phone-num">
-          <input spellcheck="false" autocapitalize="off" type="tel" placeholder="Số điện thoại" name="phone">
+          <input spellcheck="false" autocapitalize="off" type="tel" placeholder="Số điện thoại" name="phone" [(ngModel)]="phone" required>
           <label for="">Số điện thoại</label>
         </div>
         <div class="input-field address">
-          <input spellcheck="false" autocapitalize="off" type="text" placeholder="Địa chỉ" name="address">
+          <input spellcheck="false" autocapitalize="off" type="text" placeholder="Địa chỉ" name="address" [(ngModel)]="address" required>
           <label for="">Địa chỉ</label>
         </div>
       </section>
@@ -29,7 +79,7 @@
         <div class="checkbox-container delivery-to">
           <label for="deliveryTo">
             <span>Giao tận nơi</span>
-            <input type="radio" name="" id="deliveryTo" name="radio" checked>
+            <input type="radio" name="" id="deliveryTo" name="radio" checked (change)="changeShipProvider(true)">
             <div class="show-checked address-selection-container border-top">
               <div class="input-field region">
                 <select name="" id="region" class="address-selection" onchange="this.dataset.chosen = this.value;" (change)='changeRegion(region.value)' #region>
@@ -46,7 +96,7 @@
                 <label for="district">Quận / huyện</label>
               </div>
               <div class="input-field ward">
-                <select name="" id="ward" class="address-selection" onchange="this.dataset.chosen = this.value;">
+                <select name="" id="ward" class="address-selection" onchange="this.dataset.chosen = this.value;" (change)='changeWard(ward.value)' #ward>
                   <option value="" selected>Chọn phường / xã</option>
                   <option *ngFor="let item of myWard;" [value]="item.id">{{item.name}}</option>
                 </select>
@@ -58,7 +108,7 @@
         <div class="checkbox-container get-from-shop border-top">
           <label for="getFromShop">
             <span>Nhận tại cửa hàng</span>
-            <input type="radio" name="" id="getFromShop" name="radio">
+            <input type="radio" name="" id="getFromShop" name="radio" (change)="changeShipProvider(false)">
             <div class="show-checked border-top end-border">
               <label class="address-infomation" for="">Địa chỉ lấy hàng:
                 <span class="sub-address">123 Lý Thường Kiệt, Quận 10, Hồ CHí Minh</span>
@@ -67,7 +117,19 @@
           </label>
         </div>
       </section>
+      <section class="flex-reverse">
+        <a (click)="createOrderer()" class="create-order">Tiến hành đặt hàng</a>
+        <a routerLink='/cart' class="back-to-cart">Giỏ hàng</a>
+      </section>
     </form>
-    <div class="sidebar"></div>
   </div>
+  <ng-template #emptyCart>
+    <img class="empty-cart" src="assets/img/empty-cart.png" alt="">
+    <div class="back-shoping">
+      <a [routerLink]="['/search','all']" class="center-div">
+        <fa-icon class="control-nav icon-size pre-icon" [icon]="faLeft"></fa-icon>
+        Tiếp Tục Mua Sắm
+      </a>
+    </div>
+  </ng-template>
 </div>

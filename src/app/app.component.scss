@@ -255,9 +255,9 @@ header {
           cursor: pointer;
         }
         span {
-          border-radius: 50%;
+          border-radius: 1rem;
           min-width: 1.5rem;
-          padding: 0.2rem 0.7rem;
+          padding: 0.2rem 0.6rem;
           font-size: 1rem;
           text-align: center;
           line-height: 1.5rem;
@@ -446,4 +446,44 @@ footer {
 }
 .over-show {
   height: auto;
+}
+.alter{
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .alter-form{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30rem;
+    height: 15rem;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 0.3rem;
+    span{
+      font-size: 1.3rem;
+      overflow-wrap: break-word;
+    }
+    .btn{
+      position: absolute;
+      right: -1rem;
+      top: -1rem;
+      border-radius: 50%;
+      width: 3rem;
+      height: 3rem;
+      background-color: rgb(170, 170, 170);
+      color: white;
+      text-align: center;
+      &::after{
+        content: 'x';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-transform: uppercase;
+      }
+    }
+  }
 }

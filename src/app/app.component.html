@@ -104,3 +104,9 @@
 <div class="action-bar">
 
 </div>
+<div class="over alter" [class.over-show]="isShowAlter" (click)="closeAlter()">
+  <div class="alter-form">
+    <span class="alter-text">{{notification}}</span>
+    <span class="btn" (click)="closeAlter()"></span>
+  </div>
+</div>

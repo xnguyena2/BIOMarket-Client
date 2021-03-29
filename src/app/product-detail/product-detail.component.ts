@@ -1,6 +1,6 @@
 import { ViewportScroller } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faCaretDown, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CarouselPaddingComponent } from '../carousel-padding/carousel-padding.component';
 import { BeerDetail, BeerUnit } from '../object/BeerDetail';
@@ -43,6 +43,7 @@ export class ProductDetailComponent implements OnInit {
   productCount: number = 1;
 
   constructor(private route: ActivatedRoute,
+    private router: Router,
     private scroll: ViewportScroller,
     private Api: APIService,) { }
   ngOnInit(): void {
@@ -144,7 +145,7 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-  addToPackage() {
+  addToPackage(gotoCart: boolean) {
     let packageItem: ProductPackage = {
       deviceID: '',
       beerID: this.productID,
@@ -157,7 +158,11 @@ export class ProductDetailComponent implements OnInit {
     }
     this.Api.AddToPackage(packageItem, result => {
       if (result) {
-        this.showSuccessPopUP();
+        if(gotoCart){
+          this.router.navigate(['checkouts']);
+        }else{
+          this.showSuccessPopUP();
+        }
         this.Api.GetPackage();
       } else {
 
@@ -192,5 +197,6 @@ export class ProductDetailComponent implements OnInit {
   }
 
   buyNow() {
+    this.addToPackage(true);
   }
 }

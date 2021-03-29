@@ -37,7 +37,7 @@
             <input type="number" #productNum class="product-number" [value]="productCount" (keyup)="onChangeNumber(productNum.value)">
             <span class="action-btn" (click)="changeNumberSell(true)">+</span>
           </div>
-          <a class="add-to-package" (click)="addToPackage()">Thêm Vào Giỏ</a>
+          <a class="add-to-package" (click)="addToPackage(false)">Thêm Vào Giỏ</a>
           <a class="buy-now full-grid" (click)="buyNow()">Mua Ngay</a>
         </form>
       </section>

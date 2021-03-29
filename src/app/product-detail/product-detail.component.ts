@@ -109,7 +109,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   hidePopUp(mouse: MouseEvent) {
-    console.log(mouse);
+    //console.log(mouse);
 
     if (mouse.target !== mouse.currentTarget) {
       return;

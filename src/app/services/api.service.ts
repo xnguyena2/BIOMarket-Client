@@ -154,10 +154,10 @@ export class APIService {
       });
   }
 
-  alredyGetRegion:boolean = false;
+  alredyGetRegion: boolean = false;
   public GetAllRegion(cb: (result: Region[]) => void) {
     this.appServices.registerRegion(cb);
-    if(!this.alredyGetRegion){
+    if (!this.alredyGetRegion) {
       this.alredyGetRegion = true;
       this.requestServices.get(`${this.HostURL}address/allregion/`).subscribe(
         event => {
@@ -189,24 +189,20 @@ export class APIService {
   }
 
   public LoadBootStrap(cb: (result: BootStrap) => void) {
-    if (!isDevMode() && false) {
-      cb(BootStrap.TestData);
-    } else {
-      this.requestServices.get(`${this.HostURL}clientdevice/bootstrap`).subscribe(
-        event => {
-          if (event instanceof HttpResponse) {
-            this.currentResult = new SearchResult();
-            this.currentResult.result = event.body.products;
-            console.log('bootstrap data: ');
-            console.log(event.body);
-            cb(event.body);
-          }
-        },
-        err => {
-          console.log(err);
-          cb(new BootStrap());
-        });
-    }
+    this.requestServices.get(`${this.HostURL}clientdevice/bootstrap`).subscribe(
+      event => {
+        if (event instanceof HttpResponse) {
+          this.currentResult = new SearchResult();
+          this.currentResult.result = event.body.products;
+          console.log('bootstrap data: ');
+          console.log(event.body);
+          cb(event.body);
+        }
+      },
+      err => {
+        console.log(err);
+        cb(new BootStrap());
+      });
   }
 
   private search(searchQuery: SearchQuery): Observable<HttpEvent<any>> {
@@ -222,23 +218,19 @@ export class APIService {
   }
 
   public SearchBeer(searchQuery: SearchQuery, cb: (result: SearchResult) => void) {
-    if (!isDevMode() && false) {
-      cb(SearchResult.TestData);
-    } else {
-      this.search(searchQuery).subscribe(
-        event => {
-          if (event instanceof HttpResponse) {
-            this.currentResult = event.body;
-            console.log('search result: ');
-            console.log(this.currentResult);
-            cb(this.currentResult);
-          }
-        },
-        err => {
-          console.log(err);
-          cb(new SearchResult());
-        });
-    }
+    this.search(searchQuery).subscribe(
+      event => {
+        if (event instanceof HttpResponse) {
+          this.currentResult = event.body;
+          console.log('search result: ');
+          console.log(this.currentResult);
+          cb(this.currentResult);
+        }
+      },
+      err => {
+        console.log(err);
+        cb(new SearchResult());
+      });
   }
 
   public GetProductDetail(productID: string, cb: (p?: BeerDetail) => void) {

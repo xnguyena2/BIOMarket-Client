@@ -15,8 +15,6 @@ export class AppService {
   readonly IGNOREREGION: Region[] = [];
 
 
-  myRegion: Region[] = [];
-
   private packageSource = new BehaviorSubject<MyPackage[]>(this.IGNOREPACKAGE);
   private package = this.packageSource.asObservable();
 

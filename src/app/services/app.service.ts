@@ -33,7 +33,7 @@ export class AppService {
 
   //package
   public registerPackage(func: (filter: MyPackage[]) => void) {
-    this.package.pipe(filter(x => x !== null && x !== undefined && x !== this.IGNOREPACKAGE && x.length > 0)).subscribe(f => func(f));
+    this.package.pipe(filter(x => x !== this.IGNOREPACKAGE)).subscribe(f => func(f));
   }
   public changePackage(filter: MyPackage[]) {
     this.packageSource.next(filter);

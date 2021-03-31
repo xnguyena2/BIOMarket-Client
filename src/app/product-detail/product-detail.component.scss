@@ -173,12 +173,6 @@
           .discount-price {
             font-size: 2.3rem;
             font-weight: 450;
-            &::after {
-              content: "đ";
-              display: inline-block;
-              margin-left: 0.4rem;
-              text-decoration: underline;
-            }
           }
           .real-price {
             font-size: 1.8rem;

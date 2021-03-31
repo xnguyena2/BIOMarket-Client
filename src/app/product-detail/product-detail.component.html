@@ -26,8 +26,8 @@
           </div>
         </div>
         <div class="price-container">
-          <span class="discount-price">{{price}}</span>
-          <span class="real-price" *ngIf="discount>0">{{realPrice}}</span>
+          <span class="discount-price">{{price | moneyFormat}}</span>
+          <span class="real-price" *ngIf="discount>0">{{realPrice | moneyFormat}}</span>
           <span class="unit-discount" *ngIf="discount>0">{{discount}}</span>
         </div>
         <form class="add-package-container">

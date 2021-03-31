@@ -212,12 +212,6 @@ section {
         font-weight: bold;
         vertical-align: middle;
         color: #6b6b6b;
-        &::after {
-          content: "đ";
-          display: inline-block;
-          margin-left: 0.3rem;
-          text-decoration: underline;
-        }
       }
       .product-discount {
         margin-left: 1.5rem;

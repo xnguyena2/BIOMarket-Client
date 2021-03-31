@@ -51,6 +51,7 @@ export class ProductDetailComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         const productID = params.productID;
+        this.productCount = 1;
         if (productID !== null) {
           console.log(productID);
           this.Api.SearchBeer(new SearchQuery('', 0, 8, ''), result => {

@@ -1,13 +1,13 @@
 <header (click)="1">
-  <div class="navbar">
+  <div class="main-container navbar">
     <div class="logo">
       <a href=""><img src="assets/img/icon.png" alt=""></a>
     </div>
     <div class="search">
       <div class="search-anchor">
+        <input type="text" #searchText (keyup.enter)="onSearchEnter(searchText.value)" [style.visibility]="visibilitySearchBar"
+          placeholder="Tìm kiếm sản phẩm" (keyup)="onSearch(searchText.value)" class="search-input">
         <div class="wrap-search" [style.visibility]="visibilitySearchBar">
-          <input type="text" #searchText (keyup.enter)="onSearchEnter(searchText.value)"
-            (keyup)="onSearch(searchText.value)" class="search-input">
           <fa-icon *ngIf="isMobileMode||searchText.value!==''" class="search-icon-size close-icon" [icon]="faClose"
             (click)="clearSearchText();"></fa-icon>
           <fa-icon class="search-icon-size" [icon]="faSearch" (click)="onSearchEnter(searchText.value)"></fa-icon>
@@ -59,7 +59,7 @@
     </div>
   </div>
 </header>
-<main (click)="1">
+<main (click)="1" class="main-container main">
   <router-outlet></router-outlet>
 </main>
 <footer (click)="1">

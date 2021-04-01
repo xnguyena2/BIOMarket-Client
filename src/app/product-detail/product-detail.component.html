@@ -1,77 +1,82 @@
-<section class="product-detail-content">
-  <div class="main-content">
-    <div class="sub-content subleft">
-      <div [class.gallery-full-screen]="fullscreenMode" (click)="hidePopUp($event)" id="parent-full-screen">
-        <div [class.parent-container]="fullscreenMode">
-          <div class="galary-aspect-ratio">
-            <div class="close-icon-container">
-              <fa-icon *ngIf="fullscreenMode" class="close-icon" [icon]="faClose"></fa-icon>
-              <div class="click-handel" (click)="hidePopUp($event)"></div>
+<main class="">
+  <section class="product-detail-content">
+    <div class="main-content">
+      <div class="sub-content subleft">
+        <div [class.gallery-full-screen]="fullscreenMode" (click)="hidePopUp($event)" id="parent-full-screen">
+          <div [class.parent-container]="fullscreenMode">
+            <div class="galary-aspect-ratio">
+              <div class="close-icon-container">
+                <fa-icon *ngIf="fullscreenMode" class="close-icon" [icon]="faClose"></fa-icon>
+                <div class="click-handel" (click)="hidePopUp($event)"></div>
+              </div>
+              <app-carousel-padding [GalleryMode]="true" (clickAtItem)="clickAt($event)"></app-carousel-padding>
             </div>
-            <app-carousel-padding [GalleryMode]="true" (clickAtItem)="clickAt($event)"></app-carousel-padding>
           </div>
         </div>
       </div>
-    </div>
-    <div class="sub-content subright">
-      <section *ngIf="productReady">
-        <h1 class="product-name">{{title}}</h1>
-        <div class="unit-selection">
-          <h1 class="unit-title">Đơn Vị:</h1>
-          <div class="unit-select">
-            <select (change)='changeeUnit(filter.value)' #filter class="select">
-              <option *ngFor="let item of listUnit;" [value]="item.beer_unit_second_id">{{item.name}}</option>
-            </select>
-            <fa-icon class="icon-size caret-down" [icon]="faCaretDown"></fa-icon>
+      <div class="sub-content subright">
+        <section *ngIf="productReady">
+          <h1 class="product-name">{{title}}</h1>
+          <div class="unit-selection">
+            <h1 class="unit-title">Đơn Vị:</h1>
+            <div class="unit-select">
+              <select (change)='changeeUnit(filter.value)' #filter class="select">
+                <option *ngFor="let item of listUnit;" [value]="item.beer_unit_second_id">{{item.name}}</option>
+              </select>
+              <fa-icon class="icon-size caret-down" [icon]="faCaretDown"></fa-icon>
+            </div>
           </div>
-        </div>
-        <div class="price-container">
-          <span class="discount-price">{{price | moneyFormat}}</span>
-          <span class="real-price" *ngIf="discount>0">{{realPrice | moneyFormat}}</span>
-          <span class="unit-discount" *ngIf="discount>0">{{discount}}</span>
-        </div>
-        <form class="add-package-container">
-          <div class="product-number-container">
-            <label for="" class="product-count-title">Số Lượng:</label>
-            <span class="action-btn" (click)="changeNumberSell(false)">-</span>
-            <input type="number" #productNum class="product-number" [value]="productCount" (keyup)="onChangeNumber(productNum.value)">
-            <span class="action-btn" (click)="changeNumberSell(true)">+</span>
+          <div class="price-container">
+            <span class="discount-price">{{price | moneyFormat}}</span>
+            <span class="real-price" *ngIf="discount>0">{{realPrice | moneyFormat}}</span>
+            <span class="unit-discount" *ngIf="discount>0">{{discount}}</span>
           </div>
-          <a class="add-to-package" (click)="addToPackage(false)">Thêm Vào Giỏ</a>
-          <a class="buy-now full-grid" (click)="buyNow()">Mua Ngay</a>
-        </form>
-      </section>
-    </div>
-  </div>
-</section>
-<section class="product-detail-content">
-  <div class="main-content small-gap">
-    <h1 class="product-detail-title full-grid">Chi Tiết Sản Phẩm</h1>
-    <p class="product-detail full-grid" [innerHTML]='productDetail'></p>
-    <div class="diver full-grid"></div>
-    <app-list-product class="full-grid" [listProduct]="listProduct" [searchMode]="false" [mainTitle]="'Sản Phẩm Liên Quan'"></app-list-product>
-    <div class="diver full-grid"></div>
-  </div>
-</section>
-<aside class="add-package-popup" [class.move-up]='showAddCartPopup' (click)='hideSuccessPopUP($event)'>
-  <form class="add-cart-preview-container" [class.move-right]='showAddCartPopup'>
-    <header class="thankfull-header">
-      <h1 class="main-thank">Đã Thêm Vào Giỏ Hàng Thành Công</h1>
-      <h3 class="sub-thank">Cảm ơn bạn đã lựa chọn sản phẩm!</h3>
-    </header>
-    <div class="product-buying-container">
-      <img [src]="productPreviewImg" alt="" class="image-preview">
-      <h1 class="product-name">beer tiger</h1>
-      <div class="product-unit-container product-detail">
-        <label for="">Đơn Vị:</label>
-        <h2 class="product-info">{{productUnitTitle}}</h2>
+          <form class="add-package-container">
+            <div class="product-number-container">
+              <label for="" class="product-count-title">Số Lượng:</label>
+              <span class="action-btn" (click)="changeNumberSell(false)">-</span>
+              <input type="number" #productNum class="product-number" [value]="productCount"
+                (keyup)="onChangeNumber(productNum.value)">
+              <span class="action-btn" (click)="changeNumberSell(true)">+</span>
+            </div>
+            <a class="add-to-package" (click)="addToPackage(false)">Thêm Vào Giỏ</a>
+            <a class="buy-now full-grid" (click)="buyNow()">Mua Ngay</a>
+          </form>
+        </section>
       </div>
-      <div class="product-count-container product-detail">
-        <label for="">Số Lượng:</label>
-        <h2 class="product-info">{{productCount}}</h2>
-      </div>
-      <h2 class="product-unit-price">{{price}}</h2>
-      <input (click)='hideSuccessPopUP($event)' routerLink="/cart" type="button" value="Xem Giỏ Hàng">
     </div>
-  </form>
-</aside>
+  </section>
+  <section class="product-detail-content">
+    <div class="main-content small-gap">
+      <h1 class="product-detail-title full-grid">Chi Tiết Sản Phẩm</h1>
+      <p class="product-detail full-grid" [innerHTML]='productDetail'></p>
+      <div class="diver full-grid"></div>
+      <app-list-product class="full-grid" [listProduct]="listProduct" [searchMode]="false"
+        [mainTitle]="'Sản Phẩm Liên Quan'"></app-list-product>
+      <div class="diver full-grid"></div>
+    </div>
+  </section>
+  <aside class="add-package-popup" [class.move-up]='showAddCartPopup' (click)='hideSuccessPopUP($event)'>
+    <form class="add-cart-preview-container" [class.move-right]='showAddCartPopup'>
+      <header class="thankfull-header">
+        <h1 class="main-thank">Đã Thêm Vào Giỏ Hàng Thành Công</h1>
+        <h3 class="sub-thank">Cảm ơn bạn đã lựa chọn sản phẩm!</h3>
+      </header>
+      <div class="product-buying-container">
+        <img [src]="productPreviewImg" alt="" class="image-preview">
+        <h1 class="product-name">beer tiger</h1>
+        <div class="product-unit-container product-detail">
+          <label for="">Đơn Vị:</label>
+          <h2 class="product-info">{{productUnitTitle}}</h2>
+        </div>
+        <div class="product-count-container product-detail">
+          <label for="">Số Lượng:</label>
+          <h2 class="product-info">{{productCount}}</h2>
+        </div>
+        <h2 class="product-unit-price">{{price}}</h2>
+        <input (click)='hideSuccessPopUP($event)' routerLink="/cart" type="button" value="Xem Giỏ Hàng">
+      </div>
+    </form>
+  </aside>
+
+</main>

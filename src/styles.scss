@@ -30,4 +30,49 @@ html, body {
 
 .disable-scroll{
   overflow: hidden;
+  height: 100%;
+}
+
+
+//layout
+.main-container {
+  padding: 0 1rem;
+  margin: 2rem auto;
+
+  .col-1 {
+    flex: 0 0 8.33333%;
+    max-width: 8.33333%;
+  }
+  .col-2 {
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
+  }
+  .col-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .col-5 {
+    flex: 0 0 41.66667%;
+    max-width: 41.66667%;
+  }
+  .col-11 {
+    flex: 0 0 91.66667%;
+    max-width: 91.66667%;
+  }
+
+  @media only screen and (min-width: 576px) {
+    max-width: 540px;
+  }
+  @media only screen and (min-width: 767px) {
+    max-width: 720px;
+  }
+  @media only screen and (min-width: 992px) {
+    max-width: 960px;
+  }
+  @media only screen and (min-width: 1200px) {
+    max-width: 1140px;
+  }
+  @media only screen and (min-width: 1800px) {
+    max-width: 1200px;
+  }
 }

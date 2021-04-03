@@ -321,6 +321,16 @@ header {
       }
     }
   }
+  .loading-bar{
+    height: 0.2rem;
+    background-color: rgb(0, 218, 91);
+    animation: progress 20s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes progress {
+    0% {width: 0%;}
+    100% {width: 95%;}
+  }
 }
 .router-link-active{
   cursor: pointer;

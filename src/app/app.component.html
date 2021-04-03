@@ -58,6 +58,7 @@
       </a>
     </div>
   </div>
+  <div *ngIf="loader.isLoading | async" class="loading-bar"></div>
 </header>
 <main (click)="1" class="main-container main">
   <router-outlet></router-outlet>

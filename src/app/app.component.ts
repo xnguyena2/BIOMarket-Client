@@ -15,6 +15,7 @@ import { BeerDetail } from './object/BeerDetail';
 import { SearchQuery } from './object/SearchQuery';
 import { APIService } from './services/api.service';
 import { AppService } from './services/app.service';
+import { LoaderService } from './services/loader.service';
 
 
 @Component({
@@ -47,7 +48,6 @@ export class AppComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   subject = new Subject<string>();
 
-
   totalProduct: number = 0;
 
   showHoverMenu: boolean = true;
@@ -62,7 +62,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private APIService: APIService,
     private appService: AppService,
     private scroll: ViewportScroller,
-    private router: Router) {
+    private router: Router,
+    public loader: LoaderService) {
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -82,13 +83,13 @@ export class AppComponent implements OnInit, OnDestroy {
       this.totalProduct = num;
     })
 
-    this.appService.registerAlter(text =>{
+    this.appService.registerAlter(text => {
       this.notification = text;
       this.isShowAlter = true;
     });
   }
 
-  closeAlter(){
+  closeAlter() {
     this.isShowAlter = false;
     this.notification = '';
   }

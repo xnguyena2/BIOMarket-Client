@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +19,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { MoneyFormatPipe } from './pipe/money-format.pipe';
 import { CheckoutsComponent } from './checkouts/checkouts.component';
 import { ThankfullComponent } from './thankfull/thankfull.component';
+import { HttpInspectorService } from './services/http-inspector.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { ThankfullComponent } from './thankfull/thankfull.component';
     FormsModule,
     FontAwesomeModule
   ],
-  providers: [CookieService],
+  providers: [CookieService, { provide: HTTP_INTERCEPTORS, useClass: HttpInspectorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

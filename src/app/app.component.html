@@ -1,5 +1,33 @@
-<header (click)="1">
-  <div class="main-container navbar">
+<header (click)="1" #header>
+  <div class="top-contract">
+    <div class="align-right">
+      <img src="assets/img/phone.png" alt="Trùm Biển - chuyên hải sản - liên hệ" class="contract-icon">
+      <img src="assets/img/zalo.png" alt="Trùm Biển - chuyên hải sản - liên hệ" class="contract-icon round-circle">
+      <a href="tel:0822088079">0822.088.079</a>
+    </div>
+  </div>
+
+
+  <div class="logo-container">
+    <a href="">
+      <img src="assets/img/Logo.png" alt="Trùm Biển - chuyên hải sản" class="absolute-center logo" [ngClass]="{'fixed-right' : isNavBarSticky}">
+    </a>
+    <div class="absolute-vertical-center shop-cart" [ngClass]="{'fixed-right' : isNavBarSticky}">
+      <div class="search-box">
+        <input type="text" name="searchInput" id="" class="search-input light-bright" placeholder="Tìm kiếm sản phẩm">
+        <img src="assets/img/SearchIcon.png" alt="" class="light-bright">
+      </div>
+      <div class="shop-package">
+        <a routerLink="/cart">
+          <img src="assets/img/CartIcon.png" alt="" class="light-bright">
+          <span>{{totalProduct}}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!--
+  <div class="main-container navbar hide">
     <div class="logo">
       <a href=""><img src="assets/img/icon.png" alt=""></a>
     </div>
@@ -57,12 +85,35 @@
         <span>{{totalProduct}}</span>
       </a>
     </div>
-  </div>
+  </div> -->
+
   <div *ngIf="loader.isLoading | async" class="loading-bar"></div>
 </header>
-<main (click)="1" class="main-container main">
+
+
+<nav class="stick-navbar top-float">
+  <ul class="navbar-container align-center">
+    <li>
+      <a href="" class="absolute-full">Sản Phẩm</a>
+    </li>
+    <li>
+      <a href="" class="absolute-full">Chăm Sóc KH</a>
+    </li>
+    <li>
+      <a href="" class="absolute-full">Giới Thiệu</a>
+    </li>
+    <li>
+      <a href="" class="absolute-full">Liên Hệ</a>
+    </li>
+  </ul>
+</nav>
+
+
+<main (click)="1">
   <router-outlet></router-outlet>
 </main>
+
+
 <footer (click)="1">
   <div class="footer-container">
     <div class="footer-col2">

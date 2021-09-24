@@ -1,4 +1,4 @@
-<section>
+<section class="main-container">
   <h2 *ngIf="!searchMode" class="title-dot">{{mainTitle}}</h2>
   <div *ngIf="searchMode" class="sort-wrap list-product-content">
     <h1 class="search-title">{{title}}</h1>
@@ -11,15 +11,19 @@
   </div>
   <div class="list-product-content">
     <div *ngFor="let item of listProduct;" class="product-detail">
-      <a [routerLink]="['/detail', item.beerSecondID]" class="product-container">
+      <div class="product-container">
         <div class="wrap-aspectratio">
-          <img [src]="item.images&&item.images.length>0?item.images[0].medium:''" alt=""
-            class="product-preview">
+          <a [routerLink]="['/detail', item.beerSecondID]">
+            <img [src]="item.images&&item.images.length>0?item.images[0].medium:''" alt=""
+              class="product-preview">
+            </a>
         </div>
         <h3 class="product-title">{{item.name}}</h3>
+        <ins class="product-real-price">{{item.listUnit[0].price | moneyFormat}}</ins>
         <ins class="product-price">{{item.listUnit[0].price*(100-item.listUnit[0].discount)/100 | moneyFormat}}</ins>
         <span *ngIf="item.listUnit[0].discount" class="product-discount">{{item.listUnit[0].discount}}</span>
-      </a>
+        <a class="add-to-package" (click)="addToPackage(item.beerSecondID, item.listUnit[0].beer_unit_second_id)">Thêm Vào Giỏ</a>
+      </div>
     </div>
   </div>
   <div class="see-more" *ngIf="!searchMode">

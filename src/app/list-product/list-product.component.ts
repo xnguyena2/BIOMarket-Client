@@ -2,6 +2,8 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { faCaretDown, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { AppConfig } from '../config/AppConfig';
 import { BeerDetail } from '../object/BeerDetail';
+import { ProductPackage } from '../object/ProductPackage';
+import { APIService } from '../services/api.service';
 
 @Component({
   selector: 'app-list-product',
@@ -39,7 +41,8 @@ export class ListProductComponent implements OnInit {
 
   selection: any;
 
-  constructor() { }
+  constructor(
+    private Api: APIService,) { }
 
   ngOnInit(): void {
   }
@@ -127,5 +130,29 @@ export class ListProductComponent implements OnInit {
         }
       });
     }
+  }
+
+
+
+  addToPackage(productID: string, productUnitID: string) {
+    let packageItem: ProductPackage = {
+      deviceID: '',
+      beerID: productID,
+      beerUnits: [
+        {
+          beerUnitID: productUnitID,
+          numberUnit: 1
+        }
+      ]
+    }
+    this.Api.AddToPackage(packageItem, result => {
+      if (result) {
+        //this.showSuccessPopUP();
+        this.Api.GetPackage();
+      } else {
+
+      }
+    });
+    //this.router.navigate(['cart']);
   }
 }

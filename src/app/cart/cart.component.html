@@ -1,64 +1,67 @@
-<div class="cart-container" *ngIf="ready">
-  <form class="cart-form" *ngIf="showCart; else emptyCart">
-    <div class="product-container">
-      <div class="title-container flex-container">
-        <div class="col-1"></div>
-        <div class="col-11 flex-container">
-          <div class="col-5">Sản Phẩm</div>
-          <div class="col-2">Đơn Giá</div>
-          <div class="col-3">Số Lượng</div>
-          <div class="col-2">Thành Tiền</div>
+<main class="main-container">
+  <div class="cart-container" *ngIf="ready">
+    <form class="cart-form" *ngIf="showCart; else emptyCart">
+      <div class="product-container">
+        <div class="title-container flex-container">
+          <div class="col-1"></div>
+          <div class="col-11 flex-container">
+            <div class="col-5">Sản Phẩm</div>
+            <div class="col-2">Đơn Giá</div>
+            <div class="col-3">Số Lượng</div>
+            <div class="col-2">Thành Tiền</div>
+          </div>
         </div>
-      </div>
-      <div class="list-buy-product" *ngFor="let item of listProduct">
-        <div class="col-1 close-icon-ctn">
-          <fa-icon class="close-icon" [icon]="faClose" (click)="deleteItem(item)"></fa-icon>
-        </div>
-        <div class="col-11 product-price-detail">
-          <a [routerLink]="['/detail', item.beer_id]">
-            <img
-              [src]="item.beerSubmitData.images != null && item.beerSubmitData.images.length > 0?item.beerSubmitData.images[0].medium:''"
-              alt="" class="product-preview">
-          </a>
-          <div class="product-info">
+        <div class="list-buy-product" *ngFor="let item of listProduct">
+          <div class="col-1 close-icon-ctn">
+            <fa-icon class="close-icon" [icon]="faClose" (click)="deleteItem(item)"></fa-icon>
+          </div>
+          <div class="col-11 product-price-detail">
             <a [routerLink]="['/detail', item.beer_id]">
-              <h3 class="product-name title-font">{{item.beerSubmitData.name}}</h3>
+              <img
+                [src]="item.beerSubmitData.images != null && item.beerSubmitData.images.length > 0?item.beerSubmitData.images[0].medium:''"
+                alt="" class="product-preview">
             </a>
-            <span class="product-unit">{{"Đơn Vị: "+item.beerSubmitData.listUnit[0].name}}</span>
+            <div class="product-info">
+              <a [routerLink]="['/detail', item.beer_id]">
+                <h3 class="product-name title-font">{{item.beerSubmitData.name}}</h3>
+              </a>
+              <span class="product-unit">{{"Đơn Vị: "+item.beerSubmitData.listUnit[0].name}}</span>
+            </div>
+            <span class="unit-price title-font"
+              [textContent]="item.beerSubmitData.listUnit[0].price*(100-item.beerSubmitData.listUnit[0].discount)/100 | moneyFormat"></span>
+            <div class="product-number-container">
+              <span class="action-btn" (click)="changeNumber(false, item)">-</span>
+              <input type="number" class="product-number title-font" [value]="item.number_unit" #countInput
+                (keyup.enter)="setNumber(countInput.value, item)">
+              <span class="action-btn" (click)="changeNumber(true, item)">+</span>
+            </div>
+            <span class="unit-price total-price title-font"
+              [textContent]="item.beerSubmitData.listUnit[0].price*item.number_unit*(100-item.beerSubmitData.listUnit[0].discount)/100 | moneyFormat"></span>
           </div>
-          <span class="unit-price title-font"
-            [textContent]="item.beerSubmitData.listUnit[0].price*(100-item.beerSubmitData.listUnit[0].discount)/100 | moneyFormat"></span>
-          <div class="product-number-container">
-            <span class="action-btn" (click)="changeNumber(false, item)">-</span>
-            <input type="number" class="product-number title-font" [value]="item.number_unit" #countInput
-              (keyup.enter)="setNumber(countInput.value, item)">
-            <span class="action-btn" (click)="changeNumber(true, item)">+</span>
-          </div>
-          <span class="unit-price total-price title-font"
-            [textContent]="item.beerSubmitData.listUnit[0].price*item.number_unit*(100-item.beerSubmitData.listUnit[0].discount)/100 | moneyFormat"></span>
+        </div>
+        <div class="back-shoping">
+          <a [routerLink]="['/search','all']">
+            <fa-icon class="control-nav icon-size pre-icon" [icon]="faLeft"></fa-icon>
+            Tiếp Tục Mua Sắm
+          </a>
+
         </div>
       </div>
+      <div class="payment-form">
+        <div class="title">Thành Tiền</div>
+        <span class="total-price">{{totalPrice | moneyFormat}}</span>
+        <a class="purchase-now" routerLink="/checkouts">Thanh Toán</a>
+      </div>
+    </form>
+    <ng-template #emptyCart>
+      <img class="empty-cart" src="assets/img/empty-cart.png" alt="">
       <div class="back-shoping">
-        <a [routerLink]="['/search','all']">
+        <a [routerLink]="['/search','all']" class="center-div">
           <fa-icon class="control-nav icon-size pre-icon" [icon]="faLeft"></fa-icon>
           Tiếp Tục Mua Sắm
         </a>
-
       </div>
-    </div>
-    <div class="payment-form">
-      <div class="title">Thành Tiền</div>
-      <span class="total-price">{{totalPrice | moneyFormat}}</span>
-      <a class="purchase-now" routerLink="/checkouts">Thanh Toán</a>
-    </div>
-  </form>
-  <ng-template #emptyCart>
-    <img class="empty-cart" src="assets/img/empty-cart.png" alt="">
-    <div class="back-shoping">
-      <a [routerLink]="['/search','all']" class="center-div">
-        <fa-icon class="control-nav icon-size pre-icon" [icon]="faLeft"></fa-icon>
-        Tiếp Tục Mua Sắm
-      </a>
-    </div>
-  </ng-template>
-</div>
+    </ng-template>
+  </div>
+
+</main>

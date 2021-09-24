@@ -1,43 +1,61 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,500,600,700&display=swap&subset=vietnamese');
-
+// @import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,500,600,700&display=swap&subset=vietnamese');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-ul{
+
+html {
+  --main-color: #184863;
+  --navbar-height: 5.5rem;
+  --header-height: 13rem;
+
+  height: 100%;
+  width: 100%;
+  font-size: 62.5%;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  // overflow-x: hidden;
+}
+
+body {
+  min-height: 100%;
+}
+
+ul {
   list-style: none;
 }
-a{
+
+a {
   text-decoration: none;
   color: black;
-  &:active{
+  &:active {
     transition: all 0.35s ease;
     transform: scale(0.95);
   }
 }
-html, body {
- min-height: 100vh;
- width: 100%;
- font-size: 62.5%;
- margin: 0;
- font-family: Roboto Slab, "Helvetica Neue", sans-serif;
- overflow-x: hidden;
-}
 
-.disable-scroll{
+.disable-scroll {
   overflow: hidden;
   height: 100%;
 }
 
+//layout
+main{
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
 
 //layout
 .main-container {
   padding: 0 1rem;
-  margin: 2rem auto;
+  margin: 0 auto;
+  margin-top: 0.2rem;
+  margin-bottom: 2rem;
 
   .col-1 {
     flex: 0 0 8.33333%;

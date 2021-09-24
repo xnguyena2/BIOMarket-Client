@@ -4,6 +4,7 @@ import { BeerDetail } from '../object/BeerDetail';
 
 import { APIService } from '../services/api.service';
 import { AppService } from '../services/app.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ export class HomeComponent implements OnInit {
   listProduct: BeerDetail[] = [];
 
   constructor(private API: APIService,
-    public AppService: AppService) { }
+    public AppService: AppService,
+    public loader: LoaderService) { }
 
   ngOnInit(): void {
     this.API.LoadBootStrap(result => {

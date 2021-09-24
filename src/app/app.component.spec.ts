@@ -23,7 +23,7 @@ describe('AppComponent', () => {
   it(`should have as title 'BIOMarket-client'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('BIOMarket | Chuyên Bia Nhập Khẩu');
+    expect(app.title).toEqual('Trùm Biển | Hải Sản Chất Lượng Cao');
   });
 
   it('should render title', () => {

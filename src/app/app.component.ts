@@ -1,14 +1,15 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
 
 import { faShoppingCart, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import {
   debounceTime,
   map,
-  distinctUntilChanged
+  distinctUntilChanged,
+  mergeMap
 } from "rxjs/operators";
 import { AppConfig } from './config/AppConfig';
 import { BeerDetail } from './object/BeerDetail';
@@ -23,12 +24,12 @@ import { LoaderService } from './services/loader.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   readonly maxSearResult: number = 10;
 
 
-  title = 'BIOMarket | Chuyên Bia Nhập Khẩu';
+  title = 'Trùm Biển | Hải Sản Chất Lượng Cao';
   fashoppingcart = faShoppingCart;
   faSearch = faSearch;
   faClose = faTimes;
@@ -44,6 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('over', { static: false }) over!: ElementRef;
   @ViewChild('searchText', { static: false }) searchInput!: ElementRef;
   @ViewChild('resetFocus', { static: false }) resetFocus!: ElementRef;
+  @ViewChild('header', { static: false }) header!: ElementRef;
 
   subscription: Subscription = new Subscription();
   subject = new Subject<string>();
@@ -51,6 +53,8 @@ export class AppComponent implements OnInit, OnDestroy {
   totalProduct: number = 0;
 
   showHoverMenu: boolean = true;
+
+  isNavBarSticky: boolean = false;
 
   visibilitySearchBar: string = '';
 
@@ -65,6 +69,11 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     public loader: LoaderService) {
   }
+
+  ngAfterViewInit(): void {
+    this.setupForNavbarSticky(this.header);
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -87,6 +96,25 @@ export class AppComponent implements OnInit, OnDestroy {
       this.notification = text;
       this.isShowAlter = true;
     });
+  }
+
+
+  private setupForNavbarSticky(element: ElementRef) {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) {
+          console.log('navbar sticky');
+          //this.loadImage();
+          //obs.unobserve(element.nativeElement);
+          this.isNavBarSticky = true;
+        }else{
+          console.log('navbar not sticky');
+          this.isNavBarSticky = false;
+        }
+      });
+    }
+    );
+    obs.observe(element.nativeElement);
   }
 
   closeAlter() {

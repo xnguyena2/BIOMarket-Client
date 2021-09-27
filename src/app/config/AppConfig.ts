@@ -35,22 +35,22 @@ export const AppConfig = {
   }],
   CatetoryDrop: [{
     value: 'alcohol_drinks',
-    title: 'Đồ Uống Có Cồn'
+    title: 'Cua-Ghẹ'
   },
   {
     value: 'beverage',
-    title: 'Nước Giải Khát'
+    title: 'Tôm'
   },
   {
     value: 'fresh_water',
-    title: 'Nước Lọc'
+    title: 'Mực'
   },
   {
     value: 'internationnal_drinks',
-    title: 'Đồ Uống Nhập Ngoại'
+    title: 'Hải Sâm'
   },
   {
     value: 'juice_fruit',
-    title: 'Nước Ép Trái Cây'
+    title: 'Hào'
   }]
 }

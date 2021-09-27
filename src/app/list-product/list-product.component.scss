@@ -24,7 +24,7 @@ section {
 
     font-style: normal;
     font-weight: 500;
-    font-size: 36px;
+    font-size: clamp(20px, 5vw, 36px);
 
   }
   .sort-wrap {
@@ -85,6 +85,7 @@ section {
     }
   }
   .see-more {
+    display: none;
     a {
       font-size: 1.6rem;
       text-decoration: none;
@@ -247,6 +248,14 @@ section {
         margin: 0 auto;
         margin-top: 1.5rem;
         max-width: 100%;
+        &:hover
+        ,&:focus
+        {
+          background-color: var(--main-color);
+          border-color: var(--main-color);
+          color: white;
+          transition: all .3s ease;
+        }
       }
     }
   }

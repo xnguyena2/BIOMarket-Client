@@ -10,8 +10,9 @@
 
   <div class="logo-container">
     <a href="">
-      <img src="assets/img/Logo.png" alt="Trùm Biển - chuyên hải sản" class="absolute-center logo" [ngClass]="{'fixed-right' : isNavBarSticky}">
+      <img src="assets/img/Logo.png" alt="Trùm Biển - chuyên hải sản" class="absolute-vertical-center logo" [ngClass]="{'fixed-right' : isNavBarSticky}">
     </a>
+    <img src="assets/img/Slogan.png" alt="Trùm Biển - chuyên hải sản" class="absolute-center slogan" [ngClass]="{'fixed-right' : isNavBarSticky}">
     <div class="absolute-vertical-center shop-cart" [ngClass]="{'fixed-right' : isNavBarSticky}">
       <div class="search-box">
         <input type="text" name="searchInput" id="" class="search-input light-bright" placeholder="Tìm kiếm sản phẩm">
@@ -91,10 +92,20 @@
 </header>
 
 
-<nav class="stick-navbar top-float">
+<nav class="stick-navbar top-float"  [ngClass]="{'enable-stick' : isNavBarSticky}">
+  <input id="openMenu" type="checkbox" class="checkbox-hold-state show-menu-enable" checked [(ngModel)]='isOpenMenu'>
   <ul class="navbar-container align-center">
     <li>
-      <a href="" class="absolute-full">Sản Phẩm</a>
+      <a class="absolute-full drop-down-icon">Sản Phẩm</a>
+      <div class="hover-menu-container absolute-full" *ngIf="showHoverMenu">
+        <ul class="hover-menu">
+          <li *ngFor="let item of CatetoryDrop;" (click)="categorySearch(item.value)">
+            <a class="router-link-active">
+              <span>{{item.title}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </li>
     <li>
       <a href="" class="absolute-full">Chăm Sóc KH</a>
@@ -106,6 +117,11 @@
       <a href="" class="absolute-full">Liên Hệ</a>
     </li>
   </ul>
+  <div class="open-menu-container absolute-vertical-center">
+    <label class="absolute-vertical-center menu-icon" for="openMenu">
+      <img src="assets/img/MenuIcon.png" alt="">
+    </label>
+  </div>
 </nav>
 
 

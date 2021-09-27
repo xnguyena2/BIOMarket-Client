@@ -1,6 +1,7 @@
 <div class="carousel-anchor">
   <app-carousel-padding></app-carousel-padding>
 </div>
-<h2 *ngIf="!(loader.isLoading | async)" class="slogan">CHẤT LIỆU TẠO NÊN NHỮNG MÓN ĂN TUYỆT VỜI NHẤT</h2>
+<h2 *ngIf="!(loader.isLoading | async)" class="slogan">CHẤT LƯỢNG LÀM NÊN UY TÍN</h2>
 <img *ngIf="!(loader.isLoading | async)" src="assets/img/Fotolia.jpg" alt="" class="main-container img-ads">
-<app-list-product  *ngIf="!(loader.isLoading | async)" [listProduct]="listProduct" [searchMode]="false"></app-list-product>
+<app-list-product *ngIf="!(loader.isLoading | async)" [listProduct]="listProduct" [searchMode]="false">
+</app-list-product>

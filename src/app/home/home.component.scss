@@ -11,10 +11,11 @@
   text-align: center;
   font-style: normal;
   font-weight: 500;
-  font-size: 36px;
+  font-size: clamp(20px, 5vw, 36px);
 }
 
 .img-ads{
   display: block;
   margin-top: 5rem;
+  max-width: 100%;
 }

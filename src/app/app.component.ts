@@ -56,6 +56,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isNavBarSticky: boolean = false;
 
+  isOpenMenu: boolean = true;
+
   visibilitySearchBar: string = '';
 
   isMobileMode = false;
@@ -98,17 +100,24 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  closeMenu(){
+    if(this.isOpenMenu)
+    return;
+    this.isOpenMenu = true;
+  }
+
 
   private setupForNavbarSticky(element: ElementRef) {
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) {
-          console.log('navbar sticky');
+          // console.log('navbar sticky');
           //this.loadImage();
           //obs.unobserve(element.nativeElement);
           this.isNavBarSticky = true;
+          this.closeMenu();
         }else{
-          console.log('navbar not sticky');
+          // console.log('navbar not sticky');
           this.isNavBarSticky = false;
         }
       });
@@ -181,6 +190,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   categorySearch(searchText: string) {
     this.router.navigate(['search', searchText]);
     this.hideHoverMenu();
+    this.closeMenu();
   }
 
   hideHoverMenu() {

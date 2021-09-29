@@ -139,8 +139,8 @@
         <ul class="footer-list-container">
           <li>Mua Hàng</li>
           <li>Đổi Trả</li>
-          <li>Bảo Mật</li>
-          <li>Điều Khoản Dịch Vụ</li>
+          <li>Thanh Toán</li>
+          <li>Giao Hàng</li>
         </ul>
       </section>
     </div>
@@ -149,8 +149,9 @@
       <section class="footer-section-container">
         <h2 class="footer-section-title">THÔNG TIN LIÊN HỆ<label for="lienceCT"></label></h2>
         <ul class="footer-list-container">
-          <li>SĐT: 0123456789</li>
-          <li>Địa Chỉ: 123 Lý Thường Kiệt, Quận 10, Thành Phố Hồ Chí Minh</li>
+          <li>SĐT: <a href="tel:0822088079">0822.088.079</a></li>
+          <li>Địa Chỉ: 413 Lê Văn Quới, Bình Trị Đông A, Bình Tân, TPHCM</li>
+          <li>Email: trumbien8888@gmail.com</li>
           <li>
             <a href="">
               <fa-icon class="icon-size" [icon]="faFacebook"></fa-icon>
@@ -170,11 +171,34 @@
 
 </div>
 <div class="action-bar">
-
 </div>
+
 <div class="over alter" [class.over-show]="isShowAlter" (click)="closeAlter()">
   <div class="alter-form">
     <span class="alter-text">{{notification}}</span>
     <span class="btn" (click)="closeAlter()"></span>
   </div>
 </div>
+
+<aside class="add-package-popup" [class.move-up]='showAddCartPopup' (click)='hideSuccessPopUP($event)'>
+  <form class="add-cart-preview-container" [class.move-right]='showAddCartPopup'>
+    <header class="thankfull-header">
+      <h1 class="main-thank">Đã Thêm Vào Giỏ Hàng Thành Công</h1>
+      <h3 class="sub-thank">Cảm ơn bạn đã lựa chọn sản phẩm!</h3>
+    </header>
+    <div class="product-buying-container">
+      <img [src]="productPreviewImg" alt="" class="image-preview">
+      <h1 class="product-name">beer tiger</h1>
+      <div class="product-unit-container product-detail">
+        <label for="">Đơn Vị:</label>
+        <h2 class="product-info">{{productUnitTitle}}</h2>
+      </div>
+      <div class="product-count-container product-detail">
+        <label for="">Số Lượng:</label>
+        <h2 class="product-info">{{productCount}}</h2>
+      </div>
+      <h2 class="product-unit-price">{{productPrice}}</h2>
+      <input (click)='hideSuccessPopUP($event)' routerLink="/cart" type="button" value="Xem Giỏ Hàng">
+    </div>
+  </form>
+</aside>

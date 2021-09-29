@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MyPackage } from '../object/MyPackage';
+import { ProductAddSuccess } from '../object/ProductAddSuccess';
 import { Region } from '../object/Region';
 
 @Injectable({
@@ -26,6 +27,12 @@ export class AppService {
 
   private alterSource = new BehaviorSubject<string>(this.IGNORE);
   private alter = this.alterSource.asObservable();
+
+  private changeScrollSource = new BehaviorSubject<boolean | null>(null);
+  private changeScroll = this.changeScrollSource.asObservable();
+
+  private showProductSuccessSource = new BehaviorSubject<ProductAddSuccess | null>(null);
+  private showProductSuccess = this.showProductSuccessSource.asObservable();
 
   constructor() {
   }
@@ -61,5 +68,21 @@ export class AppService {
   }
   public changeAlter(filter: string) {
     this.alterSource.next(filter);
+  }
+
+  //scroll change
+  public registerScrollChange(func: (filter: boolean) => void) {
+    this.changeScroll.pipe(filter(x => x !== null)).subscribe(f => func(f!));
+  }
+  public changeScrollChange(filter: boolean | null) {
+    this.changeScrollSource.next(filter);
+  }
+
+  //show success product
+  public registerShowSuccessProduct(func: (filter: ProductAddSuccess) => void) {
+    this.showProductSuccess.pipe(filter(x => x !== null)).subscribe(f => func(f!));
+  }
+  public showSuccessProduct(filter: ProductAddSuccess | null) {
+    this.showProductSuccessSource.next(filter);
   }
 }

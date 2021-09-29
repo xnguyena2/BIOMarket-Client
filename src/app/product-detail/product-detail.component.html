@@ -56,27 +56,4 @@
       <div class="diver full-grid"></div>
     </div>
   </section>
-  <aside class="add-package-popup" [class.move-up]='showAddCartPopup' (click)='hideSuccessPopUP($event)'>
-    <form class="add-cart-preview-container" [class.move-right]='showAddCartPopup'>
-      <header class="thankfull-header">
-        <h1 class="main-thank">Đã Thêm Vào Giỏ Hàng Thành Công</h1>
-        <h3 class="sub-thank">Cảm ơn bạn đã lựa chọn sản phẩm!</h3>
-      </header>
-      <div class="product-buying-container">
-        <img [src]="productPreviewImg" alt="" class="image-preview">
-        <h1 class="product-name">beer tiger</h1>
-        <div class="product-unit-container product-detail">
-          <label for="">Đơn Vị:</label>
-          <h2 class="product-info">{{productUnitTitle}}</h2>
-        </div>
-        <div class="product-count-container product-detail">
-          <label for="">Số Lượng:</label>
-          <h2 class="product-info">{{productCount}}</h2>
-        </div>
-        <h2 class="product-unit-price">{{price}}</h2>
-        <input (click)='hideSuccessPopUP($event)' routerLink="/cart" type="button" value="Xem Giỏ Hàng">
-      </div>
-    </form>
-  </aside>
-
 </main>

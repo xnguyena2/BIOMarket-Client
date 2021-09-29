@@ -22,7 +22,7 @@
         <ins class="product-real-price">{{item.listUnit[0].price | moneyFormat}}</ins>
         <ins class="product-price">{{item.listUnit[0].price*(100-item.listUnit[0].discount)/100 | moneyFormat}}</ins>
         <span *ngIf="item.listUnit[0].discount" class="product-discount">{{item.listUnit[0].discount}}</span>
-        <a class="add-to-package" (click)="addToPackage(item.beerSecondID, item.listUnit[0].beer_unit_second_id)">Thêm Vào Giỏ</a>
+        <a class="add-to-package" (click)="addToPackage(item)">Thêm Vào Giỏ</a>
       </div>
     </div>
   </div>

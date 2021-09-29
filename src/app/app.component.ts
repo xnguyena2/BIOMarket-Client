@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   readonly maxSearResult: number = 10;
 
 
-  title = 'Trùm Biển | Hải Sản Chất Lượng Cao';
+  title = 'Trùm Biển | Hải Sản Cao Cấp';
   fashoppingcart = faShoppingCart;
   faSearch = faSearch;
   faClose = faTimes;
@@ -63,6 +63,15 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   isMobileMode = false;
 
   listResult: BeerDetail[] = [];
+
+
+  //show success after add cart
+  showAddCartPopup: boolean = false;
+  productPreviewImg: string = '';
+  productUnitTitle: string = '';
+  productCount: number = 1;
+  productPrice: number = 0;
+  hideActionID: string = '';
 
   constructor(
     private APIService: APIService,
@@ -98,11 +107,18 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       this.notification = text;
       this.isShowAlter = true;
     });
+    this.appService.registerShowSuccessProduct(product =>{
+      this.productPreviewImg = product.img;
+      this.productUnitTitle = product.title;
+      this.productCount = product.count;
+      this.productPrice = product.price;
+      this.showSuccessPopUP();
+    });
   }
 
-  closeMenu(){
-    if(this.isOpenMenu)
-    return;
+  closeMenu() {
+    if (this.isOpenMenu)
+      return;
     this.isOpenMenu = true;
   }
 
@@ -115,11 +131,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           //this.loadImage();
           //obs.unobserve(element.nativeElement);
           this.isNavBarSticky = true;
-          this.closeMenu();
-        }else{
+        } else {
           // console.log('navbar not sticky');
           this.isNavBarSticky = false;
         }
+        this.closeMenu();
       });
     }
     );
@@ -209,6 +225,42 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.isMobileMode) {
       this.visibilitySearchBar = 'hidden';
       this.hideOver();
+    }
+  }
+
+  //show and hide success add product
+
+
+  showSuccessPopUP() {
+    this.showAddCartPopup = true;
+    this.changeScroll(false);
+    const currentActionID = this.APIService.GenerateID();
+    this.hideActionID = currentActionID;
+    setTimeout(() => {
+      if (this.hideActionID === currentActionID) {
+        this.hideByingPopup();
+      }
+    }, 3000);
+  }
+
+  hideSuccessPopUP(mouse: MouseEvent) {
+    if (mouse.target !== mouse.currentTarget) {
+      return;
+    }
+    this.hideByingPopup();
+  }
+
+  hideByingPopup() {
+    this.hideActionID = '';
+    this.showAddCartPopup = false;
+    this.changeScroll(true);
+  }
+
+  changeScroll(isEnable: boolean) {
+    if (isEnable) {
+      document.getElementById('main-body')?.classList.remove('disable-scroll');
+    } else {
+      document.getElementById('main-body')?.classList.add('disable-scroll');
     }
   }
 }

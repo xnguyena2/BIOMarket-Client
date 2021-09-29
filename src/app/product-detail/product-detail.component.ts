@@ -7,6 +7,7 @@ import { BeerDetail, BeerUnit } from '../object/BeerDetail';
 import { ProductPackage } from '../object/ProductPackage';
 import { SearchQuery } from '../object/SearchQuery';
 import { APIService } from '../services/api.service';
+import { AppService } from '../services/app.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -20,8 +21,6 @@ export class ProductDetailComponent implements OnInit {
 
   faClose = faTimes;
 
-  hideActionID: string = '';
-
   productReady: boolean = false;
   title: string = '';
   price: number = 0;
@@ -34,7 +33,6 @@ export class ProductDetailComponent implements OnInit {
   productUnitTitle: string = '';
   productPreviewImg: string = '';
 
-  showAddCartPopup: boolean = false;
 
   productDetail: string = '';
 
@@ -45,7 +43,8 @@ export class ProductDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private scroll: ViewportScroller,
-    private Api: APIService,) { }
+    private Api: APIService,
+    private App: AppService,) { }
   ngOnInit(): void {
 
     this.route.params.subscribe(
@@ -105,7 +104,7 @@ export class ProductDetailComponent implements OnInit {
   clickAt(index: number) {
     if (!this.fullscreenMode) {
       this.fullscreenMode = true;
-      this.changeScroll(false);
+      this.App.changeScrollChange(false);
     }
   }
 
@@ -116,15 +115,7 @@ export class ProductDetailComponent implements OnInit {
       return;
     }
     this.fullscreenMode = false;
-    this.changeScroll(true);
-  }
-
-  changeScroll(isEnable: boolean) {
-    if (isEnable) {
-      document.getElementById('main-body')?.classList.remove('disable-scroll');
-    } else {
-      document.getElementById('main-body')?.classList.add('disable-scroll');
-    }
+    this.App.changeScrollChange(true);
   }
 
   changeNumberSell(isIncrease: boolean) {
@@ -162,7 +153,12 @@ export class ProductDetailComponent implements OnInit {
         if(gotoCart){
           this.router.navigate(['checkouts']);
         }else{
-          this.showSuccessPopUP();
+          this.App.showSuccessProduct({
+            img: this.productPreviewImg,
+            title: this.productUnitTitle,
+            price: this.price,
+            count: this.productCount
+          });
         }
         this.Api.GetPackage();
       } else {
@@ -170,31 +166,6 @@ export class ProductDetailComponent implements OnInit {
       }
     });
     //this.router.navigate(['cart']);
-  }
-
-  showSuccessPopUP() {
-    this.showAddCartPopup = true;
-    this.changeScroll(false);
-    const currentActionID = this.Api.GenerateID();
-    this.hideActionID = currentActionID;
-    setTimeout(() => {
-      if (this.hideActionID === currentActionID) {
-        this.hideByingPopup();
-      }
-    }, 3000);
-  }
-
-  hideSuccessPopUP(mouse: MouseEvent) {
-    if (mouse.target !== mouse.currentTarget) {
-      return;
-    }
-    this.hideByingPopup();
-  }
-
-  hideByingPopup() {
-    this.hideActionID = '';
-    this.showAddCartPopup = false;
-    this.changeScroll(true);
   }
 
   buyNow() {

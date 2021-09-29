@@ -35,7 +35,7 @@ export const AppConfig = {
   }],
   CatetoryDrop: [{
     value: 'alcohol_drinks',
-    title: 'Cua-Ghẹ'
+    title: 'Cua'
   },
   {
     value: 'beverage',
@@ -52,5 +52,13 @@ export const AppConfig = {
   {
     value: 'juice_fruit',
     title: 'Hào'
+  },
+  {
+    value: 'juice_fruit',
+    title: 'Bào Ngư'
+  },
+  {
+    value: 'juice_fruit',
+    title: 'Cá'
   }]
 }

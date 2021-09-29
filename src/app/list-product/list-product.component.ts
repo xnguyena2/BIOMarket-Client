@@ -4,6 +4,7 @@ import { AppConfig } from '../config/AppConfig';
 import { BeerDetail } from '../object/BeerDetail';
 import { ProductPackage } from '../object/ProductPackage';
 import { APIService } from '../services/api.service';
+import { AppService } from '../services/app.service';
 
 @Component({
   selector: 'app-list-product',
@@ -42,7 +43,8 @@ export class ListProductComponent implements OnInit {
   selection: any;
 
   constructor(
-    private Api: APIService,) { }
+    private Api: APIService,
+    private App: AppService,) { }
 
   ngOnInit(): void {
   }
@@ -134,7 +136,9 @@ export class ListProductComponent implements OnInit {
 
 
 
-  addToPackage(productID: string, productUnitID: string) {
+  addToPackage(product: BeerDetail) {
+    const productID = product.beerSecondID;
+    const productUnitID: string = product.listUnit[0].beer_unit_second_id;
     let packageItem: ProductPackage = {
       deviceID: '',
       beerID: productID,
@@ -147,7 +151,12 @@ export class ListProductComponent implements OnInit {
     }
     this.Api.AddToPackage(packageItem, result => {
       if (result) {
-        //this.showSuccessPopUP();
+        this.App.showSuccessProduct({
+          img: product.images[0].medium,
+          title: product.listUnit[0].name,
+          price: product.listUnit[0].price * (100 - product.listUnit[0].discount) / 100,
+          count: 1
+        });
         this.Api.GetPackage();
       } else {
 

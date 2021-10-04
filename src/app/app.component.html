@@ -77,13 +77,13 @@
       </div>
     </li>
     <li>
-      <a href="/search/all" class="absolute-full">Khuyến Mãi HOT</a>
+      <a (click)="categorySearch('all')" class="absolute-full">Khuyến Mãi HOT</a>
     </li>
     <li>
-      <a  href="/guide/introduction" class="absolute-full">Giới Thiệu</a>
+      <a (click)="gotoPath('guide', 'introduction')" class="absolute-full">Giới Thiệu</a>
     </li>
     <li>
-      <a href="/guide/contract" class="absolute-full">Liên Hệ</a>
+      <a (click)="gotoPath('guide', 'contract')" class="absolute-full">Liên Hệ</a>
     </li>
   </ul>
   <div class="open-menu-container absolute-vertical-center">

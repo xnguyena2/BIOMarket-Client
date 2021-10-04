@@ -206,7 +206,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   categorySearch(searchText: string) {
-    this.router.navigate(['search', searchText]);
+    this.gotoPath('search', searchText);
+  }
+
+  gotoPath(path: string, subpath: string) {
+    this.router.navigate([path, subpath]);
     this.hideHoverMenu();
     this.closeMenu();
   }

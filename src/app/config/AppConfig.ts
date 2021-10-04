@@ -34,31 +34,31 @@ export const AppConfig = {
     title: 'Bán Chạy Nhất'
   }],
   CatetoryDrop: [{
-    value: 'alcohol_drinks',
+    value: 'crab',
     title: 'Cua'
   },
   {
-    value: 'beverage',
+    value: 'shrimp',
     title: 'Tôm'
   },
   {
-    value: 'fresh_water',
+    value: 'squid',
     title: 'Mực'
   },
   {
-    value: 'internationnal_drinks',
+    value: 'holothurian',
     title: 'Hải Sâm'
   },
   {
-    value: 'juice_fruit',
-    title: 'Hào'
-  },
-  {
-    value: 'juice_fruit',
+    value: 'haliotis',
     title: 'Bào Ngư'
   },
   {
-    value: 'juice_fruit',
+    value: 'oyster',
+    title: 'Hàu'
+  },
+  {
+    value: 'fish',
     title: 'Cá'
   }]
 }

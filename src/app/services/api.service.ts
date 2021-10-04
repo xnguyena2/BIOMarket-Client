@@ -1,4 +1,6 @@
-import { Injectable, isDevMode } from '@angular/core';
+import { Host, Injectable } from '@angular/core';
+
+import { isDevMode } from '@angular/core';
 
 import { HttpEvent, HttpResponse } from '@angular/common/http';
 
@@ -30,7 +32,7 @@ export class APIService {
 
   userID: string = '';
 
-  HostURL = AppConfig.HostUrl;
+  HostURL: string = '';
 
   myPackage: MyPackage[] = [];
 
@@ -38,6 +40,11 @@ export class APIService {
     private requestServices: RequestService,
     private cookieService: CookieService,
     private appServices: AppService) {
+    if (isDevMode()) {
+      this.HostURL = AppConfig.DevHostUrl;
+    } else {
+      this.HostURL = AppConfig.HostUrl;
+    }
     if (!this.cookieService.check(this.cookieAPP)) {
       this.userID = this.GenerateID();
       this.cookieService.set(this.cookieAPP, this.userID, { path: '/' });

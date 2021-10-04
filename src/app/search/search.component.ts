@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppConfig } from '../config/AppConfig';
 import { ListProductComponent } from '../list-product/list-product.component';
@@ -21,8 +21,6 @@ export class SearchComponent implements OnInit {
   @ViewChild(ListProductComponent) private listProductComponent!: ListProductComponent;
 
   listProduct: BeerDetail[] = [];
-
-  hostUrl = AppConfig.HostUrl;
 
   searchTitle: string = '';
 

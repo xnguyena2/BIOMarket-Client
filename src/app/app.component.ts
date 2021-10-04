@@ -29,7 +29,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   title = 'Trùm Biển | Hải Sản Cao Cấp';
 
-  hostUrl = AppConfig.HostUrl;
   faFacebook = faFacebookSquare;
   faInstagram = faInstagramSquare;
 

@@ -1,8 +1,7 @@
-import { isDevMode } from '@angular/core';
 
 export const AppConfig = {
-  HostUrl: isDevMode()?'https://trumbien-main.herokuapp.com/':'http://localhost:5000/'
-  ,
+  HostUrl: 'https://trumbien-main.herokuapp.com/',
+  DevHostUrl: 'http://localhost:5000/',
   FilterDrop: [{
     value: 'default',
     title: 'Nổi Bật'

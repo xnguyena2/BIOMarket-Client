@@ -32,6 +32,7 @@ const routes: Routes = [
     path: 'thankfull',
     component: ThankfullComponent
   },
+  { path: 'guide', loadChildren: () => import('./guide/guide.module').then(m => m.GuideModule) },
   {
     path: '**',
     component: HomeComponent

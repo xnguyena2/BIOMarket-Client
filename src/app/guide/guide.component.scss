@@ -1,0 +1,84 @@
+
+.main-container{
+  margin-top: 2rem;
+  padding: 0 2rem;
+}
+.top-header{
+  font-size: clamp(1.7rem, 5vw, 3rem);
+  width: max-content;
+  margin: 0 auto;
+}
+
+.guide-img{
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.title{
+  font-size: clamp(1.7rem, 2.5vw, 2rem);
+  font-weight: bold;
+  line-height: 4rem;
+}
+
+.paragraph{
+  font-size: clamp(1.5rem, 2.5vw, 1.8rem);
+  font-weight: normal;
+  line-height: 2.5rem;
+}
+
+.red-highlight{
+  color: red;
+  font-weight: bold;
+}
+
+.margin-level{
+  margin-left: 2rem;
+}
+
+.guide-ul{
+  list-style: outside;
+}
+
+.inline-p{
+  display: inline;
+}
+
+.second-title{
+  font-weight: 550;
+  line-height: 2rem;
+}
+
+.second-title + .second-title{
+  margin-top: 4rem;
+}
+
+.link-hightline{
+  color: green;
+}
+
+.block-hightline{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  border: 2px solid red;
+}
+
+.note{
+  font-style: italic;
+  font-weight: bold;
+}
+
+.main-hightline{
+  color: var(--main-color);
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.small-gap-line{
+  line-height: 2rem;
+}
+
+.next-separate{
+  margin-top: 2rem;
+}

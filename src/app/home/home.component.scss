@@ -19,3 +19,33 @@
   margin-top: 5rem;
   max-width: 100%;
 }
+
+
+//right side
+.right-side{
+  --top-pos: calc(3rem + var(--header-height) + var(--navbar-height) + 100vw*.425 + 425px);
+  position: absolute;
+  top: var(--top-pos);
+  right: 0;
+  height: calc(100% - var(--top-pos) - 500px);
+
+  @media only screen and (max-width: 1200px) {
+    display: none;
+  }
+
+  .social-container{
+    position: sticky;
+    top: 50vh;
+
+    transform: translateY(-50%);
+
+    a{
+      display: block;
+      width: 4rem;
+      height: 4rem;
+      img{
+        max-width: 100%;
+      }
+    }
+  }
+}

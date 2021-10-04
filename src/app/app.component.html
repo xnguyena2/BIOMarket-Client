@@ -10,42 +10,28 @@
 
   <div class="logo-container">
     <a href="">
-      <img src="assets/img/Logo.png" alt="Trùm Biển - chuyên hải sản" class="absolute-vertical-center logo" [ngClass]="{'fixed-right' : isNavBarSticky}">
+      <img src="assets/img/Logo.png" alt="Trùm Biển - chuyên hải sản" class="absolute-vertical-center logo"
+        [class.on-input-focus]='isInputSearchFocus && isNavBarSticky' [ngClass]="{'fixed-right' : isNavBarSticky}">
     </a>
-    <img src="assets/img/Slogan.png" alt="Trùm Biển - chuyên hải sản" class="absolute-center slogan" [ngClass]="{'fixed-right' : isNavBarSticky}">
-    <div class="absolute-vertical-center shop-cart" [ngClass]="{'fixed-right' : isNavBarSticky}">
+    <img src="assets/img/Slogan.png" alt="Trùm Biển - chuyên hải sản" class="absolute-center slogan"
+      [class.on-input-focus]='isInputSearchFocus && !isNavBarSticky' [ngClass]="{'fixed-right' : isNavBarSticky}">
+    <div class="absolute-vertical-center shop-cart" [ngClass]="{'fixed-right' : isNavBarSticky}"
+      [class.on-input-focus]='isInputSearchFocus'>
       <div class="search-box">
-        <input type="text" name="searchInput" id="" class="search-input light-bright" placeholder="Tìm kiếm sản phẩm">
-        <img src="assets/img/SearchIcon.png" alt="" class="light-bright">
-      </div>
-      <div class="shop-package">
-        <a routerLink="/cart">
-          <img src="assets/img/CartIcon.png" alt="" class="light-bright">
-          <span>{{totalProduct}}</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!--
-  <div class="main-container navbar hide">
-    <div class="logo">
-      <a href=""><img src="assets/img/icon.png" alt=""></a>
-    </div>
-    <div class="search">
-      <div class="search-anchor">
-        <input type="text" #searchText (keyup.enter)="onSearchEnter(searchText.value)" [style.visibility]="visibilitySearchBar"
-          placeholder="Tìm kiếm sản phẩm" (keyup)="onSearch(searchText.value)" class="search-input">
-        <div class="wrap-search" [style.visibility]="visibilitySearchBar">
-          <fa-icon *ngIf="isMobileMode||searchText.value!==''" class="search-icon-size close-icon" [icon]="faClose"
-            (click)="clearSearchText();"></fa-icon>
-          <fa-icon class="search-icon-size" [icon]="faSearch" (click)="onSearchEnter(searchText.value)"></fa-icon>
+        <input type="text" #searchText (keyup.enter)="onSearchEnter(searchText.value)"
+          placeholder="Tìm kiếm sản phẩm" (keyup)="onSearch(searchText.value)" class="search-input light-bright"
+          (focusout)='searchInputFocusOut($event)'>
+        <img src="assets/img/CloseIcon.png" alt="" class="show-search-input light-bright close-icon"
+          (click)="clearSearchText()">
+        <img src="assets/img/SearchIcon.png" alt="" class="show-search-input light-bright" (click)='focusSearchInput()'>
+        <div class="search-click-handle" (click)="onSearchEnter(searchText.value)"></div>
+        <div class="wrap-search">
           <div class="search-result search-result-active">
-            <div *ngIf="!listResult||listResult.length===0" class="divier"></div>
+            <h2 *ngIf="!listResult||listResult.length===0">Tìm Kiếm Nổi Bật</h2>
             <div *ngIf="!listResult||listResult.length===0" class="quicksearch-container">
-              <a class="quick-search" [routerLink]="['/search','Oranjeboom']" (click)="resetSearch()">Oranjeboom</a>
-              <a class="quick-search" [routerLink]="['/search','Tiger']" (click)="resetSearch()">Tiger</a>
-              <a class="quick-search" [routerLink]="['/search','Coca-Cola']" (click)="resetSearch()">Coca-cola</a>
+              <a class="quick-search" [routerLink]="['/search','Cua Cà Mau']" (click)="resetSearch()">Cua Cà Mau</a>
+              <a class="quick-search" [routerLink]="['/search','Tôm Sú']" (click)="resetSearch()">Tôm Sú</a>
+              <a class="quick-search" [routerLink]="['/search','Hải Sâm']" (click)="resetSearch()">Hải Sâm</a>
             </div>
             <ul class="list-result">
               <li *ngFor="let item of listResult;" class="result" [routerLink]="['/detail', item.beerSecondID]"
@@ -62,37 +48,20 @@
           </div>
         </div>
       </div>
+      <div class="shop-package">
+        <a routerLink="/cart">
+          <img src="assets/img/CartIcon.png" alt="" class="light-bright">
+          <span>{{totalProduct}}</span>
+        </a>
+      </div>
     </div>
-    <fa-icon class="search-icon-reponsive" [icon]="faSearch" (click)="mobileShowSearch();"></fa-icon>
-    <nav>
-      <ul>
-        <li class="li-products li-products-hover" (click)="1">
-          <a class="product-hover">Sản Phẩm</a>
-          <div class="hover-menu-container" *ngIf="showHoverMenu">
-            <ul class="hover-menu">
-              <li *ngFor="let item of CatetoryDrop;" (click)="categorySearch(item.value)">
-                <a class="router-link-active">
-                  <span>{{item.title}}</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </nav>
-    <div class="shop-package">
-      <a routerLink="/cart">
-        <fa-icon class="shop-cart-size" [icon]="fashoppingcart"></fa-icon>
-        <span>{{totalProduct}}</span>
-      </a>
-    </div>
-  </div> -->
+  </div>
 
   <div *ngIf="loader.isLoading | async" class="loading-bar"></div>
 </header>
 
 
-<nav class="stick-navbar top-float"  [ngClass]="{'enable-stick' : isNavBarSticky}">
+<nav class="stick-navbar top-float" [ngClass]="{'enable-stick' : isNavBarSticky}">
   <input id="openMenu" type="checkbox" class="checkbox-hold-state show-menu-enable" checked [(ngModel)]='isOpenMenu'>
   <ul class="navbar-container align-center">
     <li>
@@ -108,17 +77,18 @@
       </div>
     </li>
     <li>
-      <a href="" class="absolute-full">Chăm Sóc KH</a>
+      <a href="/search/all" class="absolute-full">Khuyến Mãi HOT</a>
     </li>
     <li>
-      <a href="" class="absolute-full">Giới Thiệu</a>
+      <a  href="/guide/introduction" class="absolute-full">Giới Thiệu</a>
     </li>
     <li>
-      <a href="" class="absolute-full">Liên Hệ</a>
+      <a href="/guide/contract" class="absolute-full">Liên Hệ</a>
     </li>
   </ul>
   <div class="open-menu-container absolute-vertical-center">
-    <label class="absolute-vertical-center menu-icon" for="openMenu">
+    <label class="absolute-vertical-center menu-icon" [class.on-input-focus]='isInputSearchFocus && !isNavBarSticky'
+      for="openMenu">
       <img src="assets/img/MenuIcon.png" alt="">
     </label>
   </div>
@@ -129,18 +99,32 @@
   <router-outlet></router-outlet>
 </main>
 
+<div class="notification-stick" *ngIf='showStickyNotification'>
+  <h2>Freeship Đơn Hàng Trên 1 triệu nội thành HCM.</h2>
+  <img src="assets/img/CloseIcon.png" alt="" class="close-totification-stick absolute-vertical-center light-bright"
+    (click)="showStickyNotification = false">
+</div>
 
 <footer (click)="1">
+  <img src="assets/img/Logo.png" alt="Trùm Biển - chuyên hải sản" class="footer-logo">
   <div class="footer-container">
     <div class="footer-col2">
       <input id="lienceCB" type="checkbox" class="hold-state" checked>
       <section class="footer-section-container">
         <h2 class="footer-section-title">CHÍNH SÁCH<label for="lienceCB"></label></h2>
         <ul class="footer-list-container">
-          <li>Mua Hàng</li>
-          <li>Đổi Trả</li>
-          <li>Thanh Toán</li>
-          <li>Giao Hàng</li>
+          <li>
+            <a routerLink='guide/buy'>Mua Hàng</a>
+          </li>
+          <li>
+            <a routerLink='guide/refund'>Đổi Trả</a>
+          </li>
+          <li>
+            <a routerLink='guide/payment'>Thanh Toán</a>
+          </li>
+          <li>
+            <a routerLink='guide/shipping'>Giao Hàng</a>
+          </li>
         </ul>
       </section>
     </div>
@@ -153,11 +137,14 @@
           <li>Địa Chỉ: 413 Lê Văn Quới, Bình Trị Đông A, Bình Tân, TPHCM</li>
           <li>Email: trumbien8888@gmail.com</li>
           <li>
-            <a href="">
-              <fa-icon class="icon-size" [icon]="faFacebook"></fa-icon>
+            <a href="https://www.facebook.com/trumbienhaisancaocap888" class="social-item">
+              <img src="assets/img/FacebookIcon.png" alt="">
             </a>
-            <a href="">
-              <fa-icon class="icon-size" [icon]="faInstagram"></fa-icon>
+            <a href="" class="social-item">
+              <img src="assets/img/TwitterIcon.png" alt="">
+            </a>
+            <a href="" class="social-item">
+              <img src="assets/img/YoutubeIcon.png" alt="">
             </a>
           </li>
         </ul>
@@ -165,13 +152,14 @@
     </div>
   </div>
 </footer>
-<input type="text" #resetFocus style="position: fixed; top: -1000rem;left: -1000rem;">
-<div class="over" (click)="clearSearchText();" #over></div>
-<div class="add-shop-package-popup">
 
-</div>
-<div class="action-bar">
-</div>
+<input type="text" #resetFocus style="position: fixed; top: -1000rem;left: -1000rem;">
+
+<div class="over" (click)="clearSearchText();" #over></div>
+
+<div class="add-shop-package-popup"></div>
+
+<div class="action-bar"></div>
 
 <div class="over alter" [class.over-show]="isShowAlter" (click)="closeAlter()">
   <div class="alter-form">

@@ -1,5 +1,5 @@
 export const AppConfig = {
-  HostUrl: 'https://ancient-coast-10757.herokuapp.com/'//"http://localhost:5000/"
+  HostUrl: 'https://trumbien-main.herokuapp.com/'//"http://localhost:5000/"
   ,
   FilterDrop: [{
     value: 'default',

@@ -3,13 +3,11 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 import { Router } from '@angular/router';
 import { faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
 
-import { faShoppingCart, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import {
   debounceTime,
   map,
-  distinctUntilChanged,
-  mergeMap
+  distinctUntilChanged
 } from "rxjs/operators";
 import { AppConfig } from './config/AppConfig';
 import { BeerDetail } from './object/BeerDetail';
@@ -30,9 +28,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   title = 'Trùm Biển | Hải Sản Cao Cấp';
-  fashoppingcart = faShoppingCart;
-  faSearch = faSearch;
-  faClose = faTimes;
+
   hostUrl = AppConfig.HostUrl;
   faFacebook = faFacebookSquare;
   faInstagram = faInstagramSquare;
@@ -58,11 +54,14 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isOpenMenu: boolean = true;
 
-  visibilitySearchBar: string = '';
-
   isMobileMode = false;
 
   listResult: BeerDetail[] = [];
+
+
+  isInputSearchFocus: boolean = false;
+
+  showStickyNotification: boolean = true;
 
 
   //show success after add cart
@@ -107,7 +106,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       this.notification = text;
       this.isShowAlter = true;
     });
-    this.appService.registerShowSuccessProduct(product =>{
+    this.appService.registerShowSuccessProduct(product => {
       this.productPreviewImg = product.img;
       this.productUnitTitle = product.title;
       this.productCount = product.count;
@@ -127,12 +126,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) {
-          // console.log('navbar sticky');
-          //this.loadImage();
-          //obs.unobserve(element.nativeElement);
           this.isNavBarSticky = true;
         } else {
-          // console.log('navbar not sticky');
           this.isNavBarSticky = false;
         }
         this.closeMenu();
@@ -168,7 +163,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   mobileShowSearch() {
     console.log("mobile search click");
     this.isMobileMode = true;
-    this.visibilitySearchBar = 'visible';
     this.showOver();
     this.focusSearchInput();
   }
@@ -176,7 +170,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   clearSearchText() {
     this.listResult = [];
     if (this.isMobileMode) {
-      this.visibilitySearchBar = 'hidden';
     }
     this.searchInput.nativeElement.value = '';
     this.hideOver();
@@ -191,10 +184,19 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   focusSearchInput() {
-    setTimeout(() => this.searchInput.nativeElement.focus(), 0);
+    this.isInputSearchFocus = true;
+    this.searchInput.nativeElement.focus();
+  }
+
+  searchInputFocusOut(event: FocusEvent){
+    if (event.target !== document.activeElement) { // This is where the magic happens!
+      this.isInputSearchFocus = false;
+    }
   }
 
   onSearchEnter(searchText: string) {
+    if (searchText === '')
+      return;
     this.router.navigate(['search', searchText]);
     if (this.isMobileMode) {
       this.clearSearchText();
@@ -223,7 +225,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   resetSearch() {
     this.scroll.scrollToPosition([0, 0]);
     if (this.isMobileMode) {
-      this.visibilitySearchBar = 'hidden';
       this.hideOver();
     }
   }

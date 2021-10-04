@@ -17,7 +17,7 @@ import { UserInfoQuery } from '../object/UserInfoQuery';
 import { MyPackage } from '../object/MyPackage';
 import { ObjectID } from '../object/ObjectID';
 import { AppService } from './app.service';
-import { Region } from '../object/Region';
+import { District, Region, Ward } from '../object/Region';
 import { PackageOrder, PackageOrderData } from '../object/PackageOrderData';
 
 @Injectable({
@@ -156,15 +156,12 @@ export class APIService {
 
   alredyGetRegion: boolean = false;
   public GetAllRegion(cb: (result: Region[]) => void) {
-    this.appServices.registerRegion(cb);
     if (!this.alredyGetRegion) {
       this.alredyGetRegion = true;
-      this.requestServices.get(`${this.HostURL}address/allregion/`).subscribe(
+      this.requestServices.get(`${this.HostURL}address/allregionformat/`).subscribe(
         event => {
           if (event instanceof HttpResponse) {
-            //console.log(this.myRegion);
-            //cb(event.body);
-            this.appServices.changeRegion(event.body);
+            cb(event.body);
           }
         },
         err => {
@@ -175,12 +172,23 @@ export class APIService {
     }
   }
 
-  public GetAllDistrict(region: number) {
-    this.requestServices.post(`${this.HostURL}address/district/` + region, new UserInfoQuery(0, 10000, this.userID)).subscribe(
+  public GetAllDistrict(region: number, cb: (result: District[]) => void) {
+    this.requestServices.get(`${this.HostURL}address/districtformat/` + region).subscribe(
       event => {
         if (event instanceof HttpResponse) {
-          console.log('all region: ' + this.userID);
-          console.log(event.body);
+          cb(event.body);
+        }
+      },
+      err => {
+        console.log(err);
+      });
+  }
+
+  public GetAllWard(region: number, district: number, cb: (result: Ward[]) => void) {
+    this.requestServices.get(`${this.HostURL}address/wardformat/${region}/${district}`).subscribe(
+      event => {
+        if (event instanceof HttpResponse) {
+          cb(event.body);
         }
       },
       err => {

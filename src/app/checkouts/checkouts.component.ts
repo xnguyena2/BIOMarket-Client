@@ -69,20 +69,18 @@ export class CheckoutsComponent implements OnInit {
 
   changeRegion(region: string) {
     this.curentRegionID = Number(region);
-    let currentRegion = this.myRegion.find(x => x.id === this.curentRegionID);
-    if (currentRegion) {
-      this.myDistrict = currentRegion.districts.data;
-      this.myWard = [];
-    }
+    this.Api.GetAllDistrict(this.curentRegionID, result => {
+      this.myDistrict = result;
+    });
+    this.myWard = [];
   }
 
   changeDistrict(district: string) {
     this.curentDistrictID = Number(district);
-    let currentDistrict = this.myDistrict.find(x => x.id === this.curentDistrictID);
-    if (currentDistrict) {
-      this.myWard = currentDistrict.wards.data;
+    this.Api.GetAllWard(this.curentRegionID, this.curentDistrictID, result => {
+      this.myWard = result;
       this.getPrice('', true);
-    }
+    });
   }
 
   changeWard(ward: string) {

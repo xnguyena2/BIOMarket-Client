@@ -22,9 +22,6 @@ export class AppService {
   private packageCountSource = new BehaviorSubject<number>(this.IGNORENUM);
   private packageCount = this.packageCountSource.asObservable();
 
-  private regionSource = new BehaviorSubject<Region[]>(this.IGNOREREGION);
-  private region = this.regionSource.asObservable();
-
   private alterSource = new BehaviorSubject<string>(this.IGNORE);
   private alter = this.alterSource.asObservable();
 
@@ -52,14 +49,6 @@ export class AppService {
   }
   public changePackageNum(num: number) {
     this.packageCountSource.next(num);
-  }
-
-  //region
-  public registerRegion(func: (filter: Region[]) => void) {
-    this.region.pipe(filter(x => x !== this.IGNOREREGION)).subscribe(f => func(f));
-  }
-  public changeRegion(filter: Region[]) {
-    this.regionSource.next(filter);
   }
 
   //alter

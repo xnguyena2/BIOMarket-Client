@@ -19,11 +19,10 @@
           <h1 class="product-name">{{title}}</h1>
           <div class="unit-selection">
             <h1 class="unit-title">Đơn Vị:</h1>
-            <div class="unit-select">
+            <div class="unit-select drop-down-icon">
               <select (change)='changeeUnit(filter.value)' #filter class="select">
                 <option *ngFor="let item of listUnit;" [value]="item.beer_unit_second_id">{{item.name}}</option>
               </select>
-              <fa-icon class="icon-size caret-down" [icon]="faCaretDown"></fa-icon>
             </div>
           </div>
           <div class="price-container">

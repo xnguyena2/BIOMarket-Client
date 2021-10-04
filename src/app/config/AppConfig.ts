@@ -60,5 +60,9 @@ export const AppConfig = {
   {
     value: 'fish',
     title: 'Cá'
+  },
+  {
+    value: 'snail',
+    title: 'Ốc'
   }]
 }

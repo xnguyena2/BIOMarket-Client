@@ -140,21 +140,6 @@ $breakpoint-tablet: 850px;
   display: none;
 }
 
-.drop-down-icon {
-  &::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-top: 6px solid white;
-    border-right: 4px solid transparent;
-    border-left: 4px solid transparent;
-  }
-}
-
 .menu-icon {
   cursor: pointer;
 

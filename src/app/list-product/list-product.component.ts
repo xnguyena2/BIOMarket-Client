@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { faCaretDown, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { AppConfig } from '../config/AppConfig';
 import { BeerDetail } from '../object/BeerDetail';
 import { ProductPackage } from '../object/ProductPackage';
@@ -17,7 +17,6 @@ export class ListProductComponent implements OnInit {
 
   faRight = faChevronRight;
   faLeft = faChevronLeft;
-  faCaretDown = faCaretDown;
 
   @ViewChild('filter', { static: false }) select!: ElementRef;
 

@@ -28,6 +28,9 @@ export class AppService {
   private changeScrollSource = new BehaviorSubject<boolean | null>(null);
   private changeScroll = this.changeScrollSource.asObservable();
 
+  private scrollToTopSource = new BehaviorSubject<boolean>(false);
+  private scrollToTop = this.scrollToTopSource.asObservable();
+
   private showProductSuccessSource = new BehaviorSubject<ProductAddSuccess | null>(null);
   private showProductSuccess = this.showProductSuccessSource.asObservable();
 
@@ -73,5 +76,13 @@ export class AppService {
   }
   public showSuccessProduct(filter: ProductAddSuccess | null) {
     this.showProductSuccessSource.next(filter);
+  }
+
+  //scroll change
+  public registerScrollToTop(func: (filter: boolean) => void) {
+    this.scrollToTop.pipe(filter(x => x)).subscribe(f => func(f));
+  }
+  public changeScrollToTop(filter: boolean) {
+    this.scrollToTopSource.next(filter);
   }
 }

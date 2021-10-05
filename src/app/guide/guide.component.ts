@@ -1,5 +1,5 @@
-import { ViewportScroller } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AppService } from '../services/app.service';
 
 @Component({
   selector: 'app-guide',
@@ -9,11 +9,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class GuideComponent implements OnInit {
 
-  constructor(
-    private scroll: ViewportScroller,) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.scroll.scrollToPosition([0,0]);
   }
 
 }

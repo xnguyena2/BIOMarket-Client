@@ -1,7 +1,5 @@
-import { ViewportScroller } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CarouselPaddingComponent } from '../carousel-padding/carousel-padding.component';
 import { BeerDetail, BeerUnit } from '../object/BeerDetail';
 import { ProductPackage } from '../object/ProductPackage';
@@ -16,8 +14,6 @@ import { AppService } from '../services/app.service';
 })
 export class ProductDetailComponent implements OnInit {
   @ViewChild(CarouselPaddingComponent) private carousel!: CarouselPaddingComponent;
-
-  faClose = faTimes;
 
   productReady: boolean = false;
   title: string = '';
@@ -40,7 +36,6 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private scroll: ViewportScroller,
     private Api: APIService,
     private App: AppService,) { }
   ngOnInit(): void {
@@ -63,7 +58,7 @@ export class ProductDetailComponent implements OnInit {
           });
           this.Api.GetProductDetail(productID, product => {
             if (product) {
-              this.scroll.scrollToPosition([0, 0]);
+              this.App.changeScrollToTop(true);
               if (product.images)
                 this.carousel.setupListItem(product.images.map(x => x.large));
               else

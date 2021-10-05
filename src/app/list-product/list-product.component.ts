@@ -1,5 +1,4 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { AppConfig } from '../config/AppConfig';
 import { BeerDetail } from '../object/BeerDetail';
 import { ProductPackage } from '../object/ProductPackage';
@@ -14,9 +13,6 @@ import { AppService } from '../services/app.service';
 export class ListProductComponent implements OnInit {
 
   readonly maxShow = 9;
-
-  faRight = faChevronRight;
-  faLeft = faChevronLeft;
 
   @ViewChild('filter', { static: false }) select!: ElementRef;
 
@@ -69,6 +65,8 @@ export class ListProductComponent implements OnInit {
   }
 
   goPage(page: number) {
+    if (this.activePage === page)
+      return;
     if (page === -2) {
       page = this.listPage[2] - 1;
     } else if (page === -1) {

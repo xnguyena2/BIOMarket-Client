@@ -1,7 +1,5 @@
-import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faChevronLeft, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { MyPackage } from '../object/MyPackage';
 import { convertToProductOrder, PackageOrderData } from '../object/PackageOrderData';
 import { District, Region, Ward } from '../object/Region';
@@ -14,9 +12,6 @@ import { AppService } from '../services/app.service';
   styleUrls: ['./checkouts.component.scss']
 })
 export class CheckoutsComponent implements OnInit {
-
-  cartIcon = faShoppingCart;
-  faLeft = faChevronLeft;
 
   myRegion: Region[] = [];
   myDistrict: District[] = [];
@@ -46,8 +41,7 @@ export class CheckoutsComponent implements OnInit {
 
   constructor(private Api: APIService,
     private appServices: AppService,
-    private router: Router,
-    private scroll: ViewportScroller) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     this.Api.GetAllRegion(result => {
@@ -56,7 +50,7 @@ export class CheckoutsComponent implements OnInit {
     this.Api.GetMyPackage(result => {
       this.listProduct = result;
       this.ready = true;
-      this.scroll.scrollToPosition([0, 0]);
+      this.appServices.changeScrollToTop(true);
       this.getTotalPrice();
     });
   }

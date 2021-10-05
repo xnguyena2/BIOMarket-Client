@@ -340,9 +340,10 @@
       }
       .cart-icon {
         position: absolute;
+        width: 21px;
         left: 0;
-        font-size: 1.8rem;
-        color: rgb(21, 127, 248);
+        filter: opacity(0.5) drop-shadow(0 0 0 rgb(21, 127, 248));
+        -webkit-filter: opacity(0.5) drop-shadow(0 0 0 rgb(21, 127, 248));
       }
       span {
         font-size: 1.8rem;
@@ -558,6 +559,14 @@
       top: 50%;
       position: relative;
       transform: translateY(-50%);
+    }
+
+    .back-to-shop{
+      margin-right: 2px;
+      width: 6px;
+      vertical-align: middle;
+      -webkit-filter: brightness(0) invert(1);
+      filter: brightness(0);
     }
 
     .center-div{

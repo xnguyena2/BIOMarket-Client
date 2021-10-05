@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { faCaretDown, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { interval } from 'rxjs';
 import { CRItemInfo } from '../pipe/CRItemInfo';
 
@@ -24,10 +23,6 @@ export class CarouselPaddingComponent implements OnInit {
     new CRItemInfo("https://i.imgur.com/smfXfKm.jpg"),
     new CRItemInfo("https://i.imgur.com/lpmKmHQ.jpg")
   ]
-
-
-  faRight = faChevronRight;
-  faLeft = faChevronLeft;
 
   isMouseDown: boolean = false;
   currentPosX: number = 0;

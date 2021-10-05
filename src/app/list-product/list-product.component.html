@@ -28,10 +28,10 @@
   <div class="see-more" *ngIf="!searchMode">
     <a [routerLink]="['/search','all']">Xem Thêm</a>
   </div>
-  <div class="pagination list-product-content" *ngIf="totalResult>1">
-    <fa-icon class="icon-size" [icon]="faLeft" (click)="goPre()"></fa-icon>
-    <span *ngFor="let item of listPage;" class='{{item===activePage?"active-page":""}}'
+  <div class="pagination list-product-content" *ngIf="totalResult > 1">
+    <img src="assets/img/GoPreVious.png" alt="" class="function-button go-button" (click)="goPre()">
+    <span *ngFor="let item of listPage;" [ngClass]="{'active-page':item===activePage}"
       (click)="goPage(item)">{{item===-1 || item===-2?'...':item}}</span>
-    <fa-icon class="icon-size" [icon]="faRight" (click)="goNext()"></fa-icon>
+      <img src="assets/img/GoNext.png" alt="" class="function-button go-button" (click)="goNext()">
   </div>
 </section>

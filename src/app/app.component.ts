@@ -1,7 +1,6 @@
 import { ViewportScroller } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { faFacebookSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
 
 import { Subject, Subscription } from 'rxjs';
 import {
@@ -29,9 +28,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   title = 'Trùm Biển | Hải Sản Cao Cấp';
 
-  faFacebook = faFacebookSquare;
-  faInstagram = faInstagramSquare;
-
   CatetoryDrop = AppConfig.CatetoryDrop;
 
   notification: string = 'Alter';
@@ -41,6 +37,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('searchText', { static: false }) searchInput!: ElementRef;
   @ViewChild('resetFocus', { static: false }) resetFocus!: ElementRef;
   @ViewChild('header', { static: false }) header!: ElementRef;
+  @ViewChild('wrapSearch', { static: false }) wrapSearch!: ElementRef;
 
   subscription: Subscription = new Subscription();
   subject = new Subject<string>();
@@ -77,6 +74,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     private scroll: ViewportScroller,
     private router: Router,
     public loader: LoaderService) {
+      this.appService.registerScrollChange(this.changeScroll);
+      this.appService.registerScrollToTop(_=>{
+        console.log('go to top');
+        this.scroll.scrollToPosition([0, 0]);
+      });
   }
 
   ngAfterViewInit(): void {
@@ -189,7 +191,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   searchInputFocusOut(event: FocusEvent){
     if (event.target !== document.activeElement) { // This is where the magic happens!
-      this.isInputSearchFocus = false;
+      if(this.wrapSearch.nativeElement !== document.activeElement){
+        this.isInputSearchFocus = false;
+      }
     }
   }
 
@@ -226,7 +230,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   resetSearch() {
-    this.scroll.scrollToPosition([0, 0]);
+    this.appService.changeScrollToTop(true);
     if (this.isMobileMode) {
       this.hideOver();
     }

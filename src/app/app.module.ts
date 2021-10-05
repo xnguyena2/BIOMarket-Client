@@ -5,7 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './home/home.component';
 import { ListProductComponent } from './list-product/list-product.component';
 import { SearchComponent } from './search/search.component';
@@ -40,8 +39,7 @@ import { HttpInspectorService } from './services/http-inspector.service';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule,
-    FontAwesomeModule
+    FormsModule
   ],
   providers: [CookieService, { provide: HTTP_INTERCEPTORS, useClass: HttpInspectorService, multi: true }],
   bootstrap: [AppComponent]

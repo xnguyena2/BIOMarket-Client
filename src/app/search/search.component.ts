@@ -1,4 +1,3 @@
-import { ViewportScroller } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppConfig } from '../config/AppConfig';
@@ -7,6 +6,7 @@ import { BeerDetail } from '../object/BeerDetail';
 import { SearchQuery } from '../object/SearchQuery';
 import { SearchResult } from '../object/SearchResult';
 import { APIService } from '../services/api.service';
+import { AppService } from '../services/app.service';
 
 @Component({
   selector: 'app-search',
@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit {
   };
 
   constructor(private route: ActivatedRoute,
-    private scroll: ViewportScroller,
+    private appServices: AppService,
     private APIService: APIService,) { }
 
   ngOnInit(): void {
@@ -84,7 +84,7 @@ export class SearchComponent implements OnInit {
   }
 
   onSearchResult(result: SearchResult) {
-    this.scroll.scrollToPosition([0, 0]);
+    this.appServices.changeScrollToTop(true);
     this.listProduct = result.result;
     if (result.isResetFilter) {
       this.listProductComponent?.resetSelection();

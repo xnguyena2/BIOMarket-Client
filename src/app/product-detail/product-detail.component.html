@@ -5,10 +5,7 @@
         <div [class.gallery-full-screen]="fullscreenMode" (click)="hidePopUp($event)" id="parent-full-screen">
           <div [class.parent-container]="fullscreenMode">
             <div class="galary-aspect-ratio">
-              <div class="close-icon-container">
-                <fa-icon *ngIf="fullscreenMode" class="close-icon" [icon]="faClose"></fa-icon>
-                <div class="click-handel" (click)="hidePopUp($event)"></div>
-              </div>
+              <img src="assets/img/CloseIcon.png" alt="" class="close-icon-container" (click)="hidePopUp($event)">
               <app-carousel-padding [GalleryMode]="true" (clickAtItem)="clickAt($event)"></app-carousel-padding>
             </div>
           </div>

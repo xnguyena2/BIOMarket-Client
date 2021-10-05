@@ -79,20 +79,11 @@
         .close-icon-container{
           cursor: pointer;
           position: absolute;
-          top: -7rem;
-          right: -3rem;
-          .close-icon {
-            font-size: 4rem;
-            font-weight: 100;
-            color: white;
-          }
-          .click-handel{
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-          }
+          top: -5rem;
+          right: -2.5rem;
+          width: 25px;
+          -webkit-filter: brightness(0) invert(1);
+          filter: brightness(0) invert(1);
         }
       }
     }

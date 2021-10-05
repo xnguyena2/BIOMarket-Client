@@ -1,9 +1,8 @@
-import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { faChevronLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MyPackage } from '../object/MyPackage';
 import { ProductPackage } from '../object/ProductPackage';
 import { APIService } from '../services/api.service';
+import { AppService } from '../services/app.service';
 
 @Component({
   selector: 'app-cart',
@@ -11,9 +10,6 @@ import { APIService } from '../services/api.service';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-
-  faLeft = faChevronLeft;
-  faClose = faTimes;
 
   showCart = false;
   ready = false;
@@ -23,14 +19,14 @@ export class CartComponent implements OnInit {
   listProduct: MyPackage[] = [];
 
   constructor(private api: APIService,
-    private scroll: ViewportScroller,) { }
+    private appServices: AppService,) { }
 
   ngOnInit(): void {
     this.api.GetMyPackage(result => {
       this.listProduct = result;
       this.getTotalPrice();
       this.ready = true;
-      this.scroll.scrollToPosition([0, 0]);
+      this.appServices.changeScrollToTop(true);
     });
   }
 

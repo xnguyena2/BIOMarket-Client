@@ -37,25 +37,22 @@
 
         @media only screen and (max-width: 767px) {
           flex-direction: row-reverse;
-          .close-icon-ctn{
-            .close-icon {
-              transform: translateX(-1rem);
-              display: block;
-            }
-          }
         }
+
         .close-icon-ctn {
           align-items: center;
           .close-icon {
             position: relative;
             left: 50%;
-            font-size: 1.7rem;
-            color: rgba(0, 0, 0, 0.568);
-            font-weight: 200;
             margin-left: auto;
+            width: 12px;
+
+            transform: translateX(-50%);
+
             cursor: pointer;
           }
         }
+
         .product-price-detail {
           display: grid;
           padding: 1rem;
@@ -198,6 +195,14 @@
       top: 50%;
       position: relative;
       transform: translateY(-50%);
+    }
+
+    .back-to-shop{
+      margin-right: 2px;
+      width: 6px;
+      vertical-align: middle;
+      -webkit-filter: brightness(0);
+      filter: brightness(0);
     }
 
     .center-div{

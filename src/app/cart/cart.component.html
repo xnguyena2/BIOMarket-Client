@@ -13,7 +13,7 @@
         </div>
         <div class="list-buy-product" *ngFor="let item of listProduct">
           <div class="col-1 close-icon-ctn">
-            <fa-icon class="close-icon" [icon]="faClose" (click)="deleteItem(item)"></fa-icon>
+            <img src="assets/img/CloseIcon.png" alt="" class="close-icon" (click)="deleteItem(item)">
           </div>
           <div class="col-11 product-price-detail">
             <a [routerLink]="['/detail', item.beer_id]">
@@ -41,7 +41,7 @@
         </div>
         <div class="back-shoping">
           <a [routerLink]="['/search','all']">
-            <fa-icon class="control-nav icon-size pre-icon" [icon]="faLeft"></fa-icon>
+            <img src="assets/img/GoPreVious.png" class="back-to-shop" alt="">
             Tiếp Tục Mua Sắm
           </a>
 
@@ -57,7 +57,7 @@
       <img class="empty-cart" src="assets/img/empty-cart.png" alt="">
       <div class="back-shoping">
         <a [routerLink]="['/search','all']" class="center-div">
-          <fa-icon class="control-nav icon-size pre-icon" [icon]="faLeft"></fa-icon>
+          <img src="assets/img/GoPreVious.png" class="back-to-shop" alt="">
           Tiếp Tục Mua Sắm
         </a>
       </div>

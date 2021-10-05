@@ -25,7 +25,7 @@
           (click)="clearSearchText()">
         <img src="assets/img/SearchIcon.png" alt="" class="show-search-input light-bright" (click)='focusSearchInput()'>
         <div class="search-click-handle" (click)="onSearchEnter(searchText.value)"></div>
-        <div class="wrap-search">
+        <div class="wrap-search" #wrapSearch>
           <div class="search-result search-result-active">
             <h2 *ngIf="!listResult||listResult.length===0">Tìm Kiếm Nổi Bật</h2>
             <div *ngIf="!listResult||listResult.length===0" class="quicksearch-container">

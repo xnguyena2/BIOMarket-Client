@@ -60,6 +60,7 @@ export class CarouselPaddingComponent implements OnInit {
       this.listItem = [];
       return;
     }
+    this.currentIndex = 1;
     let listCarouselItem: CRItemInfo[] = list.map(x => new CRItemInfo(x));
     this.listItem = [
       listCarouselItem[list.length - 1],

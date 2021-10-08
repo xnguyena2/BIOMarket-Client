@@ -206,6 +206,9 @@
         }
       }
       .get-from-shop {
+        .address-infomation + .address-infomation{
+          margin-top: 1rem;
+        }
         .address-infomation {
           font-size: 1.5rem;
           font-weight: 450;

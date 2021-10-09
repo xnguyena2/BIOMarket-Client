@@ -645,11 +645,10 @@ header {
 .notification-stick{
   position: sticky;
   bottom: 0.5rem;
-  width: calc(100% - 8rem);
+  width: calc(100% - 2rem);
   height: 5rem;
-  margin-left: 1rem;
+  margin: 0 auto 1rem;
   margin-top: auto;
-  margin-bottom: 0.5rem;
 
   background-color: var(--main-color);
 
@@ -660,12 +659,12 @@ header {
 
     width: max-content;
 
-    font-size: clamp(1rem, 2.8vw, 1.7rem);
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
     line-height: 5rem;
   }
   .close-totification-stick{
-    right: 2rem;
-    height: clamp(1rem, 2.8vw, 1.7rem);
+    left: 2rem;
+    height: clamp(1.2rem, 3vw, 1.7rem);
 
     cursor: pointer;
 
@@ -681,6 +680,7 @@ footer {
   position: relative;
   // margin-top: auto;
   padding: 5rem 5rem;
+  padding-bottom: 3rem;
   background-color: var(--main-color);
   color: white;
 

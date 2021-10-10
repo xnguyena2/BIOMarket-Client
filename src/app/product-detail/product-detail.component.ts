@@ -74,6 +74,8 @@ export class ProductDetailComponent implements OnInit {
                 this.productPreviewImg = '';
               }
               this.productReady = true;
+            } else {
+              this.router.navigate(['/']);
             }
           });
         }
@@ -143,9 +145,9 @@ export class ProductDetailComponent implements OnInit {
     }
     this.Api.AddToPackage(packageItem, result => {
       if (result) {
-        if(gotoCart){
+        if (gotoCart) {
           this.router.navigate(['checkouts']);
-        }else{
+        } else {
           this.App.showSuccessProduct({
             img: this.productPreviewImg,
             title: this.productUnitTitle,

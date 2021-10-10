@@ -65,7 +65,7 @@ export class ProductDetailComponent implements OnInit {
                 this.carousel.setupListItem(null);
               this.title = product.name;
               this.listUnit = product.listUnit;
-              this.changeeUnit(this.listUnit[0].beer_unit_second_id);
+              this.changeUnit(this.listUnit[0].beer_unit_second_id);
               this.productDetail = product.detail;
               this.productID = product.beerSecondID;
               if (product.images != null && product.images.length > 0) {
@@ -84,7 +84,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
-  changeeUnit(unitID: string) {
+  changeUnit(unitID: string) {
     let currentUnit: BeerUnit | undefined = this.listUnit.find(x => x.beer_unit_second_id === unitID);
     if (currentUnit) {
       this.productUnitID = currentUnit.beer_unit_second_id;

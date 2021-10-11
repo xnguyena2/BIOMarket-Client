@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { interval } from 'rxjs';
 import { CRItemInfo } from '../pipe/CRItemInfo';
+import { AppService } from '../services/app.service';
 
 @Component({
   selector: 'app-carousel-padding',
@@ -42,10 +43,11 @@ export class CarouselPaddingComponent implements OnInit {
   currentScroll: number = 0;
   dragging: boolean = false;
 
-  constructor() { }
+  constructor(
+    private appService: AppService) { }
 
   ngOnInit(): void {
-    if (!this.GalleryMode) {
+    if (!this.GalleryMode && this.appService.isBrowser) {
       interval(this.TimeInterVal)
         .subscribe(x => {
           if (!this.isMouseDown) {

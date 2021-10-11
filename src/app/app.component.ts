@@ -74,15 +74,17 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     private scroll: ViewportScroller,
     private router: Router,
     public loader: LoaderService) {
-      this.appService.registerScrollChange(this.changeScroll);
-      this.appService.registerScrollToTop(_=>{
-        console.log('go to top');
-        this.scroll.scrollToPosition([0, 0]);
-      });
+    this.appService.registerScrollChange(this.changeScroll);
+    this.appService.registerScrollToTop(_ => {
+      console.log('go to top');
+      this.scroll.scrollToPosition([0, 0]);
+    });
   }
 
   ngAfterViewInit(): void {
-    this.setupForNavbarSticky(this.header);
+    if (this.appService.isBrowser) {
+      this.setupForNavbarSticky(this.header);
+    }
   }
 
   ngOnDestroy(): void {
@@ -189,9 +191,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.searchInput.nativeElement.focus();
   }
 
-  searchInputFocusOut(event: FocusEvent){
+  searchInputFocusOut(event: FocusEvent) {
     if (event.target !== document.activeElement) { // This is where the magic happens!
-      if(this.wrapSearch.nativeElement !== document.activeElement){
+      if (this.wrapSearch.nativeElement !== document.activeElement) {
         this.isInputSearchFocus = false;
       }
     }

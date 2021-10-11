@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MyPackage } from '../object/MyPackage';
@@ -34,7 +35,11 @@ export class AppService {
   private showProductSuccessSource = new BehaviorSubject<ProductAddSuccess | null>(null);
   private showProductSuccess = this.showProductSuccessSource.asObservable();
 
-  constructor() {
+  public isBrowser: boolean;
+
+  constructor(
+    @Inject(PLATFORM_ID) platformId: Object,) {
+    this.isBrowser = isPlatformBrowser(platformId);
   }
 
 

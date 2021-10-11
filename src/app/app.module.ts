@@ -36,7 +36,7 @@ import { HttpInspectorService } from './services/http-inspector.service';
     ThankfullComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     AppRoutingModule,
     FormsModule

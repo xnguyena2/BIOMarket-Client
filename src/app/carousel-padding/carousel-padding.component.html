@@ -7,7 +7,7 @@
     <div class="carousel-content" style="width:100%;" [class.carousel-content-transform]="enableTransform"
       [style.transform]="transform | carouselContentLeft: currentIndex:listItem.length">
       <div *ngFor="let item of listItem;index as i" class="carousel-item" [style.transform]="'translateX('+i+'00%)'" (dragstart)="disableDrag($event)">
-        <img [src]="item.content" alt="" draggable="false">
+        <img [src]="item.content" alt="" draggable="false" loading="lazy">
       </div>
     </div>
   </div>

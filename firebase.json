@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "BIOMarket-client\\browser",
+    "public": "dist\\BIOMarket-client\\browser",
     "ignore": [
       "firebase.json",
       "**/.*",

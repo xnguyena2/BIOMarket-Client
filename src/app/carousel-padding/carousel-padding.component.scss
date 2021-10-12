@@ -111,9 +111,12 @@
         height: 8rem;
         display: inline-block;
         border: 0.1rem solid rgb(255, 255, 255, 0);
+
+        filter: brightness(58%);
       }
       .img-active {
-        border-color: rgba(0, 17, 255, 0.671);
+        border-color: rgb(255, 255, 255);
+        filter: brightness(100%);
       }
     }
     .index-hide {

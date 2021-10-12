@@ -35,6 +35,10 @@ export class AppService {
   private showProductSuccessSource = new BehaviorSubject<ProductAddSuccess | null>(null);
   private showProductSuccess = this.showProductSuccessSource.asObservable();
 
+  //chagne title
+  private changeTitleSource = new BehaviorSubject<string | null>(null);
+  private changeTitle = this.changeTitleSource.asObservable();
+
   public isBrowser: boolean;
 
   constructor(
@@ -89,5 +93,13 @@ export class AppService {
   }
   public changeScrollToTop(filter: boolean) {
     this.scrollToTopSource.next(filter);
+  }
+
+  //change title
+  public registerChangeTitle(func: (filter: string) => void) {
+    this.changeTitle.pipe(filter(x => x !== null)).subscribe(f => func(f!));
+  }
+  public changeTitlePage(filter: string) {
+    this.changeTitleSource.next(filter);
   }
 }

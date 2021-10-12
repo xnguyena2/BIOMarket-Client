@@ -1,5 +1,6 @@
 import { ViewportScroller } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { Subject, Subscription } from 'rxjs';
@@ -69,6 +70,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   hideActionID: string = '';
 
   constructor(
+    private titleService: Title,
     private APIService: APIService,
     private appService: AppService,
     private scroll: ViewportScroller,
@@ -78,6 +80,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.appService.registerScrollToTop(_ => {
       console.log('go to top');
       this.scroll.scrollToPosition([0, 0]);
+    });
+    this.appService.registerChangeTitle(title => {
+      this.setTitle(title);
     });
   }
 
@@ -116,6 +121,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       this.productPrice = product.price;
       this.showSuccessPopUP();
     });
+  }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   closeMenu() {

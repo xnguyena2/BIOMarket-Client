@@ -1,0 +1,8 @@
+/search/crab
+/search/shrimp
+/search/squid
+/search/holothurian
+/search/haliotis
+/search/oyster
+/search/fish
+/search/snail

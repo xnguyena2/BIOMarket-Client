@@ -36,34 +36,42 @@ export const AppConfig = {
   }],
   CatetoryDrop: [{
     value: 'crab',
-    title: 'Cua'
+    title: 'Cua',
+    pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Cua, Cua Biển, Cua Cà Mau, Cua Hoàng Đế, Cua Lông Thượng Hải, Giá Cua Bao Nhiêu'
   },
   {
     value: 'shrimp',
-    title: 'Tôm'
+    title: 'Tôm',
+    pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Tôm, Tôm Sú, Tôm Càng Xanh, Tôm Hùm, Giá Tôm Sú, Giá Tôm Hùm'
   },
   {
     value: 'squid',
-    title: 'Mực'
+    title: 'Mực',
+    pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Mực, Mực Ống, Mực Nang, Giá Mực, Giá Mực Ống, Giá Mực Nang'
   },
   {
     value: 'holothurian',
-    title: 'Hải Sâm'
+    title: 'Hải Sâm',
+    pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Hải Sâm, Hải Sâm Môi Son, Giá Hải Sâm'
   },
   {
     value: 'haliotis',
-    title: 'Bào Ngư'
+    title: 'Bào Ngư',
+    pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Bào Ngư, Giá Bào Ngư'
   },
   {
     value: 'oyster',
-    title: 'Hàu'
+    title: 'Hàu',
+    pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Hàu, Hàu Nhật, Hàu Nhật Hyogo, Giá Hàu Nhật'
   },
   {
     value: 'fish',
-    title: 'Cá'
+    title: 'Cá',
+    pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Cá Mú, Cá Mú Đỏ, Cá Thu, Cá Thu Bao Nhiêu, Cá Mú Đỏ Bao Nhiêu'
   },
   {
     value: 'snail',
-    title: 'Ốc'
+    title: 'Ốc',
+    pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Ốc, Ốc Bulot Pháp, Giá Ốc Bulot Pháp'
   }]
 }

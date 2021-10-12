@@ -43,6 +43,10 @@ export class SearchComponent implements OnInit {
         const query = params.query;
         if (query !== null) {
           console.log(query);
+          let category = AppConfig.CatetoryDrop.find(x => x.value === query);
+          if (category !== undefined) {
+            this.appServices.changeTitlePage(category.pageTitle);
+          }
           this.search(query, this.noFilter, this.noPage);
         }
       }
@@ -100,9 +104,9 @@ export class SearchComponent implements OnInit {
       AppConfig.CatetoryDrop.filter(category => category.value === result.searchTxt).map(ct => searchT = ct.title + ':');
     }
     if (searchT === '') {
-      if(result.count === 0){
+      if (result.count === 0) {
         searchT = `Không Tìm Thấy: ${result.searchTxt}`;
-      }else{
+      } else {
         searchT = `Kết Quả Tìm Kiếm: ${result.searchTxt} (${result.count})`;
       }
     }

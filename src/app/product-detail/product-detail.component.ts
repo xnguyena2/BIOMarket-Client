@@ -68,6 +68,7 @@ export class ProductDetailComponent implements OnInit {
               this.changeUnit(this.listUnit[0].beer_unit_second_id);
               this.productDetail = product.detail;
               this.productID = product.beerSecondID;
+              this.App.changeTitlePage(product.name);
               if (product.images != null && product.images.length > 0) {
                 this.productPreviewImg = product.images[0].medium;
               } else {

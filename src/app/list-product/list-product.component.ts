@@ -49,7 +49,9 @@ export class ListProductComponent implements OnInit {
   }
 
   resetSelection() {
-    this.select.nativeElement.value = AppConfig.FilterDrop[0].value;
+    if (this.select !== undefined) {
+      this.select.nativeElement.value = AppConfig.FilterDrop[0].value;
+    }
   }
 
   goNext() {

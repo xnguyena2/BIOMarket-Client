@@ -34,7 +34,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   notification: string = 'Alter';
   isShowAlter: boolean = false;
 
-  @ViewChild('over', { static: false }) over!: ElementRef;
   @ViewChild('searchText', { static: false }) searchInput!: ElementRef;
   @ViewChild('resetFocus', { static: false }) resetFocus!: ElementRef;
   @ViewChild('header', { static: false }) header!: ElementRef;
@@ -45,13 +44,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   totalProduct: number = 0;
 
-  showHoverMenu: boolean = true;
-
   isNavBarSticky: boolean = false;
 
   isOpenMenu: boolean = true;
-
-  isMobileMode = false;
 
   listResult: BeerDetail[] = [];
 
@@ -172,27 +167,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subject.next(searchText);
   }
 
-  mobileShowSearch() {
-    console.log("mobile search click");
-    this.isMobileMode = true;
-    this.showOver();
-    this.focusSearchInput();
-  }
-
   clearSearchText() {
     this.listResult = [];
-    if (this.isMobileMode) {
-    }
     this.searchInput.nativeElement.value = '';
-    this.hideOver();
-  }
-
-  hideOver() {
-    this.over.nativeElement.classList.remove('over-show');
-  }
-
-  showOver() {
-    this.over.nativeElement.classList.add('over-show');
   }
 
   focusSearchInput() {
@@ -212,11 +189,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     if (searchText === '')
       return;
     this.router.navigate(['search', searchText]);
-    if (this.isMobileMode) {
-      this.clearSearchText();
-    }
-    this.hideOver();
     this.focusOver();
+  }
+
+  focusOver() {
+    this.resetFocus.nativeElement.focus()
   }
 
   categorySearch(searchText: string) {
@@ -225,31 +202,14 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   gotoPath(path: string, subpath: string) {
     this.router.navigate([path, subpath]);
-    this.hideHoverMenu();
     this.closeMenu();
-  }
-
-  hideHoverMenu() {
-    this.showHoverMenu = false;
-    setTimeout(() => {
-      this.showHoverMenu = true;
-    }, 300);
-  }
-
-  focusOver() {
-    setTimeout(() => this.resetFocus.nativeElement.focus(), 0);
   }
 
   resetSearch() {
     this.appService.changeScrollToTop(true);
-    if (this.isMobileMode) {
-      this.hideOver();
-    }
   }
 
   //show and hide success add product
-
-
   showSuccessPopUP() {
     this.showAddCartPopup = true;
     this.changeScroll(false);

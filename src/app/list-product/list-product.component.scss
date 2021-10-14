@@ -30,10 +30,10 @@ section {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    gap: 2rem;
     .search-title {
-      font-size: 2.2rem;
+      font-size: clamp(1.7rem, 5vw, 2.2rem);
       padding-left: 1rem;
-      width: calc(100% - 19rem);
       text-align: left;
     }
     .sort-select {
@@ -63,15 +63,7 @@ section {
         border-radius: 0;
       }
     }
-    @media only screen and (max-width: 768px) {
-      .search-title {
-        font-size: 1.7rem;
-      }
-    }
     @media only screen and (max-width: 576px) {
-      .search-title {
-        display: none;
-      }
       .sort-select {
         width: 100%;
       }

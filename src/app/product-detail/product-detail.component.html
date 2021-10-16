@@ -27,7 +27,7 @@
             <span class="real-price" *ngIf="discount>0">{{realPrice | moneyFormat}}</span>
             <span class="unit-discount" *ngIf="discount>0">{{discount}}</span>
           </div>
-          <form class="add-package-container">
+          <form class="add-package-container" [ngClass]="{'sold_out' : sold_out}">
             <div class="product-number-container">
               <label for="" class="product-count-title">Số Lượng:</label>
               <span class="action-btn" (click)="changeNumberSell(false)">-</span>
@@ -35,7 +35,7 @@
                 (keyup)="onChangeNumber(productNum.value)">
               <span class="action-btn" (click)="changeNumberSell(true)">+</span>
             </div>
-            <a class="add-to-package" (click)="addToPackage(false)">Thêm Vào Giỏ</a>
+            <a class="add-to-package" (click)="addToPackage(false)">{{sold_out?'Hết Hàng':'Thêm Vào Giỏ'}}</a>
             <a class="buy-now full-grid" (click)="buyNow()">Mua Ngay</a>
           </form>
         </section>

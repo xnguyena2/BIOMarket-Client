@@ -27,6 +27,8 @@ export class ProductDetailComponent implements OnInit {
   productUnitTitle: string = '';
   productPreviewImg: string = '';
 
+  sold_out: boolean = false;
+
 
   productDetail: string = '';
 
@@ -69,6 +71,7 @@ export class ProductDetailComponent implements OnInit {
               this.productDetail = product.detail;
               this.productID = product.beerSecondID;
               this.App.changeTitlePage(product.name);
+              this.sold_out = product.status === 'sold_out';
               if (product.images != null && product.images.length > 0) {
                 this.productPreviewImg = product.images[0].medium;
               } else {

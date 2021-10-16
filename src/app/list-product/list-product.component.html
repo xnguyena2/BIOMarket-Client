@@ -10,7 +10,7 @@
   </div>
   <div class="list-product-content">
     <div *ngFor="let item of listProduct;" class="product-detail">
-      <div class="product-container">
+      <div class="product-container" [ngClass]="{'sold_out' : item.status === 'sold_out'}">
         <div class="wrap-aspectratio">
           <a [routerLink]="['/detail', item.beerSecondID]">
             <img [src]="item.images&&item.images.length>0?item.images[0].medium:''" alt="" class="product-preview">
@@ -21,7 +21,7 @@
           class="product-real-price">{{item.listUnit[0].price | moneyFormat}}</ins>
         <ins class="product-price">{{item.listUnit[0].price*(100-item.listUnit[0].discount)/100 | moneyFormat}}</ins>
         <span *ngIf="item.listUnit[0].discount" class="product-discount">{{item.listUnit[0].discount}}</span>
-        <a class="add-to-package" (click)="addToPackage(item)">Thêm Vào Giỏ</a>
+        <a class="add-to-package" (click)="addToPackage(item)">{{item.status === 'sold_out'?"Hết Hàng":"Thêm Vào Giỏ"}}</a>
       </div>
     </div>
   </div>

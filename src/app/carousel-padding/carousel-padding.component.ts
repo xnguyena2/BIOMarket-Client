@@ -17,14 +17,6 @@ export class CarouselPaddingComponent implements OnInit {
 
   @Output() clickAtItem = new EventEmitter<number>();
 
-  readonly testData: CRItemInfo[] = [
-    new CRItemInfo("https://i.imgur.com/smfXfKm.jpg"),
-    new CRItemInfo("https://i.imgur.com/lpmKmHQ.jpg"),
-    new CRItemInfo("https://i.imgur.com/rXLVrDF.jpg"),
-    new CRItemInfo("https://i.imgur.com/smfXfKm.jpg"),
-    new CRItemInfo("https://i.imgur.com/lpmKmHQ.jpg")
-  ]
-
   isMouseDown: boolean = false;
   currentPosX: number = 0;
 

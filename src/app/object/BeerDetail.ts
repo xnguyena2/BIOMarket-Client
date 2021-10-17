@@ -23,6 +23,7 @@ export interface BeerUnit {
   weight: number;
   volumetric: number;
   beer_unit_second_id: string;
+  status: string;
 }
 
 interface Image {

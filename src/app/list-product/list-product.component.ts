@@ -163,4 +163,10 @@ export class ListProductComponent implements OnInit {
     });
     //this.router.navigate(['cart']);
   }
+
+  isProductSoldOut(product: BeerDetail): boolean {
+    if (product.status === 'sold_out')
+      return true;
+    return !product.listUnit.some(x => x.status !== 'sold_out')
+  }
 }

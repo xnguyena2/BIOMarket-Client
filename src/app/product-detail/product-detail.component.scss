@@ -181,6 +181,12 @@
           grid-template-columns: 1fr 1fr;
           &.sold_out{
             pointer-events: none;
+            .buy-now, .add-to-package{
+              color: red;
+              &::after{
+                content: 'Hết Hàng';
+              }
+            }
           }
           .full-grid {
             grid-column: 1 / -1;
@@ -233,6 +239,9 @@
             text-align: center;
             padding: 0.7rem;
             border-radius: 0.2rem;
+            &::after{
+              content: 'Thêm Vào Giỏ';
+            }
           }
           .buy-now{
             margin-top: 1rem;
@@ -247,6 +256,9 @@
             padding: 1rem;
             border-radius: 0.2rem;
             color: white;
+            &::after{
+              content: 'Mua Ngay';
+            }
           }
         }
       }

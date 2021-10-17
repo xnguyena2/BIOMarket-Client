@@ -28,6 +28,7 @@ export class ProductDetailComponent implements OnInit {
   productPreviewImg: string = '';
 
   sold_out: boolean = false;
+  productSoldOut: boolean = false;
 
 
   productDetail: string = '';
@@ -71,7 +72,7 @@ export class ProductDetailComponent implements OnInit {
               this.productDetail = product.detail;
               this.productID = product.beerSecondID;
               this.App.changeTitlePage(product.name);
-              this.sold_out = product.status === 'sold_out';
+              this.productSoldOut = this.sold_out = product.status === 'sold_out';
               if (product.images != null && product.images.length > 0) {
                 this.productPreviewImg = product.images[0].medium;
               } else {
@@ -96,6 +97,9 @@ export class ProductDetailComponent implements OnInit {
       this.realPrice = currentUnit.price;
       this.discount = currentUnit.discount;
       this.price = this.realPrice * (100 - this.discount) / 100;
+      if(!this.productSoldOut){
+        this.sold_out = currentUnit.status === 'sold_out';
+      }
     }
   }
 

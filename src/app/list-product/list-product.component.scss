@@ -155,6 +155,9 @@ section {
           pointer-events: none;
           background-color: white;
           color: red;
+          &::after{
+            content: "Hết Hàng";
+          }
         }
       }
 
@@ -240,6 +243,9 @@ section {
         margin: 0 auto;
         margin-top: 1.5rem;
         max-width: 100%;
+        &::after{
+          content: "Thêm Vào Giỏ";
+        }
         &:hover
         ,&:focus
         {

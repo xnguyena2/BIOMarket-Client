@@ -100,7 +100,7 @@
                 <select name="" id="region" class="address-selection" onchange="this.dataset.chosen = this.value;"
                   (change)='changeRegion(region.value)' #region>
                   <option value="" selected>Chọn tỉnh / thành</option>
-                  <option *ngFor="let item of myRegion;" [value]="item.id">{{item.name}}</option>
+                  <option *ngFor="let item of myRegion;" [value]="item.id" [selected]="item.id === defaultRegion">{{item.name}}</option>
                 </select>
                 <label for="region">Tỉnh / Thành</label>
               </div>

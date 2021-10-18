@@ -13,6 +13,8 @@ import { AppService } from '../services/app.service';
 })
 export class CheckoutsComponent implements OnInit {
 
+  readonly defaultRegion: number = 294;
+
   myRegion: Region[] = [];
   myDistrict: District[] = [];
   myWard: Ward[] = [];
@@ -46,6 +48,7 @@ export class CheckoutsComponent implements OnInit {
   ngOnInit(): void {
     this.Api.GetAllRegion(result => {
       this.myRegion = result;
+      this.changeRegion(this.defaultRegion.toString());
     });
     this.Api.GetMyPackage(result => {
       this.listProduct = result;

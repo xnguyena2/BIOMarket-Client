@@ -44,6 +44,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   totalProduct: number = 0;
 
+  showHoverMenu: boolean = true;
+
   isNavBarSticky: boolean = false;
 
   isOpenMenu: boolean = true;
@@ -202,7 +204,15 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   gotoPath(path: string, subpath: string) {
     this.router.navigate([path, subpath]);
+    this.hideHoverMenu();
     this.closeMenu();
+  }
+
+  hideHoverMenu() {
+    this.showHoverMenu = false;
+    setTimeout(() => {
+      this.showHoverMenu = true;
+    }, 300);
   }
 
   resetSearch() {

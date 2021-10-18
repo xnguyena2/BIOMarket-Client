@@ -34,21 +34,22 @@ export const AppConfig = {
     value: 'sold_num',
     title: 'Bán Chạy Nhất'
   }],
-  CatetoryDrop: [{
-    value: 'crab',
-    title: 'Cua',
-    pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Cua, Cua Biển, Cua Cà Mau, Cua Hoàng Đế, Cua Lông Thượng Hải, Giá Cua Bao Nhiêu'
-  },
-  {
-    value: 'shrimp',
-    title: 'Tôm',
-    pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Tôm, Tôm Sú, Tôm Càng Xanh, Tôm Hùm, Giá Tôm Sú, Giá Tôm Hùm'
-  },
-  {
-    value: 'squid',
-    title: 'Mực',
-    pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Mực, Mực Ống, Mực Nang, Giá Mực, Giá Mực Ống, Giá Mực Nang'
-  },
+  CatetoryDrop: [
+  //   {
+  //   value: 'crab',
+  //   title: 'Cua',
+  //   pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Cua, Cua Biển, Cua Cà Mau, Cua Hoàng Đế, Cua Lông Thượng Hải, Giá Cua Bao Nhiêu'
+  // },
+  // {
+  //   value: 'shrimp',
+  //   title: 'Tôm',
+  //   pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Tôm, Tôm Sú, Tôm Càng Xanh, Tôm Hùm, Giá Tôm Sú, Giá Tôm Hùm'
+  // },
+  // {
+  //   value: 'squid',
+  //   title: 'Mực',
+  //   pageTitle: 'Trùm Biển - Hải Sản Cao Cấp, Mực, Mực Ống, Mực Nang, Giá Mực, Giá Mực Ống, Giá Mực Nang'
+  // },
   {
     value: 'holothurian',
     title: 'Hải Sâm',

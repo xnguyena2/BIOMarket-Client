@@ -273,8 +273,9 @@
 }
 
 header {
-  background-color: white;
+  position: relative;
   width: 100%;
+  background-color: white;
   z-index: 9999;
 
   .top-contract {
@@ -625,6 +626,8 @@ header {
   }
 
   .loading-bar {
+    position: absolute;
+    bottom: 0;
     height: 0.2rem;
     background-color: rgb(0, 218, 91);
     animation: progress 20s;

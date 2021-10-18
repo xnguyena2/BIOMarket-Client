@@ -66,7 +66,7 @@
   <ul class="navbar-container align-center">
     <li>
       <a class="absolute-full drop-down-icon">Sản Phẩm</a>
-      <div class="hover-menu-container absolute-full">
+      <div class="hover-menu-container absolute-full" *ngIf="showHoverMenu">
         <ul class="hover-menu">
           <li *ngFor="let item of CatetoryDrop;" (click)="categorySearch(item.value)">
             <a class="router-link-active">

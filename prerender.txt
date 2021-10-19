@@ -7,6 +7,8 @@
 /search/fish
 /search/snail
 
+/thankfull
+
 /detail/31a5c55183234e88b2e5c757489da5a3
 /detail/baebfd07cdf14ec0a9e935cd040156ef
 /detail/66d58b9b06a74171b279a53c676d214e

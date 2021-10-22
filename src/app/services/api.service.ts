@@ -54,15 +54,16 @@ export class APIService {
     }
   }
 
-  public validListProduct(listProduct: BeerDetail[]){
-    if(listProduct){
+  public validListProduct(listProduct: BeerDetail[]) {
+    if (listProduct) {
       listProduct.forEach(element => {
         element.validIndex = 0;
-        if(element.status === 'sold_out'){
+        element.listUnit.sort((a, b) => a.price - b.price);
+        if (element.status === 'sold_out') {
           return;
         }
         for (let index = 0; index < element.listUnit.length; index++) {
-          if(element.listUnit[index].status !== 'sold_out'){
+          if (element.listUnit[index].status !== 'sold_out') {
             element.validIndex = index;
             return;
           }

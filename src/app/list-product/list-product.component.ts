@@ -137,7 +137,7 @@ export class ListProductComponent implements OnInit {
 
   addToPackage(product: BeerDetail) {
     const productID = product.beerSecondID;
-    const productUnitID: string = product.listUnit[0].beer_unit_second_id;
+    const productUnitID: string = product.listUnit[product.validIndex].beer_unit_second_id;
     let packageItem: ProductPackage = {
       deviceID: '',
       beerID: productID,
@@ -152,8 +152,8 @@ export class ListProductComponent implements OnInit {
       if (result) {
         this.App.showSuccessProduct({
           img: product.images[0].medium,
-          title: product.listUnit[0].name,
-          price: product.listUnit[0].price * (100 - product.listUnit[0].discount) / 100,
+          title: product.listUnit[product.validIndex].name,
+          price: product.listUnit[product.validIndex].price * (100 - product.listUnit[product.validIndex].discount) / 100,
           count: 1
         });
         this.Api.GetPackage();

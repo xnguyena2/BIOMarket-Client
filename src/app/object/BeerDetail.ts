@@ -42,5 +42,7 @@ export interface BeerDetail {
   status: string;
   images: Image[];
 
+  validIndex: number;
+
   listUnit: BeerUnit[];
 }

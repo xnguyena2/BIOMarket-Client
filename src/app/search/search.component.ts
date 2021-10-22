@@ -90,6 +90,7 @@ export class SearchComponent implements OnInit {
   onSearchResult(result: SearchResult) {
     this.appServices.changeScrollToTop(true);
     this.listProduct = result.result;
+    this.APIService.validListProduct(this.listProduct);
     if (result.isResetFilter) {
       this.listProductComponent?.resetSelection();
     }

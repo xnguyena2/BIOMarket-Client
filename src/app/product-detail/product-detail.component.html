@@ -18,7 +18,7 @@
             <h1 class="unit-title">Đơn Vị:</h1>
             <div class="unit-select drop-down-icon">
               <select (change)='changeUnit(filter.value)' #filter class="select">
-                <option *ngFor="let item of listUnit;" [value]="item.beer_unit_second_id">{{item.name}}</option>
+                <option *ngFor="let item of listUnit; let i = index;" [value]="item.beer_unit_second_id" [selected]="i === currentUnitIndex">{{item.name}}</option>
               </select>
             </div>
           </div>

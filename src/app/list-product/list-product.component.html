@@ -17,10 +17,10 @@
           </a>
         </div>
         <h3 class="product-title">{{item.name}}</h3>
-        <ins [style.visibility]='item.listUnit[0].discount?"visible":"hidden"'
-          class="product-real-price">{{item.listUnit[0].price | moneyFormat}}</ins>
-        <ins class="product-price">{{item.listUnit[0].price*(100-item.listUnit[0].discount)/100 | moneyFormat}}</ins>
-        <span *ngIf="item.listUnit[0].discount" class="product-discount">{{item.listUnit[0].discount}}</span>
+        <ins [style.visibility]='item.listUnit[item.validIndex].discount?"visible":"hidden"'
+          class="product-real-price">{{item.listUnit[item.validIndex].price | moneyFormat}}</ins>
+        <ins class="product-price">{{item.listUnit[item.validIndex].price*(100-item.listUnit[item.validIndex].discount)/100 | moneyFormat}}</ins>
+        <span *ngIf="item.listUnit[item.validIndex].discount" class="product-discount">{{item.listUnit[item.validIndex].discount}}</span>
         <a class="add-to-package" (click)="addToPackage(item)"></a>
       </div>
     </div>

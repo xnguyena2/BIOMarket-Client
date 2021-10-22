@@ -30,6 +30,8 @@ export class ProductDetailComponent implements OnInit {
   sold_out: boolean = false;
   productSoldOut: boolean = false;
 
+  currentUnitIndex: number = 0;
+
 
   productDetail: string = '';
 
@@ -52,6 +54,7 @@ export class ProductDetailComponent implements OnInit {
           this.Api.SearchBeer(new SearchQuery('', 0, 8, ''), result => {
             if (result) {
               const totalList = result.result.filter(x => x.beerSecondID !== productID);
+              this.Api.validListProduct(totalList);
               if (totalList.length > 4) {
                 this.listProduct = totalList.slice(0, 4);
               } else {
@@ -66,13 +69,17 @@ export class ProductDetailComponent implements OnInit {
                 this.carousel.setupListItem(product.images.map(x => x.large));
               else
                 this.carousel.setupListItem(null);
+              this.currentUnitIndex = product.validIndex;
               this.title = product.name;
               this.listUnit = product.listUnit;
-              this.changeUnit(this.listUnit[0].beer_unit_second_id);
               this.productDetail = product.detail;
               this.productID = product.beerSecondID;
               this.App.changeTitlePage(product.name);
-              this.productSoldOut = this.sold_out = product.status === 'sold_out';
+              this.sold_out = this.productSoldOut = product.status === 'sold_out';
+              if (!this.productSoldOut) {
+                this.sold_out = product.listUnit[product.validIndex].status === 'sold_out';
+              }
+              this.changeUnit(this.listUnit[product.validIndex].beer_unit_second_id);
               if (product.images != null && product.images.length > 0) {
                 this.productPreviewImg = product.images[0].medium;
               } else {
@@ -97,7 +104,7 @@ export class ProductDetailComponent implements OnInit {
       this.realPrice = currentUnit.price;
       this.discount = currentUnit.discount;
       this.price = this.realPrice * (100 - this.discount) / 100;
-      if(!this.productSoldOut){
+      if (!this.productSoldOut) {
         this.sold_out = currentUnit.status === 'sold_out';
       }
     }

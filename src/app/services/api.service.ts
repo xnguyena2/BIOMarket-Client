@@ -54,6 +54,23 @@ export class APIService {
     }
   }
 
+  public validListProduct(listProduct: BeerDetail[]){
+    if(listProduct){
+      listProduct.forEach(element => {
+        element.validIndex = 0;
+        if(element.status === 'sold_out'){
+          return;
+        }
+        for (let index = 0; index < element.listUnit.length; index++) {
+          if(element.listUnit[index].status !== 'sold_out'){
+            element.validIndex = index;
+            return;
+          }
+        }
+      });
+    }
+  }
+
   public GenerateID(): string {
     const current = new Date();
     return String(current.setMilliseconds(0));
@@ -208,6 +225,7 @@ export class APIService {
     this.requestServices.get(`${this.HostURL}clientdevice/bootstrap`).subscribe(
       event => {
         if (event instanceof HttpResponse) {
+          this.validListProduct(event?.body?.products);
           this.currentResult = new SearchResult();
           this.currentResult.result = event.body.products;
           console.log('bootstrap data: ');
@@ -262,6 +280,7 @@ export class APIService {
         if (event instanceof HttpResponse) {
           console.log('load beer detail: ');
           console.log(event.body);
+          this.validListProduct([event.body]);
           cb(event.body);
         }
       },

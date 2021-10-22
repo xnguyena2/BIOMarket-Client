@@ -9,6 +9,7 @@ export interface PackageOrder {
   reciver_fullname: string;
   phone_number: string;
   total_price: number;
+  real_price: number;
   ship_price: number;
 }
 
@@ -48,6 +49,7 @@ function convertToProductOrder(carts: MyPackage[], deviceID: string, preOrderer:
     reciver_fullname: fullName,
     phone_number: phone,
     total_price: 0,
+    real_price: 0,
     ship_price: 0
   };
 

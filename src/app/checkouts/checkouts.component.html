@@ -54,6 +54,10 @@
             <span>Phí ship</span>
             <span>{{shipPrice | moneyFormat}}</span>
           </div>
+          <div class="sum-price" *ngIf="realPrice>0 && realPrice!==totalPrice">
+            <span>Giảm Còn</span>
+            <span>{{realPrice | moneyFormat}}</span>
+          </div>
         </article>
         <div class="total-price">
           <span>Tổng cộng</span>

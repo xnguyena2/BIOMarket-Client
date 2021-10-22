@@ -60,6 +60,7 @@ export class APIService {
   }
 
   public createOrder(packageOrderData: PackageOrderData, cb: (result: PackageOrder | null) => void) {
+    console.log(packageOrderData);
     packageOrderData.packageOrder.user_device_id = this.userID;
     this.requestServices.post(`${this.HostURL}order/create`, packageOrderData).subscribe(
       event => {

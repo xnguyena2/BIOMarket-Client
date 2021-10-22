@@ -23,6 +23,7 @@ export class CheckoutsComponent implements OnInit {
   ready = false;
 
   totalPrice: number = 0;
+  realPrice: number = 0;
   shipPrice: number = 0;
   allPrice: number = 0;
 
@@ -137,10 +138,16 @@ export class CheckoutsComponent implements OnInit {
   }
 
   getPrice(voucher: string, preOrderer: boolean) {
+
+    //default for patrons user
+    voucher = 'patrons';
+
+
     const order: PackageOrderData = convertToProductOrder(this.listProduct, "", preOrderer, this.address, this.curentRegionID, this.curentDistrictID, this.curentWardID, this.fullName, this.phone, voucher);
     this.Api.createOrder(order, result => {
       if (result !== null) {
-        this.allPrice = result.total_price + result.ship_price;
+        this.realPrice = result.real_price;
+        this.allPrice = result.real_price + result.ship_price;
         this.shipPrice = result.ship_price;
         if (!preOrderer) {
           this.Api.CleanPackage(done=>{

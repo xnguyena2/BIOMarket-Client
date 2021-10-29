@@ -56,7 +56,7 @@ export class APIService {
 
   public validListProduct(listProduct: BeerDetail[]) {
     if (listProduct) {
-      listProduct.forEach(element => {
+      listProduct.filter(x => x != null && x != undefined).forEach(element => {
         element.validIndex = 0;
         element.listUnit.sort((a, b) => a.price - b.price);
         if (element.status === 'sold_out') {

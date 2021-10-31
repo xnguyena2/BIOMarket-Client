@@ -120,10 +120,13 @@
         border: 0.1rem solid rgb(255, 255, 255, 0);
 
         filter: brightness(58%);
+        transform: scale(0.9);
+        transition: transform 0.3s;
       }
       .img-active {
         border-color: rgb(255, 255, 255);
         filter: brightness(100%);
+        transform: scale(1);
       }
     }
     .index-hide {

@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { interval } from 'rxjs';
 import { CRItemInfo } from '../pipe/CRItemInfo';
@@ -14,6 +15,7 @@ export class CarouselPaddingComponent implements OnInit {
   readonly CLICK_RANGE = 4;
   readonly NotIndex: number = -1;
   readonly TimeInterVal: number = 5000;
+  readonly touchUpDisable: number = 3;
 
   @Output() clickAtItem = new EventEmitter<number>();
 
@@ -35,8 +37,12 @@ export class CarouselPaddingComponent implements OnInit {
   currentScroll: number = 0;
   dragging: boolean = false;
 
+  currentScrollTouch: number = 0;
+  isInvalidTouchUp: boolean = false;
+
   constructor(
-    private appService: AppService) { }
+    private appService: AppService,
+    private scroll: ViewportScroller,) { }
 
   ngOnInit(): void {
     if (!this.GalleryMode && this.appService.isBrowser) {
@@ -91,7 +97,7 @@ export class CarouselPaddingComponent implements OnInit {
     } else if (transform < -this.MAX_OFFSET) {
       this.goNext();
     } else {
-      if (Math.abs(transform) < this.CLICK_RANGE) {
+      if (Math.abs(transform) < this.CLICK_RANGE && !this.isInvalidTouchUp) {
         this.clickAt(this.currentIndex);
       }
       this.enableTranform(false);
@@ -148,15 +154,24 @@ export class CarouselPaddingComponent implements OnInit {
     }
     return true;
   }
+  validTouchScroll(): boolean{
+    if (Math.abs(this.currentScrollTouch - this.scroll.getScrollPosition()[1]) > this.touchUpDisable) {
+      this.isInvalidTouchUp = true;
+      return false;
+    }
+    return true;
+  }
   touchStart(touch: TouchEvent, outerDiv: HTMLElement) {
     if (!this.validItem() || this.enableTransform || !this.validTouch(touch)) {
       return;
     }
+    this.currentScrollTouch = this.scroll.getScrollPosition()[1];
+    this.isInvalidTouchUp = false;
     this.isMouseDown = true;
     this.currentPosX = this.calcTouchPositionX(touch, outerDiv);
   }
   touchMove(touch: TouchEvent, outerDiv: HTMLElement) {
-    if (!this.isMouseDown || !this.validTouch(touch)) {
+    if (!this.isMouseDown || !this.validTouch(touch) || !this.validTouchScroll()) {
       this.touchEnd(touch, outerDiv);
       return;
     }
@@ -168,8 +183,10 @@ export class CarouselPaddingComponent implements OnInit {
     if (!this.isMouseDown) {
       return;
     }
+    this.currentScrollTouch = 0;
     this.isMouseDown = false;
     this.releaseItem(this.transform);
+    this.isInvalidTouchUp = false;
   }
 
   //manage index

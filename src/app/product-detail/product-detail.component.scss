@@ -44,13 +44,6 @@
         z-index: 9999;
         background-color: rgba(54, 54, 54, 0.815);
 
-        .parent-container {
-          .galary-aspect-ratio {
-            .close-icon-container {
-              display: inline;
-            }
-          }
-        }
       }
       .parent-container {
         width: 85%;
@@ -81,17 +74,6 @@
         height: 0;
         padding-top: 120%;
         position: relative;
-
-        .close-icon-container {
-          cursor: pointer;
-          position: absolute;
-          top: -5rem;
-          right: -2.5rem;
-          width: 25px;
-          -webkit-filter: brightness(0) invert(1);
-          filter: brightness(0) invert(1);
-          display: none;
-        }
       }
     }
     .subright {

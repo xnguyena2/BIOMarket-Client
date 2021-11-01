@@ -3,8 +3,8 @@
     <div class="main-content">
       <div class="sub-content subleft">
         <div [class.gallery-full-screen]="fullscreenMode" (click)="hidePopUp($event)" id="parent-full-screen">
-          <div [class.parent-container]="fullscreenMode">
-            <div class="galary-aspect-ratio absolute-center">
+          <div class="parent-container center">
+            <div class="galary-aspect-ratio">
               <app-carousel-padding [GalleryMode]="true" (clickAtItem)="clickAt($event)"></app-carousel-padding>
             </div>
           </div>

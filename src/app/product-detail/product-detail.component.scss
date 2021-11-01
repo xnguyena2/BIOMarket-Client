@@ -44,11 +44,18 @@
         z-index: 9999;
         background-color: rgba(54, 54, 54, 0.815);
 
-      }
-      .parent-container {
-        width: min(100%, calc(100vh/var(--height-aspecratio-mean)));
-        margin: 0 auto;
-        padding: 1rem;
+        .parent-container {
+          width: min(100%, calc(100vh/var(--height-aspecratio-mean)));
+          margin: 0 auto;
+          padding: 1rem;
+
+          &.center{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
       }
       .galary-aspect-ratio {
         width: 100%;

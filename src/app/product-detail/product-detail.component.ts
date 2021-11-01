@@ -27,6 +27,9 @@ export class ProductDetailComponent implements OnInit {
   productUnitTitle: string = '';
   productPreviewImg: string = '';
 
+  productDetailTitle:string = 'Chi Tiết Sản Phẩm';
+  productRelateTitle: string = 'Sản Phẩm Liên Quan';
+
   sold_out: boolean = false;
   productSoldOut: boolean = false;
 
@@ -71,6 +74,8 @@ export class ProductDetailComponent implements OnInit {
                 this.carousel.setupListItem(null);
               this.currentUnitIndex = product.validIndex;
               this.title = product.name;
+              this.productDetailTitle = `Chi Tiết ${product.name}`;
+              this.productRelateTitle = `Sản Phẩm Liên Quan ${product.name}`;
               this.listUnit = product.listUnit;
               this.productDetail = product.detail;
               this.productID = product.beerSecondID;

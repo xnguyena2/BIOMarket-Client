@@ -1,6 +1,6 @@
 import { ViewportScroller } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { Subject, Subscription } from 'rxjs';
@@ -68,6 +68,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private titleService: Title,
+    private metaService: Meta,
     private APIService: APIService,
     private appService: AppService,
     private scroll: ViewportScroller,
@@ -80,6 +81,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     });
     this.appService.registerChangeTitle(title => {
       this.setTitle(title);
+    });
+
+    this.appService.registerChangeTag(tag => {
+      this.setTag(tag);
     });
   }
 
@@ -122,6 +127,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
+  }
+
+  public setTag(newTag: string) {
+    this.metaService.updateTag({
+      name: 'description',
+      content: newTag
+    });
   }
 
   closeMenu() {

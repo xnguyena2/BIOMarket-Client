@@ -75,6 +75,7 @@ export class ProductDetailComponent implements OnInit {
               this.productDetail = product.detail;
               this.productID = product.beerSecondID;
               this.App.changeTitlePage(product.name);
+              this.App.changeTagPage(product.detail);
               this.sold_out = this.productSoldOut = product.status === 'sold_out';
               if (!this.productSoldOut) {
                 this.sold_out = product.listUnit[product.validIndex].status === 'sold_out';

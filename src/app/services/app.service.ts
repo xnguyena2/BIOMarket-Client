@@ -39,6 +39,10 @@ export class AppService {
   private changeTitleSource = new BehaviorSubject<string | null>(null);
   private changeTitle = this.changeTitleSource.asObservable();
 
+  //chagne metatag
+  private changeMetaDesTagSource = new BehaviorSubject<string | null>(null);
+  private changeMetaDesTag = this.changeMetaDesTagSource.asObservable();
+
   public isBrowser: boolean;
 
   constructor(
@@ -101,5 +105,13 @@ export class AppService {
   }
   public changeTitlePage(filter: string) {
     this.changeTitleSource.next(filter);
+  }
+
+  //change title
+  public registerChangeTag(func: (filter: string) => void) {
+    this.changeMetaDesTag.pipe(filter(x => x !== null)).subscribe(f => func(f!));
+  }
+  public changeTagPage(filter: string) {
+    this.changeMetaDesTagSource.next(filter);
   }
 }

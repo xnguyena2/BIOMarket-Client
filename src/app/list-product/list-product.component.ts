@@ -151,6 +151,7 @@ export class ListProductComponent implements OnInit {
     this.Api.AddToPackage(packageItem, result => {
       if (result) {
         this.App.showSuccessProduct({
+          name: product.name,
           img: product.images[0].medium,
           title: product.listUnit[product.validIndex].name,
           price: product.listUnit[product.validIndex].price * (100 - product.listUnit[product.validIndex].discount) / 100,

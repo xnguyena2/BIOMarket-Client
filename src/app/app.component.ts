@@ -65,6 +65,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   productUnitTitle: string = '';
   productCount: number = 1;
   productPrice: number = 0;
+  productName: string = '';
   hideActionID: string = '';
 
   constructor(
@@ -127,6 +128,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       this.productUnitTitle = product.title;
       this.productCount = product.count;
       this.productPrice = product.price;
+      this.productName = product.name;
       this.showSuccessPopUP();
     });
     this.changeORGJD();

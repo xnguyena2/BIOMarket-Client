@@ -172,6 +172,7 @@ export class ProductDetailComponent implements OnInit {
           this.router.navigate(['checkouts']);
         } else {
           this.App.showSuccessProduct({
+            name: this.title,
             img: this.productPreviewImg,
             title: this.productUnitTitle,
             price: this.price,

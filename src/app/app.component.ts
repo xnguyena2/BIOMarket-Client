@@ -1,7 +1,7 @@
 import { ViewportScroller } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subject, Subscription } from 'rxjs';
 import {
@@ -90,7 +90,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       this.setTag(tag);
     });
 
-    this.appService.registerChangeRichResult(product=>{
+    this.appService.registerChangeRichResult(product => {
       this.changeProductJD(product);
     });
   }
@@ -106,6 +106,14 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+
+    this.router.events.subscribe(
+      params => {
+        if (this.appService.isBrowser) {
+          this.changeScroll(true);
+        }
+      });
+
     this.subscription = this.subject.pipe(
       debounceTime(500),
       distinctUntilChanged(),
@@ -145,12 +153,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  private changeORGJD(){
+  private changeORGJD() {
     this.richResult.removeStructuredData();
     this.richResult.insertSchema(RichResultSEOService.websiteSchema, 'structured-data-org');
   }
 
-  private changeProductJD(p: BeerDetail){
+  private changeProductJD(p: BeerDetail) {
     this.richResult.removeStructuredData();
     this.richResult.insertSchema(RichResultSEOService.productSchema(p), 'structured-data');
   }
@@ -276,7 +284,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.changeScroll(true);
   }
 
+  currentState: boolean = true;
   changeScroll(isEnable: boolean) {
+    if (isEnable === this.currentState)
+      return;
+    this.currentState = isEnable;
     if (isEnable) {
       document.getElementById('main-body')?.classList.remove('disable-scroll');
     } else {

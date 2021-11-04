@@ -77,7 +77,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     private router: Router,
     public loader: LoaderService,
     private richResult: RichResultSEOService) {
-    this.appService.registerScrollChange(this.changeScroll);
+    this.appService.registerScrollChange(isEnable => this.changeScroll(isEnable));
     this.appService.registerScrollToTop(_ => {
       console.log('go to top');
       this.scroll.scrollToPosition([0, 0]);
@@ -286,9 +286,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   currentState: boolean = true;
   changeScroll(isEnable: boolean) {
-    if (isEnable === this.currentState)
-      return;
-    this.currentState = isEnable;
+    if (this != undefined) {
+      if (isEnable === this.currentState)
+        return;
+      this.currentState = isEnable;
+    }
     if (isEnable) {
       document.getElementById('main-body')?.classList.remove('disable-scroll');
     } else {

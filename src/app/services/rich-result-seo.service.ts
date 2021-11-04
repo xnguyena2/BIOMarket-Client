@@ -7,7 +7,7 @@ import { BeerDetail } from '../object/BeerDetail';
 })
 export class RichResultSEOService {
 
-  static scriptType = 'application/json+ld';
+  static scriptType = 'application/ld+json';
   static websiteSchema =
     {
       "@context": "https://schema.org",
@@ -19,7 +19,7 @@ export class RichResultSEOService {
         "https://farm66.staticflickr.com/65535/51620613419_fd1be5e2cf_o.jpg",
         "https://farm66.staticflickr.com/65535/51620622024_da882904bf_o.jpg"
       ],
-      "name": "Trùm Biể - Hải Sản Cao Cấp",
+      "name": "Trùm Biển - Hải Sản Cao Cấp",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "413 Lê Văn Quới,Bình Trị Đông A, Bình Tân",

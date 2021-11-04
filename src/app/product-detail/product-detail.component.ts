@@ -92,6 +92,8 @@ export class ProductDetailComponent implements OnInit {
                 this.productPreviewImg = '';
               }
               this.productReady = true;
+
+              this.App.changeRichResult(product);
             } else {
               this.router.navigate(['/']);
             }

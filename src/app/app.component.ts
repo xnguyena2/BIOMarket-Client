@@ -15,6 +15,7 @@ import { SearchQuery } from './object/SearchQuery';
 import { APIService } from './services/api.service';
 import { AppService } from './services/app.service';
 import { LoaderService } from './services/loader.service';
+import { RichResultSEOService } from './services/rich-result-seo.service';
 
 
 @Component({
@@ -73,7 +74,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     private appService: AppService,
     private scroll: ViewportScroller,
     private router: Router,
-    public loader: LoaderService) {
+    public loader: LoaderService,
+    private richResult: RichResultSEOService) {
     this.appService.registerScrollChange(this.changeScroll);
     this.appService.registerScrollToTop(_ => {
       console.log('go to top');
@@ -85,6 +87,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.appService.registerChangeTag(tag => {
       this.setTag(tag);
+    });
+
+    this.appService.registerChangeRichResult(product=>{
+      this.changeProductJD(product);
     });
   }
 
@@ -123,6 +129,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       this.productPrice = product.price;
       this.showSuccessPopUP();
     });
+    this.changeORGJD();
   }
 
   public setTitle(newTitle: string) {
@@ -134,6 +141,16 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       name: 'description',
       content: newTag
     });
+  }
+
+  private changeORGJD(){
+    this.richResult.removeStructuredData();
+    this.richResult.insertSchema(RichResultSEOService.websiteSchema, 'structured-data-org');
+  }
+
+  private changeProductJD(p: BeerDetail){
+    this.richResult.removeStructuredData();
+    this.richResult.insertSchema(RichResultSEOService.productSchema(p), 'structured-data');
   }
 
   closeMenu() {

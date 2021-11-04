@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { BeerDetail } from '../object/BeerDetail';
 import { MyPackage } from '../object/MyPackage';
 import { ProductAddSuccess } from '../object/ProductAddSuccess';
 import { Region } from '../object/Region';
@@ -42,6 +43,10 @@ export class AppService {
   //chagne metatag
   private changeMetaDesTagSource = new BehaviorSubject<string | null>(null);
   private changeMetaDesTag = this.changeMetaDesTagSource.asObservable();
+
+  //chagne rich result
+  private changeRichResultSource = new BehaviorSubject<BeerDetail | null>(null);
+  private changeRichResultTag = this.changeRichResultSource.asObservable();
 
   public isBrowser: boolean;
 
@@ -113,5 +118,13 @@ export class AppService {
   }
   public changeTagPage(filter: string) {
     this.changeMetaDesTagSource.next(filter);
+  }
+
+  //change title
+  public registerChangeRichResult(func: (filter: BeerDetail) => void) {
+    this.changeRichResultTag.pipe(filter(x => x !== null)).subscribe(f => func(f!));
+  }
+  public changeRichResult(filter: BeerDetail) {
+    this.changeRichResultSource.next(filter);
   }
 }

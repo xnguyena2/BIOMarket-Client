@@ -272,6 +272,9 @@ export class APIService {
     if (this.currentResult.result !== undefined) {
       let listP = this.currentResult?.result?.filter(p => p.beerSecondID === productID);
       if (listP.length > 0) {
+        if(listP[0].validIndex === undefined){
+          this.validListProduct([listP[0]]);
+        }
         setTimeout(() => cb(listP[0]), 0);
         return;
       }

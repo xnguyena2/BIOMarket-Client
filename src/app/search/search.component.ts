@@ -43,6 +43,7 @@ export class SearchComponent implements OnInit {
         const query = params.query;
         if (query !== null) {
           console.log(query);
+          this.appServices.changeTitlePage(query);
           let category = AppConfig.CatetoryDrop.find(x => x.value === query);
           if (category !== undefined) {
             this.appServices.changeTitlePage(category.pageTitle);

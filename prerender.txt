@@ -6,8 +6,17 @@
 /search/oyster
 /search/fish
 /search/snail
+/search/Ốc%20Bulot%20Pháp
+/search/Bào%20Ngư
+/search/Hàu%20Nhật
+/search/Hải%20Sâm
+/search/Cá%20Mú%20Đỏ
+/search/all
 
 /thankfull
+/guide/shipping
+/guide/introduction
+/guide/contract
 
 /detail/31a5c55183234e88b2e5c757489da5a3
 /detail/baebfd07cdf14ec0a9e935cd040156ef

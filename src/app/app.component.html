@@ -27,7 +27,7 @@
         <div class="search-click-handle" (click)="onSearchEnter(searchText.value)"></div>
         <div class="wrap-search" #wrapSearch>
           <div class="search-result search-result-active">
-            <h2 *ngIf="!listResult||listResult.length===0">Tìm Kiếm Nổi Bật</h2>
+            <h2 *ngIf="!listResult||listResult.length===0">Top Hải Sản</h2>
             <div *ngIf="!listResult||listResult.length===0" class="quicksearch-container">
               <a class="quick-search" [routerLink]="['/search','Ốc Bulot Pháp']" (click)="resetSearch()">Ốc Bulot Pháp</a>
               <a class="quick-search" [routerLink]="['/search','Bào Ngư']" (click)="resetSearch()">Bào Ngư</a>

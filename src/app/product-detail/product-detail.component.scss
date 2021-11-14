@@ -457,6 +457,9 @@
     list-style: inherit;
     margin-left: 2em;
   }
+  li + li {
+    margin-top: 1em;
+  }
   .product-detail {
     & > * {
       max-width: 100%;

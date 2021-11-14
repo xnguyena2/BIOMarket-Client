@@ -19,7 +19,7 @@
 /guide/contract
 
 /detail/31a5c55183234e88b2e5c757489da5a3
-/detail/baebfd07cdf14ec0a9e935cd040156ef
 /detail/66d58b9b06a74171b279a53c676d214e
 /detail/9c6f1d92aa124b7a9ca73249e1fc656a
 /detail/75c1bd27cdf149f881e2eff87780ebee
+/detail/d7aa1c29048e4efca7f58a8df3a86b0a

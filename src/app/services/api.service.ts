@@ -1,4 +1,4 @@
-import { Host, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { isDevMode } from '@angular/core';
 
@@ -78,13 +78,11 @@ export class APIService {
   }
 
   public createOrder(packageOrderData: PackageOrderData, cb: (result: PackageOrder | null) => void) {
-    console.log(packageOrderData);
     packageOrderData.packageOrder.user_device_id = this.userID;
     this.requestServices.post(`${this.HostURL}order/create`, packageOrderData).subscribe(
       event => {
         if (event instanceof HttpResponse) {
           console.log('create order: ');
-          console.log(event.body);
           cb(event.body);
         }
       },
@@ -102,7 +100,6 @@ export class APIService {
           this.currentResult = new SearchResult();
           this.currentResult.result = event.body.products;
           console.log('add package: ');
-          console.log(event.body);
           cb(true);
           this.UpdatePackageNum();
         }
@@ -134,7 +131,6 @@ export class APIService {
         if (event instanceof HttpResponse) {
           this.myPackage = event.body;
           console.log('my package: ' + this.userID);
-          console.log(this.myPackage);
           this.appServices.changePackage(this.myPackage);
           this.UpdatePackageNum();
         }
@@ -152,7 +148,6 @@ export class APIService {
       event => {
         if (event instanceof HttpResponse) {
           console.log('delete package: ');
-          console.log(event.body);
           cb(true);
           this.UpdatePackageNum();
         }
@@ -230,7 +225,6 @@ export class APIService {
           this.currentResult = new SearchResult();
           this.currentResult.result = event.body.products;
           console.log('bootstrap data: ');
-          console.log(event.body);
           cb(event.body);
         }
       },
@@ -258,7 +252,6 @@ export class APIService {
         if (event instanceof HttpResponse) {
           this.currentResult = event.body;
           console.log('search result: ');
-          console.log(this.currentResult);
           cb(this.currentResult);
         }
       },
@@ -283,7 +276,6 @@ export class APIService {
       event => {
         if (event instanceof HttpResponse) {
           console.log('load beer detail: ');
-          console.log(event.body);
           this.validListProduct([event.body]);
           cb(event.body);
         }

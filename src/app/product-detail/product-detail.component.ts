@@ -104,10 +104,22 @@ export class ProductDetailComponent implements OnInit {
   }
 
   extractContent(html: string): string {
-    let content = new DOMParser().parseFromString(html, "text/html").documentElement.textContent;
-    if (content === null)
-      return this.title;
-    return content;
+
+    if (this.App.isBrowser) {
+      let content = new DOMParser().parseFromString(html, "text/html").documentElement.textContent;
+      if (content === null)
+        return this.title;
+      return content;
+
+      // var t = document.createElement('div');
+      // t.innerHTML = html;
+      // let content = t.textContent;
+      // if (content === null)
+      //   return this.title;
+      // return content;
+    } else {
+      return html.replace(/<[^>]+>/g, '');
+    }
   }
 
 

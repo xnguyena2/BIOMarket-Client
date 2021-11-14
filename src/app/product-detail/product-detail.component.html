@@ -44,7 +44,7 @@
   <section class="product-detail-content">
     <div class="main-content small-gap">
       <h1 class="product-detail-title full-grid">{{productDetailTitle}}</h1>
-      <div class="product-detail full-grid" [innerHTML]='productDetail'></div>
+      <div class="product-detail full-grid" [innerHTML]='productDetail | noSanitize'></div>
       <div class="diver full-grid"></div>
       <app-list-product class="full-grid" [listProduct]="listProduct" [searchMode]="false"
         [mainTitle]="productRelateTitle"></app-list-product>

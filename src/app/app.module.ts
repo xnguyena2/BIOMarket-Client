@@ -19,6 +19,7 @@ import { MoneyFormatPipe } from './pipe/money-format.pipe';
 import { CheckoutsComponent } from './checkouts/checkouts.component';
 import { ThankfullComponent } from './thankfull/thankfull.component';
 import { HttpInspectorService } from './services/http-inspector.service';
+import { NoSanitizePipe } from './pipe/no-sanitize.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { HttpInspectorService } from './services/http-inspector.service';
     CartComponent,
     MoneyFormatPipe,
     CheckoutsComponent,
-    ThankfullComponent
+    ThankfullComponent,
+    NoSanitizePipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

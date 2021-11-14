@@ -27,7 +27,7 @@ export class ProductDetailComponent implements OnInit {
   productUnitTitle: string = '';
   productPreviewImg: string = '';
 
-  productDetailTitle:string = 'Chi Tiết Sản Phẩm';
+  productDetailTitle: string = 'Chi Tiết Sản Phẩm';
   productRelateTitle: string = 'Sản Phẩm Liên Quan';
 
   sold_out: boolean = false;
@@ -80,7 +80,7 @@ export class ProductDetailComponent implements OnInit {
               this.productDetail = product.detail;
               this.productID = product.beerSecondID;
               this.App.changeTitlePage(product.name);
-              this.App.changeTagPage(product.detail);
+              this.App.changeTagPage(this.extractContent(product.detail));
               this.sold_out = this.productSoldOut = product.status === 'sold_out';
               if (!this.productSoldOut) {
                 this.sold_out = product.listUnit[product.validIndex].status === 'sold_out';
@@ -101,6 +101,13 @@ export class ProductDetailComponent implements OnInit {
         }
       }
     );
+  }
+
+  extractContent(html: string): string {
+    let content = new DOMParser().parseFromString(html, "text/html").documentElement.textContent;
+    if (content === null)
+      return this.title;
+    return content;
   }
 
 

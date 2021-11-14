@@ -45,11 +45,11 @@
         background-color: rgba(54, 54, 54, 0.815);
 
         .parent-container {
-          width: min(100%, calc(100vh/var(--height-aspecratio-mean)));
+          width: min(100%, calc(100vh / var(--height-aspecratio-mean)));
           margin: 0 auto;
           padding: 1rem;
 
-          &.center{
+          &.center {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -444,4 +444,38 @@
 
 .move-up {
   visibility: visible;
+}
+
+:host ::ng-deep {
+  ol {
+    list-style-type: decimal;
+  }
+  ul {
+    list-style-type: disc;
+  }
+  li {
+    list-style: inherit;
+    margin-left: 2em;
+  }
+  .product-detail {
+    & > * {
+      max-width: 100%;
+    }
+    & > div > * {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    & > div img,
+    & > div iframe {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+
+    & > div iframe {
+      width: max(560px, 50vw);
+      aspect-ratio: 1.8 / 1;
+    }
+  }
 }

@@ -41,6 +41,8 @@
       background-image: linear-gradient(rgba(255, 255, 255, 0), white);
       padding-top: 1rem;
       .expand-btn {
+        display: block;
+        margin: 0 auto;
         width: fit-content;
         border: 1.5px solid var(--main-color);
         color: var(--main-color);
@@ -503,7 +505,9 @@
     & > * {
       max-width: 100%;
     }
-    & > div > * {
+    & > div > div,
+    & > div > iframe,
+    & > div > img {
       display: block;
       margin: 0 auto;
       max-width: 100%;

@@ -72,7 +72,7 @@
       <div class="hover-menu-container absolute-full" *ngIf="showHoverMenu">
         <ul class="hover-menu">
           <li *ngFor="let item of CatetoryDrop;" (click)="categorySearch(item.value)">
-            <a class="router-link-active">
+            <a class="router-link-active" [routerLink]="['/search', item.value]">
               <span>{{item.title}}</span>
             </a>
           </li>
@@ -80,13 +80,13 @@
       </div>
     </li>
     <li>
-      <a (click)="categorySearch('all')" class="absolute-full">Khuyến Mãi HOT</a>
+      <a (click)="categorySearch('all')" class="absolute-full" [routerLink]="['/search', 'all']">Khuyến Mãi HOT</a>
     </li>
     <li>
-      <a (click)="gotoPath('guide', 'introduction')" class="absolute-full">Giới Thiệu</a>
+      <a (click)="gotoPath('guide', 'introduction')" class="absolute-full" [routerLink]="['/guide', 'introduction']">Giới Thiệu</a>
     </li>
     <li>
-      <a (click)="gotoPath('guide', 'contract')" class="absolute-full">Liên Hệ</a>
+      <a (click)="gotoPath('guide', 'contract')" class="absolute-full" [routerLink]="['/guide', 'contract']">Liên Hệ</a>
     </li>
   </ul>
   <div class="open-menu-container absolute-vertical-center">

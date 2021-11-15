@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarouselPaddingComponent } from '../carousel-padding/carousel-padding.component';
 import { BeerDetail, BeerUnit } from '../object/BeerDetail';
@@ -13,7 +13,12 @@ import { AppService } from '../services/app.service';
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
+
+  readonly HeightEnableExpand: number = 500;
+
   @ViewChild(CarouselPaddingComponent) private carousel!: CarouselPaddingComponent;
+
+  @ViewChild('productDetailContainer', { static: false }) productDetailContainer!: ElementRef;
 
   productReady: boolean = false;
   title: string = '';
@@ -41,6 +46,9 @@ export class ProductDetailComponent implements OnInit {
   listProduct: BeerDetail[] = [];
 
   productCount: number = 1;
+
+  isEnableExpand: boolean = false;
+  isColapse: boolean = false;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -94,6 +102,10 @@ export class ProductDetailComponent implements OnInit {
               this.productReady = true;
 
               this.App.changeRichResult(product);
+
+              setTimeout(() => {
+                this.isEnableExpand = this.productDetailContainer.nativeElement.offsetHeight > this.HeightEnableExpand;
+              }, 200);
             } else {
               this.router.navigate(['/']);
             }

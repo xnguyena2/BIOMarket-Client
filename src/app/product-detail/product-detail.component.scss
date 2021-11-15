@@ -32,6 +32,27 @@
       grid-column: 1 / -1;
     }
 
+    .expand-container {
+      position: absolute;
+      display: none;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-image: linear-gradient(rgba(255, 255, 255, 0), white);
+      padding-top: 1rem;
+      .expand-btn {
+        width: fit-content;
+        border: 1.5px solid var(--main-color);
+        color: var(--main-color);
+        border-radius: 2rem;
+        padding: 0.8rem 2rem;
+        font-size: 1.6rem;
+        &::after {
+          content: "Xem Thêm";
+        }
+      }
+    }
+
     .subleft {
       grid-area: subleft;
 
@@ -166,9 +187,6 @@
               }
             }
           }
-          .full-grid {
-            grid-column: 1 / -1;
-          }
           .product-number-container {
             display: flex;
             align-items: center;
@@ -255,10 +273,31 @@
     }
 
     .product-detail {
+      position: relative;
       padding: 1rem;
       font-size: 1.7rem;
       display: inline-block;
       margin: 0 1.5rem;
+
+      &.enable-expand {
+        max-height: 400px;
+        overflow: hidden;
+        padding-bottom: 3rem;
+        &.colapse-btn{
+          max-height: unset;
+          .expand-container {
+            display: unset;
+            .expand-btn {
+              &::after{
+                content: "Thu Gọn";
+              }
+            }
+          }
+        }
+        .expand-container {
+          display: unset;
+        }
+      }
     }
     .diver {
       height: 0.1rem;

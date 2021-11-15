@@ -13,7 +13,7 @@
       <div class="product-container" [ngClass]="{'sold_out' : isProductSoldOut(item)}">
         <div class="wrap-aspectratio">
           <a [routerLink]="['/detail', item.beerSecondID]">
-            <img [src]="item.images&&item.images.length>0?item.images[0].medium:''" [alt]="item.name" class="product-preview">
+            <img [src]="item.images&&item.images.length>0?item.images[0].medium:''" [alt]="item.name" [attr.aria-label]="item.name" class="product-preview">
           </a>
         </div>
         <h3 class="product-title">{{item.name}}</h3>

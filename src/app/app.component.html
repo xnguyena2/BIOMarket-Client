@@ -29,7 +29,8 @@
           <div class="search-result search-result-active">
             <h2 *ngIf="!listResult||listResult.length===0">Top Hải Sản</h2>
             <div *ngIf="!listResult||listResult.length===0" class="quicksearch-container">
-              <a class="quick-search" [routerLink]="['/search','Ốc Bulot Pháp']" (click)="resetSearch()">Ốc Bulot Pháp</a>
+              <a class="quick-search" [routerLink]="['/search','Ốc Bulot Pháp']" (click)="resetSearch()">Ốc Bulot
+                Pháp</a>
               <a class="quick-search" [routerLink]="['/search','Bào Ngư']" (click)="resetSearch()">Bào Ngư</a>
               <a class="quick-search" [routerLink]="['/search','Hàu Nhật']" (click)="resetSearch()">Hàu Nhật</a>
               <a class="quick-search" [routerLink]="['/search','Hải Sâm']" (click)="resetSearch()">Hải Sâm</a>
@@ -42,7 +43,7 @@
                   <img [src]="item.images&&item.images.length>0?item.images[0].thumbnail:''" alt="" class="thumbnail">
                   <div class="result-detail">
                     <h4>{{item.name}}</h4>
-                    <span>{{item.detail}}</span>
+                    <span>{{item.detail | htmlClean: item.name}}</span>
                   </div>
                 </a>
               </li>

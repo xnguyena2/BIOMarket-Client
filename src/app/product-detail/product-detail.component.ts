@@ -88,7 +88,7 @@ export class ProductDetailComponent implements OnInit {
               this.productDetail = product.detail;
               this.productID = product.beerSecondID;
               this.App.changeTitlePage(product.name);
-              this.App.changeTagPage(this.extractContent(product.detail));
+              this.App.changeTagPage(this.App.extractContent(product.detail, product.name));
               this.sold_out = this.productSoldOut = product.status === 'sold_out';
               if (!this.productSoldOut) {
                 this.sold_out = product.listUnit[product.validIndex].status === 'sold_out';
@@ -113,25 +113,6 @@ export class ProductDetailComponent implements OnInit {
         }
       }
     );
-  }
-
-  extractContent(html: string): string {
-
-    if (this.App.isBrowser) {
-      let content = new DOMParser().parseFromString(html, "text/html").documentElement.textContent;
-      if (content === null)
-        return this.title;
-      return content;
-
-      // var t = document.createElement('div');
-      // t.innerHTML = html;
-      // let content = t.textContent;
-      // if (content === null)
-      //   return this.title;
-      // return content;
-    } else {
-      return html.replace(/<[^>]+>/g, '');
-    }
   }
 
 

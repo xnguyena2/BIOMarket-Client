@@ -56,6 +56,26 @@ export class AppService {
   }
 
 
+  extractContent(html: string, df: string): string {
+
+    if (this.isBrowser) {
+      let content = new DOMParser().parseFromString(html, "text/html").documentElement.textContent;
+      if (content === null)
+        return df;
+      return content;
+
+      // var t = document.createElement('div');
+      // t.innerHTML = html;
+      // let content = t.textContent;
+      // if (content === null)
+      //   return this.title;
+      // return content;
+    } else {
+      return html.replace(/<[^>]+>/g, '');
+    }
+  }
+
+
   //package
   public registerPackage(func: (filter: MyPackage[]) => void) {
     this.package.pipe(filter(x => x !== this.IGNOREPACKAGE)).subscribe(f => func(f));

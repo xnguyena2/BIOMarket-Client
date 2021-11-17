@@ -891,9 +891,11 @@ footer {
     transition: right 0.5s ease-in;
     header {
       .main-thank {
+        display: block;
         font-size: 1.7rem;
       }
       .sub-thank {
+        display: block;
         font-size: 1.5rem;
         color: rgba(21, 158, 101, 0.986);
       }
@@ -914,6 +916,7 @@ footer {
         max-width: 100%;
       }
       .product-name {
+        display: block;
         grid-area: productName;
         font-size: 1.6rem;
       }

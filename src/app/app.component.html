@@ -173,12 +173,12 @@
 <aside class="add-package-popup" [class.move-up]='showAddCartPopup' (click)='hideSuccessPopUP($event)'>
   <form class="add-cart-preview-container" [class.move-right]='showAddCartPopup'>
     <header class="thankfull-header">
-      <h1 class="main-thank">Đã Thêm Vào Giỏ Hàng Thành Công</h1>
-      <h3 class="sub-thank">Cảm ơn bạn đã lựa chọn sản phẩm!</h3>
+      <strong class="main-thank">Đã Thêm Vào Giỏ Hàng Thành Công</strong>
+      <strong class="sub-thank">Cảm ơn bạn đã lựa chọn sản phẩm!</strong>
     </header>
     <div class="product-buying-container">
       <img [src]="productPreviewImg" alt="" class="image-preview">
-      <h1 class="product-name">{{productName}}</h1>
+      <strong class="product-name">{{productName}}</strong>
       <div class="product-unit-container product-detail">
         <label for="">Đơn Vị:</label>
         <h2 class="product-info">{{productUnitTitle}}</h2>

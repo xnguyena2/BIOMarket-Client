@@ -27,7 +27,7 @@ export class ListProductComponent implements OnInit {
 
   @Input() title: string = 'Kết Quả Tìm Kiếm:';
 
-  @Input() mainTitle: string = 'Sản Phẩm';
+  @Input() mainTitle: string = 'Ốc Bulot, Bào Ngư, Hàu Nhật, Hải Sâm...';//'Sản Phẩm';
 
   @Input() searchMode: boolean = true;
 

@@ -6,17 +6,21 @@
 /search/oyster
 /search/fish
 /search/snail
-/search/Ốc%20Bulot%20Pháp
-/search/Bào%20Ngư
-/search/Hàu%20Nhật
-/search/Hải%20Sâm
-/search/Cá%20Mú%20Đỏ
+/search/%C3%94%CC%81c%20Bulot%20Pha%CC%81p
+/search/Ba%CC%80o%20Ng%C6%B0
+/search/Ha%CC%80u%20Nh%C3%A2%CC%A3t
+/search/Ha%CC%89i%20S%C3%A2m
+/search/Ca%CC%81%20Mu%CC%81%20%C4%90o%CC%89
 /search/all
 
+/cart
 /thankfull
 /guide/shipping
 /guide/introduction
 /guide/contract
+/guide/buy
+/guide/refund
+/guide/payment
 
 /detail/31a5c55183234e88b2e5c757489da5a3
 /detail/66d58b9b06a74171b279a53c676d214e

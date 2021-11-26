@@ -488,25 +488,25 @@
 }
 
 :host ::ng-deep {
-  a {
-    color: #007bff;
-    text-decoration: underline;
-    background-color: initial;
-  }
-  ol {
-    list-style-type: decimal;
-  }
-  ul {
-    list-style-type: disc;
-  }
-  li {
-    list-style: inherit;
-    margin-left: 2em;
-  }
-  li + li {
-    margin-top: 1em;
-  }
   .product-detail {
+    a {
+      color: #007bff;
+      text-decoration: underline;
+      background-color: initial;
+    }
+    ol {
+      list-style-type: decimal;
+    }
+    ul {
+      list-style-type: disc;
+    }
+    li {
+      list-style: inherit;
+      margin-left: 2em;
+    }
+    li + li {
+      margin-top: 1em;
+    }
     & > * {
       max-width: 100%;
     }

@@ -285,12 +285,12 @@
         max-height: 400px;
         overflow: hidden;
         padding-bottom: 6rem;
-        &.colapse-btn{
+        &.colapse-btn {
           max-height: unset;
           .expand-container {
             display: unset;
             .expand-btn {
-              &::after{
+              &::after {
                 content: "Thu Gọn";
               }
             }
@@ -488,6 +488,11 @@
 }
 
 :host ::ng-deep {
+  a {
+    color: #007bff;
+    text-decoration: underline;
+    background-color: initial;
+  }
   ol {
     list-style-type: decimal;
   }

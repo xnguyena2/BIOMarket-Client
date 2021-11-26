@@ -45,7 +45,7 @@
     <div class="main-content small-gap">
       <h1 class="product-detail-title full-grid">{{productDetailTitle}}</h1>
       <div class="product-detail full-grid" [ngClass]="{'enable-expand' : isEnableExpand, 'colapse-btn' : isColapse}">
-        <div [innerHTML]='productDetail | noSanitize' #productDetailContainer></div>
+        <div class="product-detail-inner" [innerHTML]='productDetail | noSanitize' #productDetailContainer></div>
         <div class="expand-container">
           <a class="expand-btn" (click)="isColapse=!isColapse"></a>
         </div>

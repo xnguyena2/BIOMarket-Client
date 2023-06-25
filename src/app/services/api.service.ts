@@ -20,7 +20,7 @@ import { MyPackage } from '../object/MyPackage';
 import { ObjectID } from '../object/ObjectID';
 import { AppService } from './app.service';
 import { District, Region, Ward } from '../object/Region';
-import { PackageOrder, PackageOrderData } from '../object/PackageOrderData';
+import { PackageIteamRemove, PackageOrder, PackageOrderData } from '../object/PackageOrderData';
 
 @Injectable({
   providedIn: 'root'
@@ -126,8 +126,9 @@ export class APIService {
   }
 
   public DeleteProductFromPackage(item: MyPackage, cb: (result: boolean) => void) {
-    const packageID: ObjectID = {
-      id: item.beer_unit
+    const packageID: PackageIteamRemove = {
+      device_id: this.userID,
+      unit_id: item.beer_unit
     }
     this.requestServices.post(`${this.HostURL}package/remove`, packageID).subscribe(
       event => {

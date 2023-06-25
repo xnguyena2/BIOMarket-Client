@@ -1,5 +1,10 @@
 import { MyPackage } from "./MyPackage";
 
+export interface PackageIteamRemove {
+  device_id: string;
+  unit_id: string;
+}
+
 export interface PackageOrder {
   user_device_id: string;
   reciver_address: string;
@@ -39,7 +44,7 @@ export interface PackageOrderData {
   beerOrders: BeerOrderData[];
 }
 
-function convertToProductOrder(carts: MyPackage[], deviceID: string, preOrderer: boolean, address: string, region: number, district: number, ward: number, fullName: string, phone: string, voucher: string): PackageOrderData{
+function convertToProductOrder(carts: MyPackage[], deviceID: string, preOrderer: boolean, address: string, region: number, district: number, ward: number, fullName: string, phone: string, voucher: string): PackageOrderData {
   let packageO: PackageOrder = {
     user_device_id: deviceID,
     reciver_address: address,
@@ -53,15 +58,15 @@ function convertToProductOrder(carts: MyPackage[], deviceID: string, preOrderer:
     ship_price: 0
   };
 
-  let beerOrders: BeerOrderData[] = carts.map(product=> {
+  let beerOrders: BeerOrderData[] = carts.map(product => {
     let beerOrder: BeerOrder = {
       beer_second_id: product.beer_id,
       voucher_second_id: voucher,
       total_price: 0,
       ship_price: 0
     };
-    let beerUnitOrders = product.beerSubmitData.listUnit.map(beerUnit=>{
-      let beerUnitOrder:BeerUnitOrder = {
+    let beerUnitOrders = product.beerSubmitData.listUnit.map(beerUnit => {
+      let beerUnitOrder: BeerUnitOrder = {
         beer_second_id: beerUnit.beer,
         beer_unit_second_id: beerUnit.beer_unit_second_id,
         number_unit: product.number_unit,
@@ -70,7 +75,7 @@ function convertToProductOrder(carts: MyPackage[], deviceID: string, preOrderer:
       }
       return beerUnitOrder;
     });
-    let productOrder:BeerOrderData = {
+    let productOrder: BeerOrderData = {
       beerOrder: beerOrder,
       beerUnitOrders: beerUnitOrders
     }
@@ -85,4 +90,4 @@ function convertToProductOrder(carts: MyPackage[], deviceID: string, preOrderer:
   return packageOrderData;
 }
 
-export {convertToProductOrder}
+export { convertToProductOrder }

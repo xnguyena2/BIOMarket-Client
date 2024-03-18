@@ -51,7 +51,7 @@ export class SearchComponent implements OnInit {
 
   search(value: string, filter: string, page: number) {
     if (value === '') {
-      if (this.listProduct !== []) {
+      if (this.listProduct.length > 0) {
         this.listProduct = [];
         const emptyResult = new SearchResult();
         emptyResult.isResetFilter = this.isNoFilter(filter);
@@ -100,9 +100,9 @@ export class SearchComponent implements OnInit {
       AppConfig.CatetoryDrop.filter(category => category.value === result.searchTxt).map(ct => searchT = ct.title + ':');
     }
     if (searchT === '') {
-      if(result.count === 0){
+      if (result.count === 0) {
         searchT = `Không Tìm Thấy: ${result.searchTxt}`;
-      }else{
+      } else {
         searchT = `Kết Quả Tìm Kiếm: ${result.searchTxt} (${result.count})`;
       }
     }

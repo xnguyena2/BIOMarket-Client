@@ -82,14 +82,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "BIOMarket-client:build"
+            "buildTarget": "BIOMarket-client:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "BIOMarket-client:build:production"
+              "buildTarget": "BIOMarket-client:build:production"
             },
             "development": {
-              "browserTarget": "BIOMarket-client:build:development"
+              "buildTarget": "BIOMarket-client:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,7 +97,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "BIOMarket-client:build"
+            "buildTarget": "BIOMarket-client:build"
           }
         },
         "test": {
@@ -115,19 +115,6 @@
               "src/styles.scss"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         },
         "e2e": {
@@ -208,6 +195,5 @@
         }
       }
     }
-  },
-  "defaultProject": "BIOMarket-client"
+  }
 }

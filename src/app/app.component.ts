@@ -192,7 +192,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   search(value: string) {
     if (value === '') {
-      if (this.listResult !== []) {
+      if (this.listResult.length > 0) {
         this.listResult = [];
       }
     } else {

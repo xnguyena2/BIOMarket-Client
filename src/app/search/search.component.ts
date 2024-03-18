@@ -56,7 +56,7 @@ export class SearchComponent implements OnInit {
 
   search(value: string, filter: string, page: number) {
     if (value === '') {
-      if (this.listProduct !== []) {
+      if (this.listProduct.length > 0) {
         this.listProduct = [];
         const emptyResult = new SearchResult();
         emptyResult.isResetFilter = this.isNoFilter(filter);

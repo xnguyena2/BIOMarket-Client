@@ -29,9 +29,9 @@
           <div class="search-result search-result-active">
             <h2 *ngIf="!listResult||listResult.length===0">Tìm Kiếm Nổi Bật</h2>
             <div *ngIf="!listResult||listResult.length===0" class="quicksearch-container">
-              <a class="quick-search" [routerLink]="['/search','Cua Cà Mau']" (click)="resetSearch()">Cua Cà Mau</a>
-              <a class="quick-search" [routerLink]="['/search','Tôm Sú']" (click)="resetSearch()">Tôm Sú</a>
-              <a class="quick-search" [routerLink]="['/search','Hải Sâm']" (click)="resetSearch()">Hải Sâm</a>
+              <a class="quick-search" [routerLink]="['/search','Sản phẩm 1']" (click)="resetSearch()">Sản phẩm 1</a>
+              <a class="quick-search" [routerLink]="['/search','Sản phẩm 2']" (click)="resetSearch()">Sản phẩm 2</a>
+              <a class="quick-search" [routerLink]="['/search','Sản phẩm 3']" (click)="resetSearch()">Sản phẩm 3</a>
             </div>
             <ul class="list-result">
               <li *ngFor="let item of listResult;" class="result" [routerLink]="['/detail', item.beerSecondID]"

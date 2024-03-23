@@ -9,16 +9,19 @@
     </div>
   </div>
   <div class="list-product-content">
+    <div class="product-empty">
+      <span *ngIf="listProduct.length == 0">Không có sản phẩm nào hiển thị!!</span>
+    </div>
     <div *ngFor="let item of listProduct;" class="product-detail">
       <div class="product-container">
         <div class="wrap-aspectratio">
           <a [routerLink]="['/detail', item.beerSecondID]">
-            <img [src]="item.images&&item.images.length>0?item.images[0].medium:''" alt=""
-              class="product-preview">
-            </a>
+            <img [src]="item.images&&item.images.length>0?item.images[0].medium:''" alt="" class="product-preview">
+          </a>
         </div>
         <h3 class="product-title">{{item.name}}</h3>
-        <ins [style.visibility]='item.listUnit[0].discount?"visible":"hidden"' class="product-real-price">{{item.listUnit[0].price | moneyFormat}}</ins>
+        <ins [style.visibility]='item.listUnit[0].discount?"visible":"hidden"'
+          class="product-real-price">{{item.listUnit[0].price | moneyFormat}}</ins>
         <ins class="product-price">{{item.listUnit[0].price*(100-item.listUnit[0].discount)/100 | moneyFormat}}</ins>
         <span *ngIf="item.listUnit[0].discount" class="product-discount">{{item.listUnit[0].discount}}</span>
         <a class="add-to-package" (click)="addToPackage(item)">Thêm Vào Giỏ</a>
@@ -32,6 +35,6 @@
     <img src="assets/img/GoPreVious.png" alt="" class="function-button go-button" (click)="goPre()">
     <span *ngFor="let item of listPage;" [ngClass]="{'active-page':item===activePage}"
       (click)="goPage(item)">{{item===-1 || item===-2?'...':item}}</span>
-      <img src="assets/img/GoNext.png" alt="" class="function-button go-button" (click)="goNext()">
+    <img src="assets/img/GoNext.png" alt="" class="function-button go-button" (click)="goNext()">
   </div>
 </section>

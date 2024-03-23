@@ -20,7 +20,7 @@
       </section>
       <section class="list-product">
         <ul>
-          <li *ngFor="let item of listProduct">
+          <li *ngFor="let item of myPackage.items">
             <div class="product-preview-container">
               <div class="product-preview">
                 <img
@@ -129,11 +129,11 @@
             <input type="radio" name="" id="getFromShop" name="radio" (change)="changeShipProvider(false)">
             <div class="show-checked border-top end-border">
               <label class="address-infomation" for="">Chi Nhánh 1:
-                <span class="sub-address">413 Lê Văn Quới, Bình Trị Đông A, Bình Tân, TPHCM</span>
+                <span class="sub-address">Liên hệ cửa hàng!!</span>
               </label>
-              <label class="address-infomation" for="">Chi Nhánh 2:
+              <!-- <label class="address-infomation" for="">Chi Nhánh 2:
                 <span class="sub-address">5 Lý Chính Thắng, Võ Thị Sáu, Quận 3, TPHCM</span>
-              </label>
+              </label> -->
             </div>
           </label>
         </div>

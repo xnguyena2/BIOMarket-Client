@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { MyPackage } from '../object/MyPackage';
+import { PackageDataResponse } from '../object/MyPackage';
 import { ProductAddSuccess } from '../object/ProductAddSuccess';
 import { Region } from '../object/Region';
 
@@ -12,11 +12,11 @@ export class AppService {
 
   readonly IGNORE: string = 'IGNORE';
   readonly IGNORENUM: number = -1;
-  readonly IGNOREPACKAGE: MyPackage[] = [];
+  readonly IGNOREPACKAGE: PackageDataResponse = new PackageDataResponse();
   readonly IGNOREREGION: Region[] = [];
 
 
-  private packageSource = new BehaviorSubject<MyPackage[]>(this.IGNOREPACKAGE);
+  private packageSource = new BehaviorSubject<PackageDataResponse>(this.IGNOREPACKAGE);
   private package = this.packageSource.asObservable();
 
   private packageCountSource = new BehaviorSubject<number>(this.IGNORENUM);
@@ -39,10 +39,10 @@ export class AppService {
 
 
   //package
-  public registerPackage(func: (filter: MyPackage[]) => void) {
+  public registerPackage(func: (filter: PackageDataResponse) => void) {
     this.package.pipe(filter(x => x !== this.IGNOREPACKAGE)).subscribe(f => func(f));
   }
-  public changePackage(filter: MyPackage[]) {
+  public changePackage(filter: PackageDataResponse) {
     this.packageSource.next(filter);
   }
 

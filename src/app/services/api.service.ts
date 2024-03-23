@@ -1,4 +1,4 @@
-import { Host, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { isDevMode } from '@angular/core';
 
@@ -12,15 +12,15 @@ import { RequestService } from './request.service';
 import { SearchQuery } from '../object/SearchQuery';
 import { removeVietnameseTones } from '../config/Utils';
 import { Observable } from 'rxjs';
-import { BeerDetail } from '../object/BeerDetail';
+import { BeerSubmitData } from '../object/BeerDetail';
 import { CookieService } from 'ngx-cookie-service';
 import { ProductPackage } from '../object/ProductPackage';
 import { UserInfoQuery } from '../object/UserInfoQuery';
-import { MyPackage } from '../object/MyPackage';
-import { ObjectID } from '../object/ObjectID';
+import { Buyer, PackageDataResponse, ProductInPackageResponse } from '../object/MyPackage';
 import { AppService } from './app.service';
 import { District, Region, Ward } from '../object/Region';
-import { PackageIteamRemove, PackageOrder, PackageOrderData } from '../object/PackageOrderData';
+import { PackageIteamRemove } from '../object/PackageOrderData';
+import { environment } from '../config/AppValue';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +34,7 @@ export class APIService {
 
   HostURL: string = '';
 
-  myPackage: MyPackage[] = [];
+  myPackage: PackageDataResponse = new PackageDataResponse();
 
   constructor(
     private requestServices: RequestService,
@@ -47,6 +47,7 @@ export class APIService {
     }
     if (!this.cookieService.check(this.cookieAPP)) {
       this.userID = this.GenerateID();
+      environment.packageID = this.GenerateID();
       this.cookieService.set(this.cookieAPP, this.userID, { path: '/' });
     } else {
       this.userID = this.cookieService.get(this.cookieAPP);
@@ -59,14 +60,13 @@ export class APIService {
     return String(current.setMilliseconds(0));
   }
 
-  public createOrder(packageOrderData: PackageOrderData, cb: (result: PackageOrder | null) => void) {
-    packageOrderData.packageOrder.user_device_id = this.userID;
-    this.requestServices.post(`${this.HostURL}order/create`, packageOrderData).subscribe(
+  public createOrder(productPackage: ProductPackage, cb: (result: PackageDataResponse | null) => void) {
+    this.requestServices.post(`${this.HostURL}package/buyerfromwebsubmit`, productPackage).subscribe(
       event => {
         if (event instanceof HttpResponse) {
           console.log('create order: ');
           console.log(event.body);
-          cb(event.body);
+          cb(this.myPackage);
         }
       },
       err => {
@@ -76,7 +76,10 @@ export class APIService {
   }
 
   public AddToPackage(packageItem: ProductPackage, cb: (success: boolean) => void) {
-    packageItem.deviceID = this.userID;
+    if (!packageItem.buyer) {
+      packageItem.buyer = new Buyer(this.userID);
+    }
+    console.log(packageItem);
     this.requestServices.post(`${this.HostURL}package/add`, packageItem).subscribe(
       event => {
         if (event instanceof HttpResponse) {
@@ -95,11 +98,11 @@ export class APIService {
   }
 
   public UpdatePackageNum() {
-    this.appServices.changePackageNum(this.myPackage.reduce((t, x) => t + x.number_unit, 0))
+    this.appServices.changePackageNum(this.myPackage?.items?.reduce((t, x) => t + x.number_unit, 0) ?? 0)
   }
 
   alredyGetPackageRequest: boolean = false;
-  public GetMyPackage(cb: (result: MyPackage[]) => void) {
+  public GetMyPackage(cb: (result: PackageDataResponse) => void) {
     this.appServices.registerPackage(cb);
     if (!this.alredyGetPackageRequest) {
       this.alredyGetPackageRequest = true;
@@ -110,12 +113,19 @@ export class APIService {
   }
 
   public GetPackage() {
-    this.requestServices.post(`${this.HostURL}package/getall`, new UserInfoQuery(0, 10000, this.userID)).subscribe(
+    console.log(environment.groupID);
+    this.requestServices.post(`${this.HostURL}package/getbydeviceforweb`, new UserInfoQuery(environment.groupID, 0, 10000, this.userID)).subscribe(
       event => {
         if (event instanceof HttpResponse) {
-          this.myPackage = event.body;
-          console.log('my package: ' + this.userID);
-          console.log(this.myPackage);
+          let listPaackage: PackageDataResponse[] = event.body;
+          console.log('get package of userid: ' + this.userID);
+          console.log(listPaackage);
+          if (listPaackage.length > 0) {
+            this.myPackage = listPaackage[0];
+            environment.packageID = this.myPackage.package_second_id;
+          } else {
+            environment.packageID = this.GenerateID();
+          }
           this.appServices.changePackage(this.myPackage);
           this.UpdatePackageNum();
         }
@@ -125,10 +135,11 @@ export class APIService {
       });
   }
 
-  public DeleteProductFromPackage(item: MyPackage, cb: (result: boolean) => void) {
+  public DeleteProductFromPackage(item: ProductInPackageResponse, cb: (result: boolean) => void) {
     const packageID: PackageIteamRemove = {
+      group_id: environment.groupID,
       device_id: this.userID,
-      unit_id: item.beer_unit
+      unit_id: item.product_unit_second_id,
     }
     this.requestServices.post(`${this.HostURL}package/remove`, packageID).subscribe(
       event => {
@@ -146,10 +157,10 @@ export class APIService {
   }
 
   public CleanPackage(cb: (result: boolean) => void) {
-    this.requestServices.post(`${this.HostURL}package/clean`, new UserInfoQuery(0, 10000, this.userID)).subscribe(
+    this.requestServices.post(`${this.HostURL}package/clean`, new UserInfoQuery(environment.groupID, 0, 10000, this.userID)).subscribe(
       event => {
         if (event instanceof HttpResponse) {
-          this.myPackage = [];
+          this.myPackage = new PackageDataResponse();
           console.log('clean my package: ' + this.userID);
           this.appServices.changePackage(this.myPackage);
           this.UpdatePackageNum();
@@ -204,20 +215,28 @@ export class APIService {
       });
   }
 
-  public LoadBootStrap(cb: (result: BootStrap) => void) {
-    this.requestServices.get(`${this.HostURL}clientdevice/bootstrap`).subscribe(
-      event => {
-        if (event instanceof HttpResponse) {
-          this.currentResult = new SearchResult();
-          this.currentResult.result = event.body.products;
-          console.log('bootstrap data: ');
-          console.log(event.body);
-          cb(event.body);
-        }
-      },
-      err => {
-        console.log(err);
-        cb(new BootStrap());
+  public LoadBootStrap(cb: (result: BootStrap) => void): Promise<BootStrap> {
+    return new Promise<BootStrap>
+      ((resolve, reject) => {
+        this.requestServices.get(`${this.HostURL}clientdevice/bootstrap/${environment.groupID}`).subscribe(
+          event => {
+            if (event instanceof HttpResponse) {
+              this.currentResult = new SearchResult();
+              this.currentResult.result = event.body.products;
+              const result = event.body;
+              console.log('bootstrap data: ');
+              console.log(result);
+              cb(result);
+              resolve(result);
+            }
+          },
+          err => {
+            console.log(err);
+            const empty = new BootStrap();
+            cb(empty);
+            resolve(empty);
+          });
+
       });
   }
 
@@ -249,7 +268,7 @@ export class APIService {
       });
   }
 
-  public GetProductDetail(productID: string, cb: (p?: BeerDetail) => void) {
+  public GetProductDetail(productID: string, cb: (p?: BeerSubmitData) => void) {
     if (this.currentResult.result !== undefined) {
       let listP = this.currentResult?.result?.filter(p => p.beerSecondID === productID);
       if (listP.length > 0) {
@@ -257,7 +276,7 @@ export class APIService {
         return;
       }
     }
-    this.requestServices.get(`${this.HostURL}beer/detail/${productID}`).subscribe(
+    this.requestServices.get(`${this.HostURL}beer/detail/${environment.groupID}/${productID}`).subscribe(
       event => {
         if (event instanceof HttpResponse) {
           console.log('load beer detail: ');

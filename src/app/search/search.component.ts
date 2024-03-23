@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppConfig } from '../config/AppConfig';
 import { ListProductComponent } from '../list-product/list-product.component';
-import { BeerDetail } from '../object/BeerDetail';
+import { BeerSubmitData } from '../object/BeerDetail';
 import { SearchQuery } from '../object/SearchQuery';
 import { SearchResult } from '../object/SearchResult';
 import { APIService } from '../services/api.service';
@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
 
   @ViewChild(ListProductComponent) private listProductComponent!: ListProductComponent;
 
-  listProduct: BeerDetail[] = [];
+  listProduct: BeerSubmitData[] = [];
 
   searchTitle: string = '';
 

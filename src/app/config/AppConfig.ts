@@ -1,7 +1,7 @@
 
 export const AppConfig = {
-  HostUrl: 'https://trumbien-main.herokuapp.com/',
-  DevHostUrl: 'https://product-sell.onrender.com/',//'http://localhost:5000/',
+  HostUrl: 'https://web-production-865f.up.railway.app/',
+  DevHostUrl: 'https://ptesting.onrender.com/',//'http://localhost:5000/',
   FilterDrop: [{
     value: 'default',
     title: 'Nổi Bật'

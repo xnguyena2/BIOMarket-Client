@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MyPackage } from '../object/MyPackage';
-import { convertToProductOrder, PackageOrderData } from '../object/PackageOrderData';
+import { Buyer, PackageDataResponse, UserPackage } from '../object/MyPackage';
 import { District, Region, Ward } from '../object/Region';
 import { APIService } from '../services/api.service';
 import { AppService } from '../services/app.service';
+import { environment } from '../config/AppValue';
+import { PackageID } from '../object/PackageID';
+import { ProductPackage } from '../object/ProductPackage';
 
 @Component({
   selector: 'app-checkouts',
@@ -24,7 +26,7 @@ export class CheckoutsComponent implements OnInit {
   shipPrice: number = 0;
   allPrice: number = 0;
 
-  listProduct: MyPackage[] = [];
+  myPackage: PackageDataResponse = new PackageDataResponse();
 
   voucher: string = '';
 
@@ -48,7 +50,7 @@ export class CheckoutsComponent implements OnInit {
       this.myRegion = result;
     });
     this.Api.GetMyPackage(result => {
-      this.listProduct = result;
+      this.myPackage = result;
       this.ready = true;
       this.appServices.changeScrollToTop(true);
       this.getTotalPrice();
@@ -56,9 +58,9 @@ export class CheckoutsComponent implements OnInit {
   }
 
   getTotalPrice() {
-    this.totalPrice = this.listProduct.reduce((t, x) => t + x.number_unit * x.beerSubmitData.listUnit[0].price * (100 - x.beerSubmitData.listUnit[0].discount) / 100, 0);
+    this.totalPrice = PackageDataResponse.getPrice(this.myPackage);
     this.allPrice = this.totalPrice + this.shipPrice;
-    this.showCart = this.listProduct.length != 0;
+    this.showCart = PackageDataResponse.getCartNo(this.myPackage) != 0;
   }
 
   changeRegion(region: string) {
@@ -134,13 +136,27 @@ export class CheckoutsComponent implements OnInit {
   }
 
   getPrice(voucher: string, preOrderer: boolean) {
-    const order: PackageOrderData = convertToProductOrder(this.listProduct, "", preOrderer, this.address, this.curentRegionID, this.curentDistrictID, this.curentWardID, this.fullName, this.phone, voucher);
-    this.Api.createOrder(order, result => {
+    const order: PackageID = new PackageID(environment.groupID, this.myPackage.package_second_id);
+    let packageItem: ProductPackage = new ProductPackage(this.myPackage.package_second_id,
+      this.myPackage.buyer, this.myPackage.items
+    );
+    if (preOrderer) {
+      return;
+    }
+    let buyer = new Buyer(this.myPackage.device_id);
+    buyer.phone_number = this.phone;
+    buyer.region_id = this.curentRegionID;
+    buyer.district_id = this.curentDistrictID;
+    buyer.ward_id = this.curentWardID;
+    buyer.reciver_fullname = this.fullName;
+    buyer.reciver_address = this.address;
+    packageItem.buyer = buyer;
+    this.Api.createOrder(packageItem, result => {
       if (result !== null) {
-        this.allPrice = result.total_price + result.ship_price;
+        this.allPrice = PackageDataResponse.getPrice(result) + result.ship_price;
         this.shipPrice = result.ship_price;
         if (!preOrderer) {
-          this.Api.CleanPackage(done=>{
+          this.Api.CleanPackage(done => {
             this.router.navigate(['thankfull']);
           });
         }

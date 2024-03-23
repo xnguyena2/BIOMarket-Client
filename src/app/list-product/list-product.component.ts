@@ -1,9 +1,11 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AppConfig } from '../config/AppConfig';
-import { BeerDetail } from '../object/BeerDetail';
+import { BeerSubmitData } from '../object/BeerDetail';
 import { ProductPackage } from '../object/ProductPackage';
 import { APIService } from '../services/api.service';
 import { AppService } from '../services/app.service';
+import { UserPackage } from '../object/MyPackage';
+import { environment } from '../config/AppValue';
 
 @Component({
   selector: 'app-list-product',
@@ -23,7 +25,7 @@ export class ListProductComponent implements OnInit {
   totalResult: number = 0;
   activePage: number = 0;
 
-  @Input() listProduct: BeerDetail[] = [];
+  @Input() listProduct: BeerSubmitData[] = [];
 
   @Input() title: string = 'Kết Quả Tìm Kiếm:';
 
@@ -133,23 +135,26 @@ export class ListProductComponent implements OnInit {
 
 
 
-  addToPackage(product: BeerDetail) {
+  addToPackage(product: BeerSubmitData) {
     const productID = product.beerSecondID;
     const productUnitID: string = product.listUnit[0].beer_unit_second_id;
-    let packageItem: ProductPackage = {
-      deviceID: '',
-      beerID: productID,
-      beerUnits: [
-        {
-          beerUnitID: productUnitID,
-          numberUnit: 1
-        }
-      ]
-    }
+    let packageItem: ProductPackage = new ProductPackage(environment.packageID,
+      undefined, [
+      new UserPackage(
+        productID,
+        productUnitID,
+        1,
+      )
+    ]
+    );
     this.Api.AddToPackage(packageItem, result => {
       if (result) {
+        let productPreviewImg: string = '';
+        if (product.images != null && product.images.length > 0) {
+          productPreviewImg = product.images[0].medium;
+        }
         this.App.showSuccessProduct({
-          img: product.images[0].medium,
+          img: productPreviewImg,
           title: product.listUnit[0].name,
           price: product.listUnit[0].price * (100 - product.listUnit[0].discount) / 100,
           count: 1

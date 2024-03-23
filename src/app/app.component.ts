@@ -9,11 +9,14 @@ import {
   distinctUntilChanged
 } from "rxjs/operators";
 import { AppConfig } from './config/AppConfig';
-import { BeerDetail } from './object/BeerDetail';
+import { BeerSubmitData, Category } from './object/BeerDetail';
 import { SearchQuery } from './object/SearchQuery';
 import { APIService } from './services/api.service';
 import { AppService } from './services/app.service';
 import { LoaderService } from './services/loader.service';
+import { environment } from './config/AppValue';
+import { HomeComponent } from './home/home.component';
+import { BootStrap } from './object/BootStrap';
 
 
 @Component({
@@ -26,9 +29,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   readonly maxSearResult: number = 10;
 
 
-  title = 'Trùm Biển | Hải Sản Cao Cấp';
+  title = 'Sổ Điện Tử | Quản lý bán hàng chuyên nghiệp';
 
-  CatetoryDrop = AppConfig.CatetoryDrop;
+  CatetoryDrop: Category[] = AppConfig.CatetoryDrop;
 
   notification: string = 'Alter';
   isShowAlter: boolean = false;
@@ -52,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isMobileMode = false;
 
-  listResult: BeerDetail[] = [];
+  listResult: BeerSubmitData[] = [];
 
 
   isInputSearchFocus: boolean = false;
@@ -67,6 +70,15 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   productCount: number = 1;
   productPrice: number = 0;
   hideActionID: string = '';
+
+
+  bootStrapConfig: Promise<BootStrap> = new Promise<BootStrap>
+    ((resolve, reject) => { });
+
+  storePhone: string = '0987654321';
+  storeAddress: string = '';
+
+  isLoadingBootStrap: boolean = true;
 
   constructor(
     private APIService: APIService,
@@ -90,6 +102,33 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    let getLink = window.location.href;
+    var subdomain = getLink.split(".")[0].replace('https://', '').replace('http://', '');
+    environment.groupID = subdomain;
+    console.log(environment.groupID);
+
+    this.bootStrapConfig = this.APIService.LoadBootStrap(result => {
+    }).then(bootStrap => {
+      if (bootStrap) {
+        this.storePhone = bootStrap.store.phone;
+        this.storeAddress = bootStrap.store.address ?? '';
+        this.title = bootStrap.store.name;
+        environment.groupID = bootStrap.store.group_id;
+        environment.storeName = bootStrap.store.name;
+
+        let categoryArray: string[] = JSON.parse(bootStrap.deviceConfig.categorys);
+        this.CatetoryDrop = categoryArray?.map(item => {
+          let cat: Category = {
+            title: item,
+            value: item
+          };
+          return cat;
+        });
+        this.closeBootStrapPopup();
+      }
+      return bootStrap;
+    });
+
     this.subscription = this.subject.pipe(
       debounceTime(500),
       distinctUntilChanged(),
@@ -116,6 +155,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  onOutletLoaded(component: HomeComponent | any) {
+    if (component instanceof HomeComponent) {
+      component.bootStrapConfig = this.bootStrapConfig;
+    }
+  }
+
   closeMenu() {
     if (this.isOpenMenu)
       return;
@@ -136,6 +181,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     );
     obs.observe(element.nativeElement);
+  }
+
+  closeBootStrapPopup() {
+    this.isLoadingBootStrap = false;
   }
 
   closeAlter() {

@@ -1,29 +1,30 @@
-.carousel-anchor{
+.carousel-anchor {
   position: relative;
   padding-top: 42.5%;
   width: 100%;
 }
 
-.slogan{
+.slogan {
   width: 100%;
   margin-top: 5rem;
 
   text-align: center;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
   font-size: clamp(20px, 5vw, 36px);
 }
 
-.img-ads{
+.img-ads {
   display: block;
   margin-top: 5rem;
   max-width: 100%;
 }
 
-
 //right side
-.right-side{
-  --top-pos: calc(3rem + var(--header-height) + var(--navbar-height) + 100vw*.425 + 425px);
+.right-side {
+  --top-pos: calc(
+    3rem + var(--header-height) + var(--navbar-height) + 100vw * 0.425 + 425px
+  );
   position: absolute;
   top: var(--top-pos);
   right: 0;
@@ -33,17 +34,17 @@
     display: none;
   }
 
-  .social-container{
+  .social-container {
     position: sticky;
     top: 50vh;
 
     transform: translateY(-50%);
 
-    a{
+    a {
       display: block;
       width: 4rem;
       height: 4rem;
-      img{
+      img {
         max-width: 100%;
       }
     }

@@ -1,12 +1,18 @@
+import { Buyer, UserPackage, UserPackageDetail } from "./MyPackage";
 
+export class ProductPackage extends UserPackageDetail {
+  buyer: Buyer | null = null;
+  product_units: UserPackage[] = [];
 
-export interface BeerUnit{
-  beerUnitID: string;
-  numberUnit: number;
-}
+  constructor(packageID: string, buyer?: Buyer, productUnits?: UserPackage[]) {
+    super();
+    this.package_second_id = packageID;
+    if (buyer) {
+      this.buyer = buyer;
+    }
 
-export interface ProductPackage{
-  deviceID:string;
-  beerID:string;
-  beerUnits: BeerUnit[];
+    if (productUnits) {
+      this.product_units = productUnits;
+    }
+  }
 }

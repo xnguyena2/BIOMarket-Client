@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarouselPaddingComponent } from '../carousel-padding/carousel-padding.component';
-import { BeerDetail, BeerUnit } from '../object/BeerDetail';
+import { BeerSubmitData, BeerUnit } from '../object/BeerDetail';
 import { ProductPackage } from '../object/ProductPackage';
 import { SearchQuery } from '../object/SearchQuery';
 import { APIService } from '../services/api.service';
 import { AppService } from '../services/app.service';
+import { UserPackage } from '../object/MyPackage';
+import { environment } from '../config/AppValue';
 
 @Component({
   selector: 'app-product-detail',
@@ -30,7 +32,7 @@ export class ProductDetailComponent implements OnInit {
 
   productDetail: string = '';
 
-  listProduct: BeerDetail[] = [];
+  listProduct: BeerSubmitData[] = [];
 
   productCount: number = 1;
 
@@ -66,7 +68,7 @@ export class ProductDetailComponent implements OnInit {
               this.title = product.name;
               this.listUnit = product.listUnit;
               this.changeUnit(this.listUnit[0].beer_unit_second_id);
-              this.productDetail = product.detail;
+              this.productDetail = product.detail ?? '';
               this.productID = product.beerSecondID;
               if (product.images != null && product.images.length > 0) {
                 this.productPreviewImg = product.images[0].medium;
@@ -133,16 +135,15 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToPackage(gotoCart: boolean) {
-    let packageItem: ProductPackage = {
-      deviceID: '',
-      beerID: this.productID,
-      beerUnits: [
-        {
-          beerUnitID: this.productUnitID,
-          numberUnit: this.productCount
-        }
-      ]
-    }
+    let packageItem: ProductPackage = new ProductPackage(environment.packageID,
+      undefined, [
+      new UserPackage(
+        this.productID,
+        this.productUnitID,
+        this.productCount,
+      )
+    ]
+    )
     this.Api.AddToPackage(packageItem, result => {
       if (result) {
         if (gotoCart) {

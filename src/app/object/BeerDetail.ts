@@ -52,6 +52,10 @@ export class BeerUnit {
     }
     return unit.price * (1 - unit.discount / 100);
   }
+
+  static getDiscountPercent(unit: BeerUnit): number {
+    return (1 - (BeerUnit.getPrice(unit) / unit.price)) * 100;
+  }
 }
 
 export interface Image {
@@ -85,6 +89,18 @@ export interface DeviceConfig {
   config?: string;
 }
 
+export interface MinPrice {
+  discount_price: number;
+  sell_price: number;
+  discount_percent: number;
+  discount_max_price: number;
+}
+
+export interface MinMaxPrice {
+  min: number;
+  max: number;
+}
+
 export class BeerSubmitData {
   group_id: string = '';
   beerSecondID: string = '';
@@ -99,7 +115,81 @@ export class BeerSubmitData {
   images: Image[] = [];
   listUnit: BeerUnit[] = [];
 
-  static getFristPrice(order: BeerSubmitData): number {
-    return BeerUnit.getPrice(order.listUnit[0]);
+  static getFristPrice(beer: BeerSubmitData): number {
+    return BeerUnit.getPrice(beer.listUnit[0]);
+  }
+
+  static getFristImg(beer: BeerSubmitData): Image {
+    if (beer.images.length == 0) {
+      return {
+
+        id: 0,
+        group_id: '',
+        createat: '',
+        imgid: '',
+        tag: '',
+        thumbnail: '',
+        medium: '',
+        large: '',
+        category: '',
+      };
+    }
+    return beer.images[0];
+  }
+
+  static getMinMaxPrice(beer: BeerSubmitData): MinMaxPrice {
+    var min: number = 0;
+    var max: number = 0;
+
+    beer.listUnit.forEach(element => {
+      let price = BeerUnit.getPrice(element);
+
+      if (min == 0 || min > price) {
+        min = price;
+      }
+
+      if (max == 0 || max < price) {
+        max = price;
+      }
+    });
+
+    return {
+      min: min,
+      max: max
+    };
+  }
+
+  static getMinPrice(beer: BeerSubmitData): MinPrice {
+    var discount_price: number = 0;
+    var discount_max_price: number = 0;
+    var sell_price: number = 0;
+    var discount_percent: number = 0;
+    beer.listUnit.forEach(element => {
+      let d_p = BeerUnit.getPrice(element);
+      let s_p = element.price;
+      let percent = BeerUnit.getDiscountPercent(element);
+
+      if (discount_percent == 0 || discount_percent > percent) {
+        discount_percent = percent;
+      }
+
+      if (sell_price == 0 || sell_price > s_p) {
+        sell_price = s_p;
+      }
+
+      if (discount_price == 0 || discount_price > d_p) {
+        discount_price = d_p;
+      }
+
+      if (discount_max_price == 0 || discount_max_price < d_p) {
+        discount_max_price = d_p;
+      }
+    });
+    return {
+      discount_percent: discount_percent,
+      discount_max_price: discount_max_price,
+      sell_price: sell_price,
+      discount_price: discount_price,
+    };
   }
 }

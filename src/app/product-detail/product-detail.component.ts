@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarouselPaddingComponent } from '../carousel-padding/carousel-padding.component';
 import { BeerSubmitData, BeerUnit } from '../object/BeerDetail';
@@ -8,6 +8,7 @@ import { APIService } from '../services/api.service';
 import { AppService } from '../services/app.service';
 import { UserPackage } from '../object/MyPackage';
 import { environment } from '../config/AppValue';
+import { BootStrap } from '../object/BootStrap';
 
 @Component({
   selector: 'app-product-detail',
@@ -16,6 +17,10 @@ import { environment } from '../config/AppValue';
 })
 export class ProductDetailComponent implements OnInit {
   @ViewChild(CarouselPaddingComponent) private carousel!: CarouselPaddingComponent;
+
+
+  @Input() bootStrapConfig: Promise<BootStrap> = new Promise<BootStrap>
+    ((resolve, reject) => { });
 
   productReady: boolean = false;
   title: string = '';
@@ -40,49 +45,54 @@ export class ProductDetailComponent implements OnInit {
     private router: Router,
     private Api: APIService,
     private App: AppService,) { }
+
   ngOnInit(): void {
 
-    this.route.params.subscribe(
-      params => {
-        const productID = params.productID;
-        this.productCount = 1;
-        if (productID !== null) {
-          console.log(productID);
-          this.Api.SearchBeer(new SearchQuery('', 0, 8, ''), result => {
-            if (result) {
-              const totalList = result.result.filter(x => x.beerSecondID !== productID);
-              if (totalList.length > 4) {
-                this.listProduct = totalList.slice(0, 4);
-              } else {
-                this.listProduct = totalList;
-              }
+    this.bootStrapConfig.then(bootStrap => {
+      if (bootStrap) {
+        this.route.params.subscribe(
+          params => {
+            const productID = params.productID;
+            this.productCount = 1;
+            if (productID !== null) {
+              console.log(productID);
+              this.Api.SearchBeer(new SearchQuery('', 0, 8, ''), result => {
+                if (result) {
+                  const totalList = result.result.filter(x => x.beerSecondID !== productID);
+                  if (totalList.length > 4) {
+                    this.listProduct = totalList.slice(0, 4);
+                  } else {
+                    this.listProduct = totalList;
+                  }
+                }
+              });
+              this.Api.GetProductDetail(productID, product => {
+                if (product) {
+                  this.App.changeScrollToTop(true);
+                  if (product.images)
+                    this.carousel.setupListItem(product.images.map(x => x.large));
+                  else
+                    this.carousel.setupListItem(null);
+                  this.title = product.name;
+                  this.listUnit = product.listUnit;
+                  this.changeUnit(this.listUnit[0].beer_unit_second_id);
+                  this.productDetail = product.detail ?? '';
+                  this.productID = product.beerSecondID;
+                  if (product.images != null && product.images.length > 0) {
+                    this.productPreviewImg = product.images[0].medium;
+                  } else {
+                    this.productPreviewImg = '';
+                  }
+                  this.productReady = true;
+                } else {
+                  this.router.navigate(['/']);
+                }
+              });
             }
-          });
-          this.Api.GetProductDetail(productID, product => {
-            if (product) {
-              this.App.changeScrollToTop(true);
-              if (product.images)
-                this.carousel.setupListItem(product.images.map(x => x.large));
-              else
-                this.carousel.setupListItem(null);
-              this.title = product.name;
-              this.listUnit = product.listUnit;
-              this.changeUnit(this.listUnit[0].beer_unit_second_id);
-              this.productDetail = product.detail ?? '';
-              this.productID = product.beerSecondID;
-              if (product.images != null && product.images.length > 0) {
-                this.productPreviewImg = product.images[0].medium;
-              } else {
-                this.productPreviewImg = '';
-              }
-              this.productReady = true;
-            } else {
-              this.router.navigate(['/']);
-            }
-          });
-        }
+          }
+        );
       }
-    );
+    });
   }
 
 
@@ -92,8 +102,8 @@ export class ProductDetailComponent implements OnInit {
       this.productUnitID = currentUnit.beer_unit_second_id;
       this.productUnitTitle = currentUnit.name;
       this.realPrice = currentUnit.price;
-      this.discount = currentUnit.discount;
-      this.price = this.realPrice * (100 - this.discount) / 100;
+      this.discount = BeerUnit.getDiscountPercent(currentUnit);
+      this.price = BeerUnit.getPrice(currentUnit);
     }
   }
 

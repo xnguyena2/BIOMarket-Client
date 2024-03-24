@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AppConfig } from '../config/AppConfig';
-import { BeerSubmitData } from '../object/BeerDetail';
+import { BeerSubmitData, MinPrice } from '../object/BeerDetail';
 import { ProductPackage } from '../object/ProductPackage';
 import { APIService } from '../services/api.service';
 import { AppService } from '../services/app.service';
@@ -133,6 +133,9 @@ export class ListProductComponent implements OnInit {
     }
   }
 
+  getMin(product: BeerSubmitData): MinPrice {
+    return BeerSubmitData.getMinPrice(product);
+  }
 
 
   addToPackage(product: BeerSubmitData) {

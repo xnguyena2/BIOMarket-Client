@@ -19,12 +19,21 @@
             <img [src]="item.images&&item.images.length>0?item.images[0].medium:''" alt="" class="product-preview">
           </a>
         </div>
-        <h3 class="product-title">{{item.name}}</h3>
-        <ins [style.visibility]='item.listUnit[0].discount?"visible":"hidden"'
-          class="product-real-price">{{item.listUnit[0].price | moneyFormat}}</ins>
-        <ins class="product-price">{{item.listUnit[0].price*(100-item.listUnit[0].discount)/100 | moneyFormat}}</ins>
-        <span *ngIf="item.listUnit[0].discount" class="product-discount">{{item.listUnit[0].discount}}</span>
-        <a class="add-to-package" (click)="addToPackage(item)">Thêm Vào Giỏ</a>
+        <div *ngIf="getMin(item); let itemCon">
+          <h3 class="product-title">{{item.name}}</h3>
+          <ins [style.visibility]='itemCon.discount_percent>0' class="product-real-price">{{itemCon.sell_price|
+            moneyFormat}}</ins>
+          <div>
+            <ins class="product-price">{{itemCon.discount_price| moneyFormat}}</ins>
+            <ins *ngIf="itemCon.discount_max_price>itemCon.discount_price" class="product-price seperater">-</ins>
+            <ins *ngIf="itemCon.discount_max_price>itemCon.discount_price"
+              class="product-price">{{itemCon.discount_max_price| moneyFormat}}</ins>
+
+          </div>
+          <span *ngIf="itemCon.discount_percent>0"
+            class="product-discount">{{itemCon.discount_percent.toFixed(2)}}</span>
+          <a class="add-to-package" (click)="addToPackage(item)">Thêm Vào Giỏ</a>
+        </div>
       </div>
     </div>
   </div>

@@ -14,7 +14,7 @@
       <div class="sub-content subright">
         <section *ngIf="productReady">
           <h1 class="product-name">{{title}}</h1>
-          <div class="unit-selection">
+          <div *ngIf="listUnit.length>1" class="unit-selection">
             <h1 class="unit-title">Đơn Vị:</h1>
             <div class="unit-select drop-down-icon">
               <select (change)='changeUnit(filter.value)' #filter class="select">
@@ -25,7 +25,7 @@
           <div class="price-container">
             <span class="discount-price">{{price | moneyFormat}}</span>
             <span class="real-price" *ngIf="discount>0">{{realPrice | moneyFormat}}</span>
-            <span class="unit-discount" *ngIf="discount>0">{{discount}}</span>
+            <span class="unit-discount" *ngIf="discount>0">{{discount.toFixed(2)}}</span>
           </div>
           <form class="add-package-container">
             <div class="product-number-container">

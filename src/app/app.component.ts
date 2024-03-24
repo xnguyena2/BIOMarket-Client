@@ -17,6 +17,8 @@ import { LoaderService } from './services/loader.service';
 import { environment } from './config/AppValue';
 import { HomeComponent } from './home/home.component';
 import { BootStrap } from './object/BootStrap';
+import { SearchComponent } from './search/search.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 
 @Component({
@@ -124,6 +126,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           };
           return cat;
         });
+
+        this.APIService.GetMyPackage(result => {
+        });
+
         this.closeBootStrapPopup();
       }
       return bootStrap;
@@ -134,9 +140,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       distinctUntilChanged(),
       map(searchText => this.search(searchText))
     ).subscribe();
-    this.APIService.GetMyPackage(result => {
-      //this.listProduct = result;
-    });
 
     this.appService.registerPackageNum(num => {
       this.totalProduct = num;
@@ -156,7 +159,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onOutletLoaded(component: HomeComponent | any) {
-    if (component instanceof HomeComponent) {
+    if (component instanceof HomeComponent
+      || component instanceof SearchComponent
+      || component instanceof ProductDetailComponent) {
       component.bootStrapConfig = this.bootStrapConfig;
     }
   }

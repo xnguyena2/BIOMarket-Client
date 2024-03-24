@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppConfig } from '../config/AppConfig';
 import { ListProductComponent } from '../list-product/list-product.component';
@@ -7,6 +7,7 @@ import { SearchQuery } from '../object/SearchQuery';
 import { SearchResult } from '../object/SearchResult';
 import { APIService } from '../services/api.service';
 import { AppService } from '../services/app.service';
+import { BootStrap } from '../object/BootStrap';
 
 @Component({
   selector: 'app-search',
@@ -17,6 +18,11 @@ export class SearchComponent implements OnInit {
   readonly noFilter: string = '';
   readonly noPage: number = -1;
   readonly maxResult: number = 24;
+
+
+  @Input() bootStrapConfig: Promise<BootStrap> = new Promise<BootStrap>
+    ((resolve, reject) => { });
+
 
   @ViewChild(ListProductComponent) private listProductComponent!: ListProductComponent;
 
@@ -38,15 +44,19 @@ export class SearchComponent implements OnInit {
     private APIService: APIService,) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      params => {
-        const query = params.query;
-        if (query !== null) {
-          console.log(query);
-          this.search(query, this.noFilter, this.noPage);
-        }
+    this.bootStrapConfig.then(bootStrap => {
+      if (bootStrap) {
+        this.route.params.subscribe(
+          params => {
+            const query = params.query;
+            if (query !== null) {
+              console.log(query);
+              this.search(query, this.noFilter, this.noPage);
+            }
+          }
+        );
       }
-    );
+    });
   }
 
   search(value: string, filter: string, page: number) {
@@ -85,7 +95,11 @@ export class SearchComponent implements OnInit {
 
   onSearchResult(result: SearchResult) {
     this.appServices.changeScrollToTop(true);
-    this.listProduct = result.result;
+    if (result.result) {
+      this.listProduct = result.result;
+    } else {
+      this.listProduct = [];
+    }
     if (result.isResetFilter) {
       this.listProductComponent?.resetSelection();
     }

@@ -34,6 +34,6 @@ export class HomeComponent implements OnInit {
         };
         this.listProduct = bootStrap.products;
       }
-    })
+    });
   }
 }

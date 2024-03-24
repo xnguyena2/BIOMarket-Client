@@ -21,7 +21,8 @@
         </div>
         <div *ngIf="getMin(item); let itemCon">
           <h3 class="product-title">{{item.name}}</h3>
-          <ins [style.visibility]='itemCon.discount_percent>0' class="product-real-price">{{itemCon.sell_price|
+          <ins [style.visibility]='itemCon.discount_percent>0?"visible":"hidden"'
+            class="product-real-price">{{itemCon.sell_price|
             moneyFormat}}</ins>
           <div>
             <ins class="product-price">{{itemCon.discount_price| moneyFormat}}</ins>

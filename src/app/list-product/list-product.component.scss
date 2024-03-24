@@ -299,8 +299,10 @@ section {
     max-width: 960px;
     .product-detail {
       .product-container {
-        .product-title {
-          font-size: 1.8rem;
+        div {
+          .product-title {
+            font-size: 1.8rem;
+          }
         }
       }
     }

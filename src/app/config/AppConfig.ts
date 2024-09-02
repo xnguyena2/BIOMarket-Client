@@ -107,5 +107,7 @@ export const AppConfig = {
   `,
   stickyNotify: 'Freeship Đơn Hàng Trên 1 triệu nội thành HCM.',
   email: 'kinhdoanh.kithuat@gmail.com',
-  facebook: 'https://www.facebook.com/SaleinSolar/'
+  facebook: 'https://www.facebook.com/SaleinSolar/',
+  logo: 'https://live.staticflickr.com/65535/53965717809_5b04956e37_o.jpg',
+  header_slogan: 'https://live.staticflickr.com/65535/53965429826_a403eb5c1e_o.png'
 }

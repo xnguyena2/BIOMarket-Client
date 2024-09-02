@@ -11,10 +11,10 @@
 
   <div class="logo-container">
     <a href="">
-      <img src="assets/img/Logo.png" alt="Trùm Biển - chuyên hải sản" class="absolute-vertical-center logo"
+      <img src="{{storeLogo}}" alt="Trùm Biển - chuyên hải sản" class="absolute-vertical-center logo"
         [class.on-input-focus]='isInputSearchFocus && isNavBarSticky' [ngClass]="{'fixed-right' : isNavBarSticky}">
     </a>
-    <img src="assets/img/Slogan.png" alt="Trùm Biển - chuyên hải sản" class="absolute-center slogan"
+    <img src="{{storeSlogan}}" alt="Trùm Biển - chuyên hải sản" class="absolute-center slogan"
       [class.on-input-focus]='isInputSearchFocus && !isNavBarSticky' [ngClass]="{'fixed-right' : isNavBarSticky}">
     <div class="absolute-vertical-center shop-cart" [ngClass]="{'fixed-right' : isNavBarSticky}"
       [class.on-input-focus]='isInputSearchFocus'>
@@ -107,7 +107,7 @@
 </div>
 
 <footer (click)="1">
-  <img src="assets/img/SDTLogo.png" alt="Trùm Biển - chuyên hải sản" class="footer-logo">
+  <img src="{{storeLogo}}" alt="Trùm Biển - chuyên hải sản" class="footer-logo">
   <div class="footer-container">
     <div class="footer-col2">
       <input id="lienceCB" type="checkbox" class="hold-state" checked>

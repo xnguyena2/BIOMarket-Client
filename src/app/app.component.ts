@@ -82,6 +82,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   storeAddress: string = '';
   storeEmail: string = '';
   storeFacebook: string = '';
+  storeLogo: string = '';
+  storeSlogan: string = '';
 
   isLoadingBootStrap: boolean = true;
 
@@ -110,6 +112,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.stickyNotificationTxt = AppConfig.stickyNotify;
     this.storeEmail = AppConfig.email;
     this.storeFacebook = AppConfig.facebook;
+    this.storeLogo = AppConfig.logo;
+    this.storeSlogan = AppConfig.header_slogan;
 
     let getLink = window.location.href;
     var subdomain = getLink.split(".")[0].replace('https://', '').replace('http://', '');

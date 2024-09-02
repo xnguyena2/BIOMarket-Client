@@ -6,6 +6,7 @@ import { APIService } from '../services/api.service';
 import { AppService } from '../services/app.service';
 import { LoaderService } from '../services/loader.service';
 import { BootStrap } from '../object/BootStrap';
+import { AppConfig } from '../config/AppConfig';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,8 @@ import { BootStrap } from '../object/BootStrap';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  storeFacebook: string = '';
 
   @Input() bootStrapConfig: Promise<BootStrap> = new Promise<BootStrap>
     ((resolve, reject) => { });
@@ -26,6 +29,7 @@ export class HomeComponent implements OnInit {
     public loader: LoaderService) { }
 
   ngOnInit(): void {
+    this.storeFacebook = AppConfig.facebook;
     this.bootStrapConfig.then(bootStrap => {
       if (bootStrap) {
         this.carousel.setupListItem(['assets/img/1.jpg', 'assets/img/2.jpg']);//(bootStrap.carousel);

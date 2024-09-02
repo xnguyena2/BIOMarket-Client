@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/services/app.service';
 import { environment } from '../../config/AppValue';
+import { AppConfig } from 'src/app/config/AppConfig';
 
 @Component({
   selector: 'app-refund',
@@ -10,6 +11,7 @@ import { environment } from '../../config/AppValue';
 export class RefundComponent implements OnInit {
 
   storeName: string = 'Cửa hàng';
+  productReturnDetail: string = '';
   constructor(
     private appServices: AppService,) {
     this.appServices.changeScrollToTop(true);
@@ -17,6 +19,7 @@ export class RefundComponent implements OnInit {
 
   ngOnInit(): void {
     this.storeName = environment.storeName;
+    this.productReturnDetail = AppConfig.return_product_detail.replace('{{storeName}}', this.storeName);
   }
 
 }

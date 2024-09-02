@@ -62,7 +62,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isInputSearchFocus: boolean = false;
 
-  showStickyNotification: boolean = true;
+  showStickyNotification: boolean = false;
+  stickyNotificationTxt: string = '';
 
 
   //show success after add cart
@@ -79,6 +80,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   storePhone: string = '0987654321';
   storeAddress: string = '';
+  storeEmail: string = '';
+  storeFacebook: string = '';
 
   isLoadingBootStrap: boolean = true;
 
@@ -104,6 +107,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.stickyNotificationTxt = AppConfig.stickyNotify;
+    this.storeEmail = AppConfig.email;
+    this.storeFacebook = AppConfig.facebook;
+
     let getLink = window.location.href;
     var subdomain = getLink.split(".")[0].replace('https://', '').replace('http://', '');
     environment.groupID = subdomain;
@@ -117,6 +124,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         this.title = bootStrap.store.name;
         environment.groupID = bootStrap.store.group_id;
         environment.storeName = bootStrap.store.name;
+        environment.storePhone = bootStrap.store.phone;
 
         let categoryArray: string[] = JSON.parse(bootStrap.deviceConfig.categorys);
         this.CatetoryDrop = categoryArray?.map(item => {

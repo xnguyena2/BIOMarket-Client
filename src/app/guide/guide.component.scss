@@ -1,84 +1,98 @@
-
-.main-container{
+.main-container {
   margin-top: 2rem;
   padding: 0 2rem;
 }
-.top-header{
+.top-header {
   font-size: clamp(1.7rem, 5vw, 3rem);
   width: max-content;
   margin: 0 auto;
 }
 
-.guide-img{
+.guide-img {
   display: block;
   margin: 0 auto;
   max-width: 100%;
 }
 
-.title{
+.title {
   font-size: clamp(1.7rem, 2.5vw, 2rem);
   font-weight: bold;
   line-height: 4rem;
 }
 
-.paragraph{
+.paragraph {
   font-size: clamp(1.5rem, 2.5vw, 1.8rem);
   font-weight: normal;
   line-height: 2.5rem;
 }
 
-.red-highlight{
+.red-highlight {
   color: red;
   font-weight: bold;
 }
 
-.margin-level{
+.margin-level {
   margin-left: 2rem;
 }
 
-.guide-ul{
+.guide-ul {
   list-style: outside;
 }
 
-.inline-p{
+.inline-p {
   display: inline;
 }
 
-.second-title{
+.second-title {
   font-weight: 550;
   line-height: 2rem;
 }
 
-.second-title + .second-title{
+.second-title + .second-title {
   margin-top: 4rem;
 }
 
-.link-hightline{
+.link-hightline {
   color: green;
 }
 
-.block-hightline{
+.block-hightline {
   margin-top: 2rem;
   margin-bottom: 2rem;
   padding: 2rem;
   border: 2px solid red;
 }
 
-.note{
+.note {
   font-style: italic;
   font-weight: bold;
 }
 
-.main-hightline{
+.main-hightline {
   color: var(--main-color);
   font-size: 1.2em;
   font-weight: bold;
 }
 
-.small-gap-line{
+.small-gap-line {
   line-height: 2rem;
 }
 
-.next-separate{
+.next-separate {
   margin-top: 2rem;
+}
+
+ol {
+  counter-reset: item;
+}
+ol li {
+  display: block;
+  position: relative;
+}
+ol li:before {
+  content: counters(item, ".") ".";
+  counter-increment: item;
+  position: absolute;
+  margin-right: 100%;
+  right: 10px; /* space between number and text */
 }

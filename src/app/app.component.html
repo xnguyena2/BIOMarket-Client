@@ -1,9 +1,10 @@
 <header (click)="1" #header>
   <div class="top-contract">
     <div class="align-right">
-      <img src="assets/img/phone.png" alt="Trùm Biển - chuyên hải sản - liên hệ" class="contract-icon">
-      <img src="assets/img/zalo.png" alt="Trùm Biển - chuyên hải sản - liên hệ" class="contract-icon round-circle">
-      <a [attr.href]="'tel:' + storePhone">{{storePhone}}</a>
+      <a [attr.href]="'tel:' + storePhone"> <img src="assets/img/phone.png"
+          alt="Trùm Biển - chuyên hải sản - liên hệ" class="contract-icon"></a>
+      <a [attr.href]="'tel:' + storePhone"><img src="assets/img/zalo.png"
+          alt="Trùm Biển - chuyên hải sản - liên hệ" class="contract-icon round-circle">{{storePhone}}</a>
     </div>
   </div>
 
@@ -100,7 +101,7 @@
 </main>
 
 <div class="notification-stick" *ngIf='showStickyNotification'>
-  <h2>Freeship Đơn Hàng Trên 1 triệu nội thành HCM.</h2>
+  <h2>{{stickyNotificationTxt}}</h2>
   <img src="assets/img/CloseIcon.png" alt="" class="close-totification-stick absolute-vertical-center light-bright"
     (click)="showStickyNotification = false">
 </div>
@@ -138,9 +139,9 @@
           </li>
           <li>Địa chỉ: {{storeAddress}}</li>
           <!-- <li>Chi Nhánh 2: 5 Lý Chính Thắng, Võ Thị Sáu, Quận 3, TPHCM</li> -->
-          <li>Email: sodientuapp&#64;gmail.com</li>
+          <li><a href="mailto:{{storeEmail}}">Email: {{storeEmail}}</a></li>
           <li>
-            <a href="https://www.facebook.com/soquanlydientu/" class="social-item">
+            <a href="{{storeFacebook}}" class="social-item">
               <img src="assets/img/FacebookIcon.png" alt="">
             </a>
             <a href="" class="social-item">

@@ -126,6 +126,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           };
           return cat;
         });
+        AppConfig.CatetoryDrop = this.CatetoryDrop;
 
         this.APIService.GetMyPackage(result => {
         });

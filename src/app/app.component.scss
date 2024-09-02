@@ -329,6 +329,8 @@ header {
       max-height: var(--header-height);
       max-width: min(125px, 25%);
       margin-left: 17rem;
+      aspect-ratio: 1;
+      object-fit: cover;
 
       @media only screen and (max-width: 1200px) {
         margin-left: 0;

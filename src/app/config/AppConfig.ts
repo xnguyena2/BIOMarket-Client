@@ -1,7 +1,7 @@
 
 export const AppConfig = {
   HostUrl: 'https://web-production-865f.up.railway.app/',
-  DevHostUrl: 'https://web-production-865f.up.railway.app/',//'http://localhost:5000/',
+  DevHostUrl: 'https://ptesting.onrender.com/',//'http://localhost:5000/',
   FilterDrop: [{
     value: 'default',
     title: 'Nổi Bật'
@@ -109,5 +109,5 @@ export const AppConfig = {
   email: 'kinhdoanh.kithuat@gmail.com',
   facebook: 'https://www.facebook.com/SaleinSolar/',
   logo: 'https://live.staticflickr.com/65535/53965717809_5b04956e37_o.jpg',
-  header_slogan: 'https://live.staticflickr.com/65535/53965429826_a403eb5c1e_o.png'
+  header_slogan: 'https://live.staticflickr.com/65535/53966011534_d8e63c12ea_o.png'
 }

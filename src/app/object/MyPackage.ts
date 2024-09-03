@@ -31,8 +31,8 @@ export class ProductInPackageResponse extends UserPackage {
 
   static getPrice(productOrder: ProductInPackageResponse): number {
     let itemPrice = BeerSubmitData.getFristPrice(productOrder.beerSubmitData);
-    productOrder.price = (itemPrice * (1 - productOrder.discount_percent / 100) - productOrder.discount_amount) * productOrder.number_unit;
-    return productOrder.price;
+    productOrder.price = itemPrice;
+    return (itemPrice * (1 - productOrder.discount_percent / 100) - productOrder.discount_amount) * productOrder.number_unit;
   }
 }
 

@@ -177,7 +177,7 @@ export class APIService {
   public GetAllRegion(cb: (result: Region[]) => void) {
     if (!this.alredyGetRegion) {
       this.alredyGetRegion = true;
-      this.requestServices.get(`${this.HostURL}address/allregionformat/`).subscribe(
+      this.requestServices.get(`${this.HostURL}address/allregionformat`).subscribe(
         event => {
           if (event instanceof HttpResponse) {
             cb(event.body);

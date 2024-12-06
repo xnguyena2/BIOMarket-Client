@@ -76,7 +76,7 @@ export class ProductDetailComponent implements OnInit {
                   this.title = product.name;
                   this.listUnit = product.listUnit;
                   this.changeUnit(this.listUnit[0].beer_unit_second_id);
-                  this.productDetail = product.detail ?? '';
+                  this.productDetail = (product.detail ?? '').replace('\n', '<br/>');
                   this.productID = product.beerSecondID;
                   if (product.images != null && product.images.length > 0) {
                     this.productPreviewImg = product.images[0].medium;

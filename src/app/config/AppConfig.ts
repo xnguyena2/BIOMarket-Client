@@ -1,7 +1,7 @@
 
 export const AppConfig = {
   HostUrl: 'https://web-production-865f.up.railway.app/',
-  DevHostUrl: 'https://ptesting.onrender.com/',//'http://localhost:5000/',
+  DevHostUrl: 'http://localhost:5001/',
   FilterDrop: [{
     value: 'default',
     title: 'Nổi Bật'

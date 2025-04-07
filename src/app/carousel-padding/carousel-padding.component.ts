@@ -56,7 +56,7 @@ export class CarouselPaddingComponent implements OnInit {
   }
 
   setupListItem(list: string[] | null) {
-    if (list == null) {
+    if (list == null || list.length === 0) {
       this.listItem = [];
       return;
     }

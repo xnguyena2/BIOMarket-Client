@@ -138,6 +138,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           };
           return cat;
         });
+        this.CatetoryDrop ??= [];
+        this.CatetoryDrop.unshift({ title: 'Tất cả', value: 'all' });
         AppConfig.CatetoryDrop = this.CatetoryDrop;
 
         this.APIService.GetMyPackage(result => {

@@ -54,14 +54,14 @@ export const AppConfig = {
   <li class="title small-gap-line">
     Điều kiện bảo hành và phạm vi bảo hành:
     <br>
-    <p class="paragraph inline-p">Việc bảo hành chỉ được cung cấp bởi các kỹ thuật viên của CÔNG TY TNHH NĂNG LƯỢNG XANH INSOLAR VIỆT NAM (INSOLAR VN) hoặc các địa chỉ bảo hành ủy quyền khi đáp ứng đủ các điều kiện sau:</p>
+    <p class="paragraph inline-p">Việc bảo hành chỉ được cung cấp bởi các kỹ thuật viên của {{storeName}} hoặc các địa chỉ bảo hành ủy quyền khi đáp ứng đủ các điều kiện sau:</p>
 
     <ol class="margin-level next-separate">
       <li class="title small-gap-line">
-        <p class="paragraph inline-p">Bảo hành được áp dụng cho các thiết bị được nhập khẩu bởi INSOLAR VN và phân phối thông qua các cửa hàng bán lẻ liên kết với công ty.</p>
+        <p class="paragraph inline-p">Bảo hành được áp dụng cho các thiết bị được nhập khẩu bởi {{storeName}} và phân phối thông qua các cửa hàng bán lẻ liên kết với công ty.</p>
       </li>
       <li class="title small-gap-line">
-        <p class="paragraph inline-p">Bảo hành áp dụng cho các sản phẩm, hàng hóa bị lỗi do Nhà sản xuất hoặc lỗi của INSOLAR VN.</p>
+        <p class="paragraph inline-p">Bảo hành áp dụng cho các sản phẩm, hàng hóa bị lỗi do Nhà sản xuất hoặc lỗi của {{storeName}}.</p>
       </li>
       <li class="title small-gap-line">
         <p class="paragraph inline-p">Khách hàng yêu cầu bảo hành phải xuất trình hợp đồng mua bán hoặc phiếu bảo hành hoặc hóa đơn mua hàng ( có chứa số series của sản phẩm ) khi có yêu cầu bảo hành.</p>

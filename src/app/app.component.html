@@ -69,7 +69,7 @@
       <a class="absolute-full drop-down-icon">Sản Phẩm</a>
       <div class="hover-menu-container absolute-full" *ngIf="showHoverMenu">
         <ul class="hover-menu">
-          <li *ngFor="let item of CatetoryDrop;" (click)="categorySearch(item.value)">
+          <li *ngFor="let item of CategoryDrop;" (click)="categorySearch(item.value)">
             <a class="router-link-active">
               <span>{{item.title}}</span>
             </a>

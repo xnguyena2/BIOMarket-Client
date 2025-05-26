@@ -243,7 +243,7 @@ export class APIService {
   private search(searchQuery: SearchQuery): Observable<HttpEvent<any>> {
     if (searchQuery.query === 'all') {
       return this.requestServices.post(`${this.HostURL}beer/getall`, searchQuery)
-    } else if (AppConfig.CatetoryDrop.filter(c => c.value === searchQuery.query).length > 0) {
+    } else if (AppConfig.CategoryDrop.filter(c => c.value === searchQuery.query).length > 0) {
       return this.requestServices.post(`${this.HostURL}beer/category`, searchQuery)
     }
     else {

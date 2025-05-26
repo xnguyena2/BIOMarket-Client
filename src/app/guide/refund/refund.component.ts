@@ -19,7 +19,7 @@ export class RefundComponent implements OnInit {
 
   ngOnInit(): void {
     this.storeName = environment.storeName;
-    this.productReturnDetail = AppConfig.return_product_detail.replace('{{storeName}}', this.storeName);
+    this.productReturnDetail = AppConfig.return_exchange_policy.replace('{{storeName}}', this.storeName);
   }
 
 }

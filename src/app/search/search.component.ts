@@ -111,7 +111,7 @@ export class SearchComponent implements OnInit {
     if (result.searchTxt === 'all') {
       searchT = 'Bán Chạy Nhất:';//'Tất Cả Sản Phẩm:'
     } else {
-      AppConfig.CatetoryDrop.filter(category => category.value === result.searchTxt).map(ct => searchT = ct.title + ':');
+      AppConfig.CategoryDrop.filter(category => category.value === result.searchTxt).map(ct => searchT = ct.title + ':');
     }
     if (searchT === '') {
       if (result.count === 0) {

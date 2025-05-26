@@ -34,39 +34,11 @@ export const AppConfig = {
     value: 'sold_num',
     title: 'Bán Chạy Nhất'
   }],
-  CatetoryDrop: [{
-    value: 'crab',
-    title: 'Cua'
-  },
-  {
-    value: 'shrimp',
-    title: 'Tôm'
-  },
-  {
-    value: 'squid',
-    title: 'Mực'
-  },
-  {
-    value: 'holothurian',
-    title: 'Hải Sâm'
-  },
-  {
-    value: 'haliotis',
-    title: 'Bào Ngư'
-  },
-  {
-    value: 'oyster',
-    title: 'Hàu'
-  },
-  {
-    value: 'fish',
-    title: 'Cá'
-  },
-  {
-    value: 'snail',
-    title: 'Ốc'
+  CategoryDrop: [{
+    value: 'value',
+    title: 'Title'
   }],
-  return_product_detail: `
+  return_exchange_policy: `
 
   <p class="paragraph">
   <span class="main-hightline">Kính thưa Quý Khách hàng,</span><br>

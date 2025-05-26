@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   title = 'Sổ Điện Tử | Quản lý bán hàng chuyên nghiệp';
 
-  CatetoryDrop: Category[] = AppConfig.CatetoryDrop;
+  CategoryDrop: Category[] = AppConfig.CategoryDrop;
 
   notification: string = 'Alter';
   isShowAlter: boolean = false;
@@ -131,16 +131,16 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         environment.storePhone = bootStrap.store.phone;
 
         let categoryArray: string[] = JSON.parse(bootStrap.deviceConfig.categorys);
-        this.CatetoryDrop = categoryArray?.map(item => {
+        this.CategoryDrop = categoryArray?.map(item => {
           let cat: Category = {
             title: item,
             value: item
           };
           return cat;
         });
-        this.CatetoryDrop ??= [];
-        this.CatetoryDrop.unshift({ title: 'Tất cả', value: 'all' });
-        AppConfig.CatetoryDrop = this.CatetoryDrop;
+        this.CategoryDrop ??= [];
+        this.CategoryDrop.unshift({ title: 'Tất cả', value: 'all' });
+        AppConfig.CategoryDrop = this.CategoryDrop;
 
         this.APIService.GetMyPackage(result => {
         });

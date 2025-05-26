@@ -121,6 +121,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(environment.groupID);
 
     this.bootStrapConfig = this.APIService.LoadBootStrap(result => {
+      this.stickyNotificationTxt = AppConfig.stickyNotify;
+      this.storeEmail = AppConfig.email;
+      this.storeFacebook = AppConfig.facebook;
+      this.storeLogo = AppConfig.logo;
+      this.storeSlogan = AppConfig.header_slogan;
     }).then(bootStrap => {
       if (bootStrap) {
         this.storePhone = bootStrap.store.phone;

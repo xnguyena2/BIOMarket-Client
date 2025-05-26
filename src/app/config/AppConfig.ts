@@ -85,7 +85,10 @@ export const AppConfig = {
   header_slogan: 'https://live.staticflickr.com/65535/54239133681_d34de1f264_o_d.png'
 }
 
-export function updateAppConfig(data: WebConfigData): void {
+export function updateAppConfig(data: WebConfigData | null): void {
+  if (data === null) {
+    return;
+  }
   AppConfig.HostUrl = data.hostUrl ?? AppConfig.HostUrl;
   AppConfig.DevHostUrl = data.devHostUrl ?? AppConfig.DevHostUrl;
   AppConfig.FilterDrop = data.filterDrop ?? AppConfig.FilterDrop;

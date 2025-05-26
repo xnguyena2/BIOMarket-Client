@@ -67,12 +67,16 @@ export class WebConfigData {
     });
   }
 
-  static fromJsonString(jsonStr: string): WebConfigData {
+  static fromJsonString(jsonStr: string): WebConfigData | null {
     try {
+      if (!jsonStr || jsonStr.trim() === '') {
+        return null;
+      }
       const json = JSON.parse(jsonStr);
       return WebConfigData.fromJson(json);
     } catch (e) {
-      throw new Error('Invalid JSON string for WebConfigData');
+      console.error('Error parsing JSON string:', e);
+      return null;
     }
   }
 

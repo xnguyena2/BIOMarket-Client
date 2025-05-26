@@ -1,3 +1,4 @@
+import { WebConfigData } from "../object/BootStrap";
 
 export const AppConfig = {
   HostUrl: 'https://web-production-865f.up.railway.app/',
@@ -82,4 +83,17 @@ export const AppConfig = {
   facebook: 'https://www.facebook.com/SaleinSolar/',
   logo: 'https://live.staticflickr.com/65535/54239372518_a70a2cbc2a_o_d.png',
   header_slogan: 'https://live.staticflickr.com/65535/54239133681_d34de1f264_o_d.png'
+}
+
+export function updateAppConfig(data: WebConfigData): void {
+  AppConfig.HostUrl = data.hostUrl ?? AppConfig.HostUrl;
+  AppConfig.DevHostUrl = data.devHostUrl ?? AppConfig.DevHostUrl;
+  AppConfig.FilterDrop = data.filterDrop ?? AppConfig.FilterDrop;
+  AppConfig.CategoryDrop = data.categoryDrop ?? AppConfig.CategoryDrop;
+  AppConfig.return_exchange_policy = data.returnExchangePolicy ?? AppConfig.return_exchange_policy;
+  AppConfig.stickyNotify = data.stickyNotify ?? AppConfig.stickyNotify;
+  AppConfig.email = data.email ?? AppConfig.email;
+  AppConfig.facebook = data.facebook ?? AppConfig.facebook;
+  AppConfig.logo = data.logo ?? AppConfig.logo;
+  AppConfig.header_slogan = data.headerSlogan ?? AppConfig.header_slogan;
 }

@@ -4,8 +4,8 @@ import { isDevMode } from '@angular/core';
 
 import { HttpEvent, HttpResponse } from '@angular/common/http';
 
-import { AppConfig } from '../config/AppConfig'
-import { BootStrap } from '../object/BootStrap';
+import { AppConfig, updateAppConfig } from '../config/AppConfig'
+import { BootStrap, WebConfigData } from '../object/BootStrap';
 import { SearchResult } from '../object/SearchResult'
 
 import { RequestService } from './request.service';
@@ -226,6 +226,8 @@ export class APIService {
               const result = event.body;
               console.log('bootstrap data: ');
               console.log(result);
+              const webConfig = WebConfigData.fromJsonString(result.web_config);
+              updateAppConfig(webConfig);
               cb(result);
               resolve(result);
             }

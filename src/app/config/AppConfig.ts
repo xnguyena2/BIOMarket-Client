@@ -1,7 +1,7 @@
 import { WebConfigData } from "../object/BootStrap";
 
 export const AppConfig = {
-  HostUrl: 'https://sodientu.com/',
+  HostUrl: 'https://console.sodientu.com/',
   DevHostUrl: 'http://localhost:5001/',
   FilterDrop: [{
     value: 'default',

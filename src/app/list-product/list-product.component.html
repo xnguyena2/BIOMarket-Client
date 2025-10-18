@@ -33,7 +33,11 @@
           </div>
           <span *ngIf="itemCon.discount_percent>0"
             class="product-discount">{{itemCon.discount_percent.toFixed(2)}}</span>
-          <a class="add-to-package" (click)="addToPackage(item)">Thêm Vào Giỏ</a>
+          <a class="add-to-package" (click)="!isSoldOut(item) && addToPackage(item)"
+            [attr.aria-disabled]="isSoldOut(item)" [class.disabled]="isSoldOut(item)"
+            [style.pointer-events]="isSoldOut(item) ? 'none' : 'auto'" [style.opacity]="isSoldOut(item) ? '0.6' : '1'">
+            {{ isSoldOut(item) ? 'Hết hàng' : 'Thêm Vào Giỏ' }}
+          </a>
         </div>
       </div>
     </div>

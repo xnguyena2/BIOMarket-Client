@@ -138,6 +138,11 @@ export class ListProductComponent implements OnInit {
   }
 
 
+  isSoldOut(product: BeerSubmitData): boolean {
+    return product.listUnit[0].inventory_number <= 0;
+  }
+
+
   addToPackage(product: BeerSubmitData) {
     const productID = product.beerSecondID;
     const productUnitID: string = product.listUnit[0].beer_unit_second_id;

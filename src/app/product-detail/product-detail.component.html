@@ -35,8 +35,16 @@
                 (keyup)="onChangeNumber(productNum.value)">
               <span class="action-btn" (click)="changeNumberSell(true)">+</span>
             </div>
-            <a class="add-to-package" (click)="addToPackage(false)">Thêm Vào Giỏ</a>
-            <a class="buy-now full-grid" (click)="buyNow()">Mua Ngay</a>
+            <a class="add-to-package" (click)="!soldOut && addToPackage(false)" [attr.aria-disabled]="soldOut"
+              [class.disabled]="soldOut" [style.pointer-events]="soldOut ? 'none' : 'auto'"
+              [style.opacity]="soldOut ? '0.6' : '1'">
+              {{ !soldOut ? 'Thêm Vào Giỏ' : 'Hết hàng' }}
+            </a>
+            <a class="buy-now full-grid" (click)="!soldOut && buyNow()" [attr.aria-disabled]="soldOut"
+              [class.disabled]="soldOut" [style.pointer-events]="soldOut ? 'none' : 'auto'"
+              [style.opacity]="soldOut ? '0.6' : '1'">
+              {{ !soldOut ? 'Mua Ngay' : 'Hết hàng' }}
+            </a>
           </form>
         </section>
       </div>

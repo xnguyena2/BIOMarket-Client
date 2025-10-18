@@ -33,6 +33,8 @@ export class ProductDetailComponent implements OnInit {
   productUnitID: string = '';
   productUnitTitle: string = '';
   productPreviewImg: string = '';
+  inventoryNumber: number = 0;
+  soldOut: boolean = false;
 
 
   productDetail: string = '';
@@ -104,6 +106,8 @@ export class ProductDetailComponent implements OnInit {
       this.realPrice = currentUnit.price;
       this.discount = BeerUnit.getDiscountPercent(currentUnit);
       this.price = BeerUnit.getPrice(currentUnit);
+      this.inventoryNumber = currentUnit.inventory_number;
+      this.soldOut = this.inventoryNumber <= 0;
     }
   }
 
@@ -145,6 +149,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToPackage(gotoCart: boolean) {
+    if (this.soldOut) {
+      return;
+    }
     let packageItem: ProductPackage = new ProductPackage(environment.packageID,
       undefined, [
       new UserPackage(
@@ -175,6 +182,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   buyNow() {
+    if (this.soldOut) {
+      return;
+    }
     this.addToPackage(true);
   }
 }

@@ -139,7 +139,7 @@ export class ListProductComponent implements OnInit {
 
 
   isSoldOut(product: BeerSubmitData): boolean {
-    return product.listUnit[0].inventory_number <= 0;
+    return product.listUnit[0].enable_warehouse && product.listUnit[0].inventory_number <= 0;
   }
 
 

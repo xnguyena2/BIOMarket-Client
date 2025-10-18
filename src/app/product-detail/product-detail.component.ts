@@ -107,7 +107,7 @@ export class ProductDetailComponent implements OnInit {
       this.discount = BeerUnit.getDiscountPercent(currentUnit);
       this.price = BeerUnit.getPrice(currentUnit);
       this.inventoryNumber = currentUnit.inventory_number;
-      this.soldOut = this.inventoryNumber <= 0;
+      this.soldOut = currentUnit.enable_warehouse && this.inventoryNumber <= 0;
     }
   }
 
